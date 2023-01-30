@@ -12,8 +12,7 @@
 
 int main(int argc, const char * argv[]) {
 	@autoreleasepool {
-	    // insert code here...
-	    NSLog(@"Advent of Code 2017");
+		printf("%s", [@"Advent of Code 2017\n" cStringUsingEncoding:NSUTF8StringEncoding]);
 		
 		AOCSolution *s = [[AOCDay01 alloc] init];
 		

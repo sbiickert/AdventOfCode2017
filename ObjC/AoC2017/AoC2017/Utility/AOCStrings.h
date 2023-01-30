@@ -7,6 +7,8 @@
 
 @interface NSString (AOCString)
 
--(NSArray<NSString *> *)getAllCharacters;
+- (NSArray<NSString *> *)getAllCharacters;
+- (void)print;
+- (void)println;
 
 @end

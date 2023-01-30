@@ -19,4 +19,14 @@
 	return characters;
 }
 
+- (void)print
+{
+	printf("%s", [self cStringUsingEncoding:NSUTF8StringEncoding]);
+}
+
+- (void)println
+{
+	printf("%s\n", [self cStringUsingEncoding:NSUTF8StringEncoding]);
+}
+
 @end
