@@ -20,7 +20,7 @@
 	NSArray<NSString *> *input = [AOCInput readGroupedInputFile:filename atIndex:index];
 	
 	result.part1 = [self solvePartOne: input];
-	result.part2 = [self solvePartTwo: [input objectAtIndex:0]];
+	result.part2 = [self solvePartTwo: input];
 	
 	return result;
 }
@@ -34,9 +34,13 @@
 	return [NSString stringWithFormat:@"%d", sum];
 }
 
-- (NSString *)solvePartTwo:(NSString *)input {
-	
-	return @"World";
+- (NSString *)solvePartTwo:(NSArray<NSString *> *)input {
+	int sum = 0;
+	for (NSString *line in input) {
+		NSArray<NSString *> *numStrings = [line componentsSeparatedByString:@"\t"];
+		sum += [self rowDivideEvenly:numStrings];
+	}
+	return [NSString stringWithFormat:@"%d", sum];
 }
 
 - (int)rowDifference:(NSArray<NSString *> *)values {
@@ -48,6 +52,22 @@
 		if (x > xmax) xmax = x;
 	}
 	return xmax - xmin;
+}
+
+- (int)rowDivideEvenly:(NSArray<NSString *> *)values {
+	for (int i = 0; i < values.count - 1; i++) {
+		int iValue = [[values objectAtIndex:i] intValue];
+		for (int j = i+1; j < values.count; j++) {
+			int jValue = [[values objectAtIndex:j] intValue];
+			if (iValue % jValue == 0) {
+				return iValue / jValue;
+			}
+			else if (jValue % iValue == 0) {
+				return jValue / iValue;
+			}
+		}
+	}
+	return 0;
 }
 
 @end
