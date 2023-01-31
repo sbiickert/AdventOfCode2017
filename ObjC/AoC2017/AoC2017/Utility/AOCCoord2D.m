@@ -44,6 +44,8 @@ static NSDictionary<NSString *, AOCCoord2D *> *_offsets = nil;
 		[dict setObject:[AOCCoord2D x: 0 y: 1] forKey:DOWN];
 		[dict setObject:[AOCCoord2D x:-1 y: 0] forKey:LEFT];
 		[dict setObject:[AOCCoord2D x: 1 y: 0] forKey:RIGHT];
+		
+		_offsets = dict;
 	}
 }
 
@@ -142,6 +144,13 @@ static NSDictionary<NSString *, AOCCoord2D *> *_offsets = nil;
 
 - (NSUInteger)hash {
 	return [@(self.x) hash] ^ [@(self.y) hash];
+}
+
+// NSCopying (to let this be a key in NSDictionary)
+- (id)copyWithZone:(NSZone *)zone
+{
+	AOCCoord2D *copy = [[AOCCoord2D allocWithZone:zone] initX:_x y:_y];
+	return copy;
 }
 
 @end

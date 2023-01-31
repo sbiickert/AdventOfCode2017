@@ -18,7 +18,7 @@ extern NSString * const DOWN;
 extern NSString * const LEFT;
 extern NSString * const RIGHT;
 
-@interface AOCCoord2D : NSObject
+@interface AOCCoord2D : NSObject <NSCopying>
 
 + (AOCCoord2D *)origin;
 + (AOCCoord2D *)x:(int)x y:(int)y;
