@@ -48,6 +48,19 @@ NSString * const QUEEN = @"queen";
 	return [_data objectForKey:coord];
 }
 
+- (int)intAtCoord:(AOCCoord2D *)coord
+{
+	NSNumber *num = (NSNumber *)[self objectAtCoord:coord];
+	return [num intValue];
+}
+
+- (NSString *)stringAtCoord:(AOCCoord2D *)coord
+{
+	NSString *str = (NSString *)[self objectAtCoord:coord];
+	return str;
+}
+
+
 - (void)setObject:(NSObject *)value atCoord:(AOCCoord2D *)coord
 {
 	[_data setObject:value forKey:coord];

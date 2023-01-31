@@ -34,8 +34,10 @@
 }
 
 - (NSString *)solvePartTwo:(NSString *)input {
+	int target = [input intValue];
+	int num = [self aggregatingSpiralTo:target];
 	
-	return @"World";
+	return [NSString stringWithFormat:@"%d", num];
 }
 
 - (AOCCoord2D *)spiralTo:(int)num {
@@ -72,4 +74,32 @@
 	return ptr;
 }
 
+- (int)aggregatingSpiralTo:(int)num {
+	int val = 1;
+	AOCGrid2D *grid = [[AOCGrid2D alloc] initWithDefault:@0 adjacency:QUEEN];
+	AOCCoord2D *ptr = [AOCCoord2D origin];
+	[grid setObject:@(val) atCoord:ptr];
+	NSArray<NSString *> *fillDirections = @[RIGHT, UP, LEFT, DOWN];
+	int dirIndex = 0;
+	int nextDirIndex = dirIndex + 1;
+	
+	while (val <= num) {
+		val = 0;
+		ptr = [ptr offset:[fillDirections objectAtIndex:dirIndex]];
+		for (AOCCoord2D *neighbor in [grid adjacentTo:ptr]) {
+			val += [grid intAtCoord:neighbor];
+		}
+		[grid setObject:@(val) atCoord:ptr];
+//		NSLog(@"Set value %d at coord %@", val, ptr);
+		if ([grid intAtCoord:[ptr offset:[fillDirections objectAtIndex:nextDirIndex]]] == 0) {
+			// Need to turn
+			dirIndex++;
+			dirIndex = dirIndex % 4;
+			nextDirIndex++;
+			nextDirIndex = nextDirIndex % 4;
+		}
+	}
+	
+	return val;
+}
 @end
