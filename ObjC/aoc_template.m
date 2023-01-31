@@ -1,4 +1,20 @@
 //
+//  AOCDay<##>.h
+//  AoC2017
+//
+//  Created by Simon Biickert on 2023-01-28.
+//
+
+#import "AOCSolution.h"
+#import "AOCInput.h"
+
+@interface AOCDay<##> : AOCSolution
+
+@end
+
+
+
+//
 //  AOCDay<##>.m
 //  AoC2017
 //
@@ -18,18 +34,18 @@
 	
 	NSArray<NSString *> *input = [AOCInput readGroupedInputFile:filename atIndex:index];
 	
-	result.part1 = [self solvePartOne: [input objectAtIndex:0]];
-	result.part2 = [self solvePartTwo: [input objectAtIndex:0]];
+	result.part1 = [self solvePartOne: input];
+	result.part2 = [self solvePartTwo: input];
 	
 	return result;
 }
 
-- (NSString *)solvePartOne:(NSString *)input {
+- (NSString *)solvePartOne:(NSArray<NSString *> *)input {
 	
 	return @"Hello";
 }
 
-- (NSString *)solvePartTwo:(NSString *)input {
+- (NSString *)solvePartTwo:(NSArray<NSString *> *)input {
 	
 	return @"World";
 }
