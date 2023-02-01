@@ -9,13 +9,13 @@
 #import "AOCSolution.h"
 #import "AOCInput.h"
 
-#import "AOCDay05.h"
+#import "AOCDay06.h"
 
 int main(int argc, const char * argv[]) {
 	@autoreleasepool {
 		printf("%s", [@"Advent of Code 2017\n" cStringUsingEncoding:NSUTF8StringEncoding]);
 		
-		AOCSolution *s = [[AOCDay05 alloc] init];
+		AOCSolution *s = [[AOCDay06 alloc] init];
 		
 //		AOCInput *i = [[AOCInput getTestsForSolution:s] objectAtIndex:0];
 		AOCInput *i = [AOCInput getChallengeForSolution:s];
