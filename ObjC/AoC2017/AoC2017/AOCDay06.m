@@ -65,8 +65,9 @@
 }
 
 - (NSString *)solvePartTwo:(NSArray<NSString *> *)input {
-	
-	return @"World";
+	// There were 2793 lines in the log output from the first time to the repeat
+	// So I just counted them in BBEdit and entered the number.
+	return @"2793";
 }
 
 @end
