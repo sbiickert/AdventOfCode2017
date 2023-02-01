@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		37624AE42988A3A700CFEC01 /* AOCDay03.m in Sources */ = {isa = PBXBuildFile; fileRef = 37624AE32988A3A700CFEC01 /* AOCDay03.m */; };
+		37B22580298A0C0E00DD5140 /* AOCDay05.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B2257F298A0C0E00DD5140 /* AOCDay05.m */; };
 		37BF9BAC29856B4700E7B34D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 37BF9BAB29856B4700E7B34D /* main.m */; };
 		37BF9BB429856B6000E7B34D /* AOCDay01.m in Sources */ = {isa = PBXBuildFile; fileRef = 37BF9BB329856B6000E7B34D /* AOCDay01.m */; };
 		37DE7647298570490016ED18 /* AOCSolution.m in Sources */ = {isa = PBXBuildFile; fileRef = 37DE7644298570480016ED18 /* AOCSolution.m */; };
@@ -35,6 +36,8 @@
 /* Begin PBXFileReference section */
 		37624AE22988A39700CFEC01 /* AOCDay03.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AOCDay03.h; sourceTree = "<group>"; };
 		37624AE32988A3A700CFEC01 /* AOCDay03.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AOCDay03.m; sourceTree = "<group>"; };
+		37B2257E298A0C0E00DD5140 /* AOCDay05.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AOCDay05.h; sourceTree = "<group>"; };
+		37B2257F298A0C0E00DD5140 /* AOCDay05.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AOCDay05.m; sourceTree = "<group>"; };
 		37BF9BA829856B4700E7B34D /* AoC2017 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = AoC2017; sourceTree = BUILT_PRODUCTS_DIR; };
 		37BF9BAB29856B4700E7B34D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		37BF9BB329856B6000E7B34D /* AOCDay01.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AOCDay01.m; sourceTree = "<group>"; };
@@ -99,6 +102,8 @@
 				37624AE32988A3A700CFEC01 /* AOCDay03.m */,
 				37EE3D092989D93D0082231D /* AOCDay04.h */,
 				37EE3D0A2989D94A0082231D /* AOCDay04.m */,
+				37B2257E298A0C0E00DD5140 /* AOCDay05.h */,
+				37B2257F298A0C0E00DD5140 /* AOCDay05.m */,
 			);
 			path = AoC2017;
 			sourceTree = "<group>";
@@ -185,6 +190,7 @@
 				37DE764E2986161F0016ED18 /* AOCStrings.m in Sources */,
 				37DE7654298620E30016ED18 /* AOCExtent2D.m in Sources */,
 				37EE3D0B2989D94A0082231D /* AOCDay04.m in Sources */,
+				37B22580298A0C0E00DD5140 /* AOCDay05.m in Sources */,
 				37624AE42988A3A700CFEC01 /* AOCDay03.m in Sources */,
 				37DE76562986F8EE0016ED18 /* AOCGrid2D.m in Sources */,
 				37DE7647298570490016ED18 /* AOCSolution.m in Sources */,
