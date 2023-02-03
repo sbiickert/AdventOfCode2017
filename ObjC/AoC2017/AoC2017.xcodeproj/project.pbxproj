@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		374E9089298DBD3400B45A89 /* AOCDay08.m in Sources */ = {isa = PBXBuildFile; fileRef = 374E9087298DBD3400B45A89 /* AOCDay08.m */; };
 		37583133298AAB3000FB311C /* AOCDay06.m in Sources */ = {isa = PBXBuildFile; fileRef = 37583132298AAB3000FB311C /* AOCDay06.m */; };
 		37624AE42988A3A700CFEC01 /* AOCDay03.m in Sources */ = {isa = PBXBuildFile; fileRef = 37624AE32988A3A700CFEC01 /* AOCDay03.m */; };
 		37742F73298B61ED0035557A /* AOCDay07.m in Sources */ = {isa = PBXBuildFile; fileRef = 37742F72298B61ED0035557A /* AOCDay07.m */; };
@@ -36,6 +37,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		374E9087298DBD3400B45A89 /* AOCDay08.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AOCDay08.m; sourceTree = "<group>"; };
+		374E908A298DBDCF00B45A89 /* AOCDay08.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AOCDay08.h; sourceTree = "<group>"; };
 		37583131298AAB3000FB311C /* AOCDay06.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AOCDay06.h; sourceTree = "<group>"; };
 		37583132298AAB3000FB311C /* AOCDay06.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AOCDay06.m; sourceTree = "<group>"; };
 		37624AE22988A39700CFEC01 /* AOCDay03.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AOCDay03.h; sourceTree = "<group>"; };
@@ -114,6 +117,8 @@
 				37583132298AAB3000FB311C /* AOCDay06.m */,
 				37742F71298B61ED0035557A /* AOCDay07.h */,
 				37742F72298B61ED0035557A /* AOCDay07.m */,
+				374E908A298DBDCF00B45A89 /* AOCDay08.h */,
+				374E9087298DBD3400B45A89 /* AOCDay08.m */,
 			);
 			path = AoC2017;
 			sourceTree = "<group>";
@@ -206,6 +211,7 @@
 				37DE7647298570490016ED18 /* AOCSolution.m in Sources */,
 				37742F73298B61ED0035557A /* AOCDay07.m in Sources */,
 				37DE7659298813E80016ED18 /* AOCDay02.m in Sources */,
+				374E9089298DBD3400B45A89 /* AOCDay08.m in Sources */,
 				37BF9BB429856B6000E7B34D /* AOCDay01.m in Sources */,
 				37583133298AAB3000FB311C /* AOCDay06.m in Sources */,
 			);
