@@ -37,15 +37,17 @@
 		[instructions addObject:[[AOCInstruction alloc] initFromString:line]];
 	}];
 	
-	result.part1 = [self solvePartOne: instructions];
-	result.part2 = [self solvePartTwo: input];
+	result.part1 = [self solveParts: instructions];
+	result.part2 = @"See part 1";
 	
 	return result;
 }
 
-- (NSString *)solvePartOne:(NSArray<AOCInstruction *> *)instructions {
+- (NSString *)solveParts:(NSArray<AOCInstruction *> *)instructions {
 	NSMutableDictionary<NSString *, NSNumber *> *registers = [NSMutableDictionary dictionary];
-	
+
+	int peakValue = -1000000;
+
 	for (AOCInstruction *i in instructions) {
 		if (registers[i.targetRegister] == nil) {
 			[registers setValue:@0 forKey:i.targetRegister];
@@ -57,22 +59,15 @@
 			int newValue = registers[i.targetRegister].intValue + (i.factor * i.value);
 			registers[i.targetRegister] = @(newValue);
 		}
-	}
-	
-	int maxValue = -1000000;
-	for (NSString *reg in [registers allKeys]) {
-		int rValue = [registers objectForKey:reg].intValue;
-		if (rValue > maxValue) {
-			maxValue = rValue;
+		int currentMax = [[[registers allValues] valueForKeyPath:@"@max.intValue"] intValue];
+		if (currentMax > peakValue) {
+			peakValue = currentMax;
 		}
 	}
 	
-	return [NSString stringWithFormat:@"Largest value: %d", maxValue];
-}
-
-- (NSString *)solvePartTwo:(NSArray<NSString *> *)input {
+	int maxValue = [[[registers allValues] valueForKeyPath:@"@max.intValue"] intValue];
 	
-	return @"World";
+	return [NSString stringWithFormat:@"Max value: %d, peaked at %d", maxValue, peakValue];
 }
 
 @end
