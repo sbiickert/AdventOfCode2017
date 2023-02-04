@@ -77,7 +77,7 @@
 		if (result == nil) {
 			NSInteger diff = correctTotalWeight - incorrectTower.totalWeight;
 			NSInteger newWeight = incorrectTower.weight + diff; //4277 too high
-			result = [NSString stringWithFormat:@"Tower %@ needs to weigh %d", incorrectTower.name, newWeight];
+			result = [NSString stringWithFormat:@"Tower %@ needs to weigh %@", incorrectTower.name, newWeight];
 		}
 	}
 	return result;
