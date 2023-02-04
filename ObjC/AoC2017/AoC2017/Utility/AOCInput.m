@@ -24,10 +24,8 @@ NSString * const INPUT_FOLDER = @"~/Developer/Advent of Code/2017/AdventOfCode20
 	name = [AOCInput makeFilenameForDay:solution.day isTest:true];
 	if (solution.emptyLinesIndicateMultipleInputs) {
 		NSArray<NSArray<NSString *> *> *gInput = [AOCInput readGroupedInputFile:name];
-		int i = 0;
-		for (NSArray<NSString *> *group in gInput) {
+		for (int i = 0; i < gInput.count; i++) {
 			[inputs addObject:[[AOCInput alloc] initWithSolution:solution filename:name atIndex:i]];
-			i++;
 		}
 	}
 	else {

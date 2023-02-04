@@ -66,9 +66,9 @@ static NSString *garbageRegex = @"<[^>]*>";
 	NSString *noGarbage = [noNeg stringByReplacingWithPattern:garbageRegex withTemplate:@"<>" error:&err];
 	
 	// Compare lengths
-	int removedCount = noNeg.length - noGarbage.length;
+	NSInteger removedCount = noNeg.length - noGarbage.length;
 
-	return [NSString stringWithFormat:@"%d", removedCount];
+	return [NSString stringWithFormat:@"%ld", (long)removedCount];
 }
 
 @end
