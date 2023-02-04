@@ -23,7 +23,7 @@ static NSString *garbageRegex = @"<[^>]*>";
 	NSArray<NSString *> *input = [AOCInput readGroupedInputFile:filename atIndex:index];
 	
 	result.part1 = [self solvePartOne: input[0]];
-	result.part2 = [self solvePartTwo: input];
+	result.part2 = [self solvePartTwo: input[0]];
 	
 	return result;
 }
@@ -56,9 +56,19 @@ static NSString *garbageRegex = @"<[^>]*>";
 	return [NSString stringWithFormat:@"%d", sum];
 }
 
-- (NSString *)solvePartTwo:(NSArray<NSString *> *)input {
+- (NSString *)solvePartTwo:(NSString *)input {
+	NSError *err;
 	
-	return @"World";
+	// Remove negations
+	NSString *noNeg = [input stringByReplacingWithPattern:ignoreRegex withTemplate:@"" error:&err];
+	
+	// Remove garbage, leaving <>
+	NSString *noGarbage = [noNeg stringByReplacingWithPattern:garbageRegex withTemplate:@"<>" error:&err];
+	
+	// Compare lengths
+	int removedCount = noNeg.length - noGarbage.length;
+
+	return [NSString stringWithFormat:@"%d", removedCount];
 }
 
 @end
