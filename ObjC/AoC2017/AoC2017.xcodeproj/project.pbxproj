@@ -12,6 +12,7 @@
 		37624AE42988A3A700CFEC01 /* AOCDay03.m in Sources */ = {isa = PBXBuildFile; fileRef = 37624AE32988A3A700CFEC01 /* AOCDay03.m */; };
 		37742F73298B61ED0035557A /* AOCDay07.m in Sources */ = {isa = PBXBuildFile; fileRef = 37742F72298B61ED0035557A /* AOCDay07.m */; };
 		378DC170298E176C0011F0E7 /* AOCDay09.m in Sources */ = {isa = PBXBuildFile; fileRef = 378DC16F298E176C0011F0E7 /* AOCDay09.m */; };
+		37B03044298F60580085FF31 /* AOCDay10.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B03042298F60580085FF31 /* AOCDay10.m */; };
 		37B22580298A0C0E00DD5140 /* AOCDay05.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B2257F298A0C0E00DD5140 /* AOCDay05.m */; };
 		37BF9BAC29856B4700E7B34D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 37BF9BAB29856B4700E7B34D /* main.m */; };
 		37BF9BB429856B6000E7B34D /* AOCDay01.m in Sources */ = {isa = PBXBuildFile; fileRef = 37BF9BB329856B6000E7B34D /* AOCDay01.m */; };
@@ -48,6 +49,8 @@
 		37742F72298B61ED0035557A /* AOCDay07.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AOCDay07.m; sourceTree = "<group>"; };
 		378DC16E298E176C0011F0E7 /* AOCDay09.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AOCDay09.h; sourceTree = "<group>"; };
 		378DC16F298E176C0011F0E7 /* AOCDay09.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AOCDay09.m; sourceTree = "<group>"; };
+		37B03042298F60580085FF31 /* AOCDay10.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AOCDay10.m; sourceTree = "<group>"; };
+		37B03043298F60580085FF31 /* AOCDay10.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AOCDay10.h; sourceTree = "<group>"; };
 		37B2257E298A0C0E00DD5140 /* AOCDay05.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AOCDay05.h; sourceTree = "<group>"; };
 		37B2257F298A0C0E00DD5140 /* AOCDay05.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AOCDay05.m; sourceTree = "<group>"; };
 		37BF9BA829856B4700E7B34D /* AoC2017 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = AoC2017; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -124,6 +127,8 @@
 				374E9087298DBD3400B45A89 /* AOCDay08.m */,
 				378DC16E298E176C0011F0E7 /* AOCDay09.h */,
 				378DC16F298E176C0011F0E7 /* AOCDay09.m */,
+				37B03043298F60580085FF31 /* AOCDay10.h */,
+				37B03042298F60580085FF31 /* AOCDay10.m */,
 			);
 			path = AoC2017;
 			sourceTree = "<group>";
@@ -219,6 +224,7 @@
 				374E9089298DBD3400B45A89 /* AOCDay08.m in Sources */,
 				37BF9BB429856B6000E7B34D /* AOCDay01.m in Sources */,
 				378DC170298E176C0011F0E7 /* AOCDay09.m in Sources */,
+				37B03044298F60580085FF31 /* AOCDay10.m in Sources */,
 				37583133298AAB3000FB311C /* AOCDay06.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
