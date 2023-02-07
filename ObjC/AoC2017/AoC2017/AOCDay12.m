@@ -34,8 +34,21 @@
 }
 
 - (NSString *)solvePartTwo:(NSArray<NSString *> *)input {
+	NSMutableDictionary<NSString *, NSSet<NSString *> *> *connections = [[self buildConnections:input] mutableCopy];
 	
-	return @"World";
+	int count = 0;
+	while (connections.count > 0) {
+		NSString *rootKey = connections.allKeys.firstObject;
+		NSMutableSet<NSString *> *connected = [NSMutableSet setWithObject:rootKey];
+		[self findConnectedTo:rootKey connections:connections connected:connected];
+		count++;
+		for (NSString *key in connected) {
+			[connections removeObjectForKey:key];
+		}
+	}
+	
+	
+	return [NSString stringWithFormat:@"%d", count];
 }
 
 - (void)findConnectedTo:(NSString *)program
