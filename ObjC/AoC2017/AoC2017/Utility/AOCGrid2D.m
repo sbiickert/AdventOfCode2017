@@ -12,6 +12,7 @@
 NSString * const ROOK = @"rook";
 NSString * const BISHOP = @"bishop";
 NSString * const QUEEN = @"queen";
+NSString * const HEX = @"hex";
 
 @implementation AOCGrid2D {
 	NSMutableDictionary<AOCCoord2D *, NSObject *> *_data;
@@ -118,6 +119,14 @@ NSString * const QUEEN = @"queen";
 		[o addObject:[AOCCoord2D offset:NE]];
 		[o addObject:[AOCCoord2D offset:SE]];
 		[o addObject:[AOCCoord2D offset:SW]];
+	}
+	if ([self.rule isEqualToString:HEX]) {
+		[o addObject:[AOCCoord2D offset:HN]];
+		[o addObject:[AOCCoord2D offset:HNE]];
+		[o addObject:[AOCCoord2D offset:HSE]];
+		[o addObject:[AOCCoord2D offset:HS]];
+		[o addObject:[AOCCoord2D offset:HSW]];
+		[o addObject:[AOCCoord2D offset:HNW]];
 	}
 	
 	return o;

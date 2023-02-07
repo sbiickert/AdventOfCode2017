@@ -10,6 +10,7 @@
 extern NSString * const ROOK;
 extern NSString * const BISHOP;
 extern NSString * const QUEEN;
+extern NSString * const HEX;
 
 @interface AOCGrid2D : NSObject
 

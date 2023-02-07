@@ -17,6 +17,12 @@ NSString * const NW = @"nw";
 NSString * const NE = @"ne";
 NSString * const SW = @"sw";
 NSString * const SE = @"se";
+NSString * const HN = @"north";
+NSString * const HS = @"south";
+NSString * const HNW = @"hex_nw";
+NSString * const HNE = @"hex_ne";
+NSString * const HSW = @"hex_sw";
+NSString * const HSE = @"hex_se";
 NSString * const UP = @"up";
 NSString * const DOWN = @"down";
 NSString * const LEFT = @"left";
@@ -40,6 +46,14 @@ static NSDictionary<NSString *, AOCCoord2D *> *_offsets = nil;
 		[dict setObject:[AOCCoord2D x:-1 y: 1] forKey:SW];
 		[dict setObject:[AOCCoord2D x: 1 y: 1] forKey:SE];
 		
+		// See https://math.stackexchange.com/questions/2254655/hexagon-grid-coordinate-system
+		// Axial coords
+		// North and South are the same for square or hex coords
+		[dict setObject:[AOCCoord2D x:-1 y: 0] forKey:HNW];
+		[dict setObject:[AOCCoord2D x: 1 y:-1] forKey:HNE];
+		[dict setObject:[AOCCoord2D x:-1 y: 1] forKey:HSW];
+		[dict setObject:[AOCCoord2D x: 1 y: 0] forKey:HSE];
+
 		[dict setObject:[AOCCoord2D x: 0 y:-1] forKey:UP];
 		[dict setObject:[AOCCoord2D x: 0 y: 1] forKey:DOWN];
 		[dict setObject:[AOCCoord2D x:-1 y: 0] forKey:LEFT];

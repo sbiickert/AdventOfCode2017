@@ -13,6 +13,12 @@ extern NSString * const NW;
 extern NSString * const NE;
 extern NSString * const SW;
 extern NSString * const SE;
+extern NSString * const HN;  // hex grid
+extern NSString * const HS;  // hex grid
+extern NSString * const HNW; // hex grid
+extern NSString * const HNE; // hex grid
+extern NSString * const HSW; // hex grid
+extern NSString * const HSE; // hex grid
 extern NSString * const UP;
 extern NSString * const DOWN;
 extern NSString * const LEFT;
