@@ -27,26 +27,24 @@
 }
 
 - (NSString *)solvePartOne:(NSArray<NSString *> *)dirs {
-	return [NSString stringWithFormat:@"%ld", [self measureDistance:dirs]];
+	NSMutableDictionary<NSString *, NSNumber *> *counts = [self countDirections:dirs];
+	return [NSString stringWithFormat:@"%ld", [self measureDistance:counts]];
 }
 
 - (NSString *)solvePartTwo:(NSArray<NSString *> *)dirs {
-	NSMutableArray<NSString *> *incremental = [NSMutableArray array];
+	NSMutableDictionary<NSString *, NSNumber *> *counts = [self countDirections:@[]]; // array of zeros
 	NSInteger maxDistance = 0;
 	
 	for (NSString *dir in dirs) {
-		[incremental addObject:dir];
-		if (incremental.count % 500 == 0) {
-			NSLog(@"%ld", incremental.count);
-		}
-		NSInteger distance = [self measureDistance:incremental];
+		counts[dir] = @(counts[dir].integerValue + 1); // Add 1 to the count for this direction
+		NSInteger distance = [self measureDistance:counts];
 		maxDistance = MAX(maxDistance, distance);
 	}
 	
 	return [NSString stringWithFormat:@"%ld", maxDistance];
 }
 
-- (NSInteger)measureDistance:(NSArray<NSString *> *)dirs
+- (NSMutableDictionary<NSString *, NSNumber *> *)countDirections:(NSArray<NSString *> *)dirs
 {
 	// Organize counts of directions
 	NSMutableDictionary<NSString *, NSNumber *> *counts = [NSMutableDictionary dictionary];
@@ -56,7 +54,11 @@
 					[NSPredicate predicateWithFormat:@"SELF = %@", direction]];
 		counts[direction] = @(filtered.count);
 	}
-	
+	return counts;
+}
+
+- (NSInteger)measureDistance:(NSMutableDictionary<NSString *, NSNumber *> *)counts
+{
 	// Opposite directions cancel
 	[self cancelDirection:@"n" withDirection:@"s" inDict:counts];
 	[self cancelDirection:@"nw" withDirection:@"se" inDict:counts];
