@@ -18,15 +18,36 @@
 	
 	NSArray<NSString *> *input = [AOCInput readGroupedInputFile:filename atIndex:index];
 	
-	result.part1 = [self solvePartOne: input[0]];
-	result.part2 = [self solvePartTwo: input];
+	NSArray<NSString *> *dirs = [input[0] componentsSeparatedByString:@","];
+
+	result.part1 = [self solvePartOne: dirs];
+	result.part2 = [self solvePartTwo: dirs];
 	
 	return result;
 }
 
-- (NSString *)solvePartOne:(NSString *)input {
-	NSArray<NSString *> *dirs = [input componentsSeparatedByString:@","];
+- (NSString *)solvePartOne:(NSArray<NSString *> *)dirs {
+	return [NSString stringWithFormat:@"%ld", [self measureDistance:dirs]];
+}
+
+- (NSString *)solvePartTwo:(NSArray<NSString *> *)dirs {
+	NSMutableArray<NSString *> *incremental = [NSMutableArray array];
+	NSInteger maxDistance = 0;
 	
+	for (NSString *dir in dirs) {
+		[incremental addObject:dir];
+		if (incremental.count % 500 == 0) {
+			NSLog(@"%ld", incremental.count);
+		}
+		NSInteger distance = [self measureDistance:incremental];
+		maxDistance = MAX(maxDistance, distance);
+	}
+	
+	return [NSString stringWithFormat:@"%ld", maxDistance];
+}
+
+- (NSInteger)measureDistance:(NSArray<NSString *> *)dirs
+{
 	// Organize counts of directions
 	NSMutableDictionary<NSString *, NSNumber *> *counts = [NSMutableDictionary dictionary];
 	NSArray<NSString *> *filtered;
@@ -54,7 +75,7 @@
 	for (NSNumber *count in counts.allValues) {
 		sum += count.intValue;
 	}
-	return [NSString stringWithFormat:@"%ld", sum];
+	return sum;
 }
 
 - (void)cancelDirection:(NSString *)dir1
@@ -75,11 +96,6 @@
 	counts[dir1] = @(counts[dir1].intValue - minimum);
 	counts[dir2] = @(counts[dir2].intValue - minimum);
 	counts[result] = @(counts[result].intValue + minimum);
-}
-
-- (NSString *)solvePartTwo:(NSArray<NSString *> *)input {
-	
-	return @"World";
 }
 
 @end
