@@ -10,7 +10,7 @@ I had done some ObjC in the past, but never really mastered it. As soon as Swift
 
 Things that have annoyed me:
 - Working with .h files. I'd rather not, but ObjC needs them.
-- Constantly having to type out variable types instead of "var" and type inference. Especially when using complex types like NSMutableDictionary<<NSString *>, <NSMutableSet *>>. Auto-complete only goes so far. Perl would just be %dict.
+- Constantly having to type out variable types instead of "var" and type inference. Especially when using complex types like NSMutableDictionary<NSString *, NSMutableSet *>. Auto-complete only goes so far. Perl would just be %dict.
 
 Things that have surprised me (pleasantly):
 - The aforementioned [Xcode](https://developer.apple.com/xcode/) IDE.
