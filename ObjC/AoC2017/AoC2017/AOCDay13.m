@@ -27,7 +27,7 @@
 }
 
 - (NSString *)solvePartOne:(NSDictionary<NSNumber *, NSNumber *> *)scanners {
-	NSInteger totalSeverity = [self sendPacket:scanners withDelay:0];
+	NSInteger totalSeverity = [self sendPacket:scanners withDelay:0 keys:nil];
 	return [NSString stringWithFormat:@"%ld", totalSeverity];
 }
 
@@ -35,9 +35,20 @@
 	NSInteger totalSeverity = 1;
 	NSInteger delay = -1;
 	
+	// This speeds thing up by doing the short range scanners first
+	NSArray<NSNumber *> *sortedKeys = [scanners keysSortedByValueUsingComparator:^(id obj1, id obj2) {
+		if ([obj1 integerValue] > [obj2 integerValue]) {
+			return (NSComparisonResult)NSOrderedDescending;
+		}
+		if ([obj1 integerValue] < [obj2 integerValue]) {
+			return (NSComparisonResult)NSOrderedAscending;
+		}
+		return (NSComparisonResult)NSOrderedSame;
+	}];
+	
 	while (totalSeverity > 0) {
 		delay++;
-		totalSeverity = [self sendPacket:scanners withDelay:delay];
+		totalSeverity = [self sendPacket:scanners withDelay:delay keys:sortedKeys];
 		if (delay % 100000 == 0) {
 			NSLog(@"%ld",  delay);
 		}
@@ -48,8 +59,12 @@
 
 - (NSInteger)sendPacket:(NSDictionary<NSNumber *, NSNumber *> *)scanners
 			  withDelay:(NSInteger)delay
+				   keys:(NSArray<NSNumber *> *)sortedKeys
 {
 	NSInteger totalSeverity = 0;
+	if (sortedKeys == nil) {
+		sortedKeys = scanners.allKeys;
+	}
 	
 	for (NSNumber *key in scanners.allKeys) {
 		NSInteger depth = key.integerValue + delay;
