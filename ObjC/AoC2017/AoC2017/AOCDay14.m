@@ -21,27 +21,52 @@
 	NSArray<NSString *> *input = [AOCInput readGroupedInputFile:filename atIndex:index];
 	
 	NSString *key = input[0];
+	AOCGrid2D *disk = [self populateDisk:key];
 
-	result.part1 = [self solvePartOne: key];
-	result.part2 = [self solvePartTwo: key];
+	result.part1 = [self solvePartOne: disk];
+	result.part2 = [self solvePartTwo: disk];
 	
 	return result;
 }
 
-- (NSString *)solvePartOne:(NSString *)key {
-	AOCGrid2D *disk = [self populateDisk:key];
-	
+- (NSString *)solvePartOne:(AOCGrid2D *)disk {
 	NSInteger usedSquareCount = [disk coordsWithValue:@"1"].count;
 	
 	return [NSString stringWithFormat:@"%ld", usedSquareCount];
 }
 
-- (NSString *)solvePartTwo:(NSString *)key {
-	AOCGrid2D *disk = [self populateDisk:key];
-
-	// Now find regions
+- (NSString *)solvePartTwo:(AOCGrid2D *)disk {
+	// Find regions
+	NSMutableSet<AOCCoord2D *> *unassigned = [NSMutableSet setWithArray:[disk coordsWithValue:@"1"]];
 	
-	return @"World";
+	int regionCount = 0;
+	
+	while (unassigned.count > 0) {
+		// Start with any unassigned filled coord
+		NSMutableArray<AOCCoord2D *> *toVisit = [NSMutableArray arrayWithObject: [unassigned anyObject]];
+		AOCCoord2D *coord = [toVisit lastObject];
+		[unassigned removeObject:coord];
+
+		// Walk through adjacent coords, removing from unassigned
+		while (coord != nil){
+			[toVisit removeLastObject];
+			
+			NSArray<AOCCoord2D *> *adjacentFilled = [disk adjacentTo:coord withValue:@"1"];
+			for (AOCCoord2D *adj in adjacentFilled) {
+				if ([unassigned containsObject:adj]) {
+					[toVisit insertObject:adj atIndex:0];
+					[unassigned removeObject:adj];
+				}
+			}
+
+			coord = [toVisit lastObject];
+		}
+		
+		// Ran out of adjacent coords with @"1". Region's done.
+		regionCount++;
+	}
+	
+	return [NSString stringWithFormat:@"%d", regionCount];
 }
 
 - (AOCGrid2D *)populateDisk:(NSString *)key
