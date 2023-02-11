@@ -10,6 +10,24 @@
 
 @implementation NSString (AOCString)
 
++ (NSString *)binaryStringFromInteger:(int)number width:(int)width
+{
+	NSMutableString * string = [[NSMutableString alloc] init];
+
+	int binaryDigit = 0;
+	int integer = number;
+	
+	while( binaryDigit < width )
+	{
+		binaryDigit++;
+		[string insertString:( (integer & 1) ? @"1" : @"0" )atIndex:0];
+		integer = integer >> 1;
+	}
+	
+	return string;
+}
+
+
 -(NSArray<NSString *> *)getAllCharacters {
 	NSMutableArray *characters = [[NSMutableArray alloc] initWithCapacity:[self length]];
 	for (int i=0; i < [self length]; i++) {

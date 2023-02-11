@@ -7,6 +7,7 @@
 
 @interface NSString (AOCString)
 
++ (NSString *)binaryStringFromInteger:(int)number width:(int)width;
 - (NSArray<NSString *> *)getAllCharacters;
 - (void)print;
 - (void)println;

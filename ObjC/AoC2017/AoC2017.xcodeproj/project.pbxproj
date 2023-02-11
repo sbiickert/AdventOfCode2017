@@ -27,6 +27,7 @@
 		37DE76562986F8EE0016ED18 /* AOCGrid2D.m in Sources */ = {isa = PBXBuildFile; fileRef = 37DE76552986F8EE0016ED18 /* AOCGrid2D.m */; };
 		37DE7659298813E80016ED18 /* AOCDay02.m in Sources */ = {isa = PBXBuildFile; fileRef = 37DE7658298813E80016ED18 /* AOCDay02.m */; };
 		37EE3D0B2989D94A0082231D /* AOCDay04.m in Sources */ = {isa = PBXBuildFile; fileRef = 37EE3D0A2989D94A0082231D /* AOCDay04.m */; };
+		B851FB4E299708690077F541 /* AOCDay14.m in Sources */ = {isa = PBXBuildFile; fileRef = B851FB4D299708690077F541 /* AOCDay14.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -83,6 +84,8 @@
 		37DE765A298813F60016ED18 /* AOCDay02.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AOCDay02.h; sourceTree = "<group>"; };
 		37EE3D092989D93D0082231D /* AOCDay04.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AOCDay04.h; sourceTree = "<group>"; };
 		37EE3D0A2989D94A0082231D /* AOCDay04.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AOCDay04.m; sourceTree = "<group>"; };
+		B851FB4C299708690077F541 /* AOCDay14.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AOCDay14.h; sourceTree = "<group>"; };
+		B851FB4D299708690077F541 /* AOCDay14.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AOCDay14.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -144,6 +147,8 @@
 				379992512992D089007E57DE /* AOCDay12.m */,
 				374EA81D2994260A0032FCFA /* AOCDay13.h */,
 				374EA81E2994260A0032FCFA /* AOCDay13.m */,
+				B851FB4C299708690077F541 /* AOCDay14.h */,
+				B851FB4D299708690077F541 /* AOCDay14.m */,
 			);
 			path = AoC2017;
 			sourceTree = "<group>";
@@ -237,6 +242,7 @@
 				37624AE42988A3A700CFEC01 /* AOCDay03.m in Sources */,
 				37DE76562986F8EE0016ED18 /* AOCGrid2D.m in Sources */,
 				37DE7647298570490016ED18 /* AOCSolution.m in Sources */,
+				B851FB4E299708690077F541 /* AOCDay14.m in Sources */,
 				37742F73298B61ED0035557A /* AOCDay07.m in Sources */,
 				37DE7659298813E80016ED18 /* AOCDay02.m in Sources */,
 				374E9089298DBD3400B45A89 /* AOCDay08.m in Sources */,
