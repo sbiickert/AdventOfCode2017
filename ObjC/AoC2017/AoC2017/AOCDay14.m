@@ -6,6 +6,7 @@
 #import <Foundation/Foundation.h>
 #import "AOCDay14.h"
 #import "AOCStrings.h"
+#import "AOCGrid2D.h"
 
 @implementation AOCDay14
 
@@ -22,39 +23,52 @@
 	NSString *key = input[0];
 
 	result.part1 = [self solvePartOne: key];
-	result.part2 = [self solvePartTwo: input];
+	result.part2 = [self solvePartTwo: key];
 	
 	return result;
 }
 
 - (NSString *)solvePartOne:(NSString *)key {
-	NSInteger usedSquareCount = 0;
+	AOCGrid2D *disk = [self populateDisk:key];
 	
-	for (int i = 0; i < 128; i++) {
-		NSString *rowKey = [NSString stringWithFormat:@"%@-%d", key, i];
-		NSString *hexRowHash = [self calcKnotHash:rowKey];
-		NSArray<NSString *> *hexRowHashCharacters = [hexRowHash getAllCharacters];
-		//[hexRowHash println];
-		//NSMutableArray<NSString *> *rowBinary = [NSMutableArray array];
-		for (NSString *hexChar in hexRowHashCharacters) {
-			int value = (int)strtol(hexChar.UTF8String, NULL, 16);
-			NSString *binary = [NSString binaryStringFromInteger:value width:4];
-			for (NSString *binaryChar in [binary getAllCharacters]) {
-				if ([binaryChar isEqualToString:@"1"]) {
-					usedSquareCount++;
-				}
-			}
-			//[rowBinary addObject: [NSString binaryStringFromInteger:value width:4]];
-		}
-		//[[rowBinary componentsJoinedByString:@""] println];
-	}
+	NSInteger usedSquareCount = [disk coordsWithValue:@"1"].count;
 	
 	return [NSString stringWithFormat:@"%ld", usedSquareCount];
 }
 
-- (NSString *)solvePartTwo:(NSArray<NSString *> *)input {
+- (NSString *)solvePartTwo:(NSString *)key {
+	AOCGrid2D *disk = [self populateDisk:key];
+
+	// Now find regions
 	
 	return @"World";
+}
+
+- (AOCGrid2D *)populateDisk:(NSString *)key
+{
+	AOCGrid2D *disk = [[AOCGrid2D alloc] initWithDefault:@"0" adjacency:ROOK];
+	
+	for (int row = 0; row < 128; row++) {
+		NSString *rowKey = [NSString stringWithFormat:@"%@-%d", key, row];
+		NSString *hexRowHash = [self calcKnotHash:rowKey];
+		NSArray<NSString *> *hexRowHashCharacters = [hexRowHash getAllCharacters];
+		NSMutableArray<NSString *> *rowBinary = [NSMutableArray array];
+		for (NSString *hexChar in hexRowHashCharacters) {
+			int value = (int)strtol(hexChar.UTF8String, NULL, 16);
+			[rowBinary addObject: [NSString binaryStringFromInteger:value width:4]];
+		}
+		NSString *joined = [rowBinary componentsJoinedByString:@""];
+		NSArray<NSString *> *exploded = [joined getAllCharacters];
+		for (int col = 0; col < exploded.count; col++) {
+			if ([exploded[col] isEqualToString:@"1"]) {
+				[disk setObject:@"1" atCoord:[AOCCoord2D x:col y:row]];
+			}
+		}
+	}
+	
+	//[disk print];
+
+	return disk;
 }
 
 // Implementation from Day 10
