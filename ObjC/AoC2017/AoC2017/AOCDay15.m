@@ -19,6 +19,7 @@ static NSInteger B_FACTOR = 48271;
 @property (readonly) NSInteger value;
 
 - (void)generate;
+- (void)generateAMultipleOf:(int)value;
 
 @end
 
@@ -62,8 +63,27 @@ static NSInteger B_FACTOR = 48271;
 }
 
 - (NSString *)solvePartTwo:(NSArray<NSString *> *)input {
+	NSInteger generatorAStartValue = input[0].integerValue;
+	NSInteger generatorBStartValue = input[1].integerValue;
 	
-	return @"World";
+	A15Generator *a = [[A15Generator alloc] initFactor:A_FACTOR value:generatorAStartValue];
+	A15Generator *b = [[A15Generator alloc] initFactor:B_FACTOR value:generatorBStartValue];
+	
+	NSInteger matchCount = 0;
+	for (int i = 0; i < 5000000; i++) { // 5 million
+		[a generateAMultipleOf:4];
+		[b generateAMultipleOf:8];
+		//NSLog(@"A: %ld  B: %ld", a.value, b.value);
+		if ([A15Generator value:a.value matches:b.value]) {
+			//NSLog(@"match at %d", i);
+			matchCount++;
+		}
+//		if (i % 10000 == 0) {
+//			NSLog(@"%d", i);
+//		}
+	}
+
+	return [NSString stringWithFormat:@"%ld", matchCount];
 }
 
 @end
@@ -98,5 +118,14 @@ static NSInteger B_FACTOR = 48271;
 	_value = (_value * _factor) % 2147483647;
 }
 
+- (void)generateAMultipleOf:(int)m
+{
+	while (YES) {
+		[self generate];
+		if (self.value % m == 0) {
+			break;
+		}
+	}
+}
 
 @end
