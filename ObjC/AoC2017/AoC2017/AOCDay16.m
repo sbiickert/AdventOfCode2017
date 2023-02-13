@@ -5,6 +5,7 @@
 
 #import <Foundation/Foundation.h>
 #import "AOCDay16.h"
+#import "AOCStrings.h"
 
 @implementation AOCDay16
 
@@ -17,14 +18,19 @@
 	struct AOCResult result = [super solveInputIndex:index inFile:filename];
 	
 	NSArray<NSString *> *input = [AOCInput readGroupedInputFile:filename atIndex:index];
-	
-//	NSArray<NSString *> *programs = @[@"a",@"b",@"c",@"d",@"e"];
-	NSArray<NSString *> *programs = @[@"a",@"b",@"c",@"d",
-									  @"e",@"f",@"g",@"h",
-									  @"i",@"j",@"k",@"l",
-									  @"m",@"n",@"o",@"p",];
 
 	NSArray<NSDictionary *> *moves = [self parseMoves:input[0]];
+
+	NSArray<NSString *> *programs;
+	if (moves.count < 10) {
+		programs = @[@"a",@"b",@"c",@"d",@"e"];
+	}
+	else {
+		programs = @[@"a",@"b",@"c",@"d",
+					 @"e",@"f",@"g",@"h",
+					 @"i",@"j",@"k",@"l",
+					 @"m",@"n",@"o",@"p",];
+	}
 	
 	result.part1 = [self solvePartOne: programs moves:moves];
 	result.part2 = [self solvePartTwo: programs moves:moves];
@@ -37,17 +43,17 @@
 }
 
 - (NSString *)solvePartTwo:(NSArray<NSString *> *)programs moves:(NSArray<NSDictionary *> *)moves {
-//	return [self dance:programs moves:moves iterations:100];
-	return [self dance:programs moves:moves iterations:1000000000]; // 1 billion
+	return [self dance:programs moves:moves iterations:1000000000];
 }
 
 - (NSString *)dance:(NSArray<NSString *> *)immutablePrograms moves:(NSArray<NSDictionary *> *)moves iterations:(int)count
 {
 	NSMutableArray<NSString *> *programs = [immutablePrograms mutableCopy];
-	//NSMutableDictionary<NSString *, NSNumber *> *history = [NSMutableDictionary dictionary];
-	NSString *joined;
+	NSString *joined = [programs componentsJoinedByString:@""];
+	NSMutableDictionary<NSString *, NSNumber *> *history = [NSMutableDictionary dictionary];
+	history[joined] = @(0);
 	
-	for (int i = 0; i < count; i++) {
+	for (int i = 1; i <= count; i++) {
 		for (NSDictionary *move in moves) {
 			if ([move[@"type"] isEqualToString:@"spin"]) {
 				[self spin:programs size:[move[@"size"] intValue]];
@@ -61,19 +67,21 @@
 		}
 		
 		joined = [programs componentsJoinedByString:@""];
-		
-//		if ([history objectForKey:joined] != nil) {
-//			NSLog(@"%@ repeated. First seen at %@, now at %d", joined, [history objectForKey:joined], i);
-//		}
-		if (i % 1000 == 0) {
-			NSLog(@"%d", i);
+		if ([history objectForKey:joined] != nil) {
+			//NSLog(@"Pattern %@ repeated at %i. First seen at %@", joined, i, history[joined]);
+			int targetIndex = count % i;
+			NSString *projected = [history allKeysForObject:@(targetIndex)].firstObject;
+			return projected;
 		}
+		history[joined] = @(i);
+		//[[NSString stringWithFormat:@"%d: %@", i, joined] println];
 	}
 	return joined;
 }
 
 - (void)spin:(NSMutableArray<NSString *> *)programs size:(int)size
 {
+	// Doing it this way means only moving memory once per spin instead of several remove/inserts per spin
 	NSRange r = NSMakeRange(programs.count-size, size);
 	NSIndexSet *iset = [NSIndexSet indexSetWithIndexesInRange:r];
 	id temp = [programs objectsAtIndexes:iset];
@@ -82,12 +90,6 @@
 	r = NSMakeRange(0, size);
 	iset = [NSIndexSet indexSetWithIndexesInRange:r];
 	[programs insertObjects:temp atIndexes:iset];
-	
-//	for (int i = 0; i < size; i++) {
-//		NSString *program = [programs lastObject];
-//		[programs removeLastObject];
-//		[programs insertObject:program atIndex:0];
-//	}
 }
 
 - (void)exchange:(NSMutableArray<NSString *> *)programs position:(int)p1 position:(int)p2
