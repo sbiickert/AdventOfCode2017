@@ -15,6 +15,7 @@
 		37742F73298B61ED0035557A /* AOCDay07.m in Sources */ = {isa = PBXBuildFile; fileRef = 37742F72298B61ED0035557A /* AOCDay07.m */; };
 		378DC170298E176C0011F0E7 /* AOCDay09.m in Sources */ = {isa = PBXBuildFile; fileRef = 378DC16F298E176C0011F0E7 /* AOCDay09.m */; };
 		3794A30729993DAE000843C2 /* AOCDay15.m in Sources */ = {isa = PBXBuildFile; fileRef = 3794A30629993DAE000843C2 /* AOCDay15.m */; };
+		3794A30A2999C4AE000843C2 /* AOCDay16.m in Sources */ = {isa = PBXBuildFile; fileRef = 3794A3082999C4AE000843C2 /* AOCDay16.m */; };
 		379992522992D089007E57DE /* AOCDay12.m in Sources */ = {isa = PBXBuildFile; fileRef = 379992512992D089007E57DE /* AOCDay12.m */; };
 		37B03044298F60580085FF31 /* AOCDay10.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B03042298F60580085FF31 /* AOCDay10.m */; };
 		37B22580298A0C0E00DD5140 /* AOCDay05.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B2257F298A0C0E00DD5140 /* AOCDay05.m */; };
@@ -60,6 +61,8 @@
 		378DC16F298E176C0011F0E7 /* AOCDay09.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AOCDay09.m; sourceTree = "<group>"; };
 		3794A30529993DAE000843C2 /* AOCDay15.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AOCDay15.h; sourceTree = "<group>"; };
 		3794A30629993DAE000843C2 /* AOCDay15.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AOCDay15.m; sourceTree = "<group>"; };
+		3794A3082999C4AE000843C2 /* AOCDay16.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AOCDay16.m; sourceTree = "<group>"; };
+		3794A3092999C4AE000843C2 /* AOCDay16.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AOCDay16.h; sourceTree = "<group>"; };
 		379992502992D089007E57DE /* AOCDay12.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AOCDay12.h; sourceTree = "<group>"; };
 		379992512992D089007E57DE /* AOCDay12.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AOCDay12.m; sourceTree = "<group>"; };
 		37B03042298F60580085FF31 /* AOCDay10.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AOCDay10.m; sourceTree = "<group>"; };
@@ -154,6 +157,8 @@
 				B851FB4D299708690077F541 /* AOCDay14.m */,
 				3794A30529993DAE000843C2 /* AOCDay15.h */,
 				3794A30629993DAE000843C2 /* AOCDay15.m */,
+				3794A3092999C4AE000843C2 /* AOCDay16.h */,
+				3794A3082999C4AE000843C2 /* AOCDay16.m */,
 			);
 			path = AoC2017;
 			sourceTree = "<group>";
@@ -243,6 +248,7 @@
 				37DE7654298620E30016ED18 /* AOCExtent2D.m in Sources */,
 				37EE3D0B2989D94A0082231D /* AOCDay04.m in Sources */,
 				37B22580298A0C0E00DD5140 /* AOCDay05.m in Sources */,
+				3794A30A2999C4AE000843C2 /* AOCDay16.m in Sources */,
 				374EA81F2994260A0032FCFA /* AOCDay13.m in Sources */,
 				37624AE42988A3A700CFEC01 /* AOCDay03.m in Sources */,
 				37DE76562986F8EE0016ED18 /* AOCGrid2D.m in Sources */,
