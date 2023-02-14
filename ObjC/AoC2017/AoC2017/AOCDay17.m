@@ -36,7 +36,7 @@
 	NSInteger step = input[0].integerValue;
 	
 	result.part1 = [self solvePartOne: step];
-	result.part2 = [self solvePartTwo: input];
+	result.part2 = [self solvePartTwo: step];
 	
 	return result;
 }
@@ -56,9 +56,25 @@
 	return [NSString stringWithFormat:@"%ld", current.next.value];
 }
 
-- (NSString *)solvePartTwo:(NSArray<NSString *> *)input {
+- (NSString *)solvePartTwo:(NSInteger)stepSize {
+	CircularBufferNode *zero = [CircularBufferNode nodeWithValue:0];
 	
-	return @"World";
+	CircularBufferNode *current = zero;
+	for (NSInteger i = 1; i <= 50000000; i++) {
+		for (NSInteger step = 0; step < stepSize; step++) {
+			current = current.next;
+		}
+		[current insertAfter:[CircularBufferNode nodeWithValue:i]];
+		current = current.next;
+		if (i % 100000 == 0) {
+			// Interesting, the final value was in place by 2.4 million iterations done
+			NSLog(@"%ld zero -> %ld -> %ld -> %ld -> %ld -> %ld", i,
+				  zero.next.value, zero.next.next.value, zero.next.next.next.value,
+				  zero.next.next.next.next.value, zero.next.next.next.next.next.value );
+		}
+	}
+	
+	return [NSString stringWithFormat:@"%ld", zero.next.value];
 }
 
 @end
