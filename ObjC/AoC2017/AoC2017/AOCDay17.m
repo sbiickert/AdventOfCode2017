@@ -57,24 +57,17 @@
 }
 
 - (NSString *)solvePartTwo:(NSInteger)stepSize {
-	CircularBufferNode *zero = [CircularBufferNode nodeWithValue:0];
+	NSInteger current = 0;
+	NSInteger afterZero = 1;
 	
-	CircularBufferNode *current = zero;
 	for (NSInteger i = 1; i <= 50000000; i++) {
-		for (NSInteger step = 0; step < stepSize; step++) {
-			current = current.next;
+		current = (current + stepSize) % i;
+		if (current == 0) {
+			afterZero = i;
 		}
-		[current insertAfter:[CircularBufferNode nodeWithValue:i]];
-		current = current.next;
-		if (i % 100000 == 0) {
-			// Interesting, the final value was in place by 2.4 million iterations done
-			NSLog(@"%ld zero -> %ld -> %ld -> %ld -> %ld -> %ld", i,
-				  zero.next.value, zero.next.next.value, zero.next.next.next.value,
-				  zero.next.next.next.next.value, zero.next.next.next.next.next.value );
-		}
+		current++;
 	}
-	
-	return [NSString stringWithFormat:@"%ld", zero.next.value];
+	return [NSString stringWithFormat:@"%ld", afterZero];
 }
 
 @end
