@@ -2,7 +2,7 @@
 //  AOCDay16.h
 //  AoC2017
 //
-//  Created by Simon Biickert on 2023-01-28.
+//  Created by Simon Biickert .
 //
 
 #import "AOCSolution.h"

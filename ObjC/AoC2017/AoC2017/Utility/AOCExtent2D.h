@@ -2,7 +2,7 @@
 //  AOCExtent2D.h
 //  AoC2017
 //
-//  Created by Simon Biickert on 2023-01-28.
+//  Created by Simon Biickert .
 //
 #import "AOCCoord2D.h"
 

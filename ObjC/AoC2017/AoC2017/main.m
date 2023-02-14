@@ -2,20 +2,20 @@
 //  main.m
 //  AoC2017
 //
-//  Created by Simon Biickert on 2023-01-28.
+//  Created by Simon Biickert .
 //
 
 #import <Foundation/Foundation.h>
 #import "AOCSolution.h"
 #import "AOCInput.h"
 
-#import "AOCDay16.h"
+#import "AOCDay17.h"
 
 int main(int argc, const char * argv[]) {
 	@autoreleasepool {
 		printf("%s", [@"Advent of Code 2017\n" cStringUsingEncoding:NSUTF8StringEncoding]);
 		
-		AOCSolution *s = [[AOCDay16 alloc] init];
+		AOCSolution *s = [[AOCDay17 alloc] init];
 		
 //		AOCInput *i = [[AOCInput getTestsForSolution:s] objectAtIndex:0];
 		AOCInput *i = [AOCInput getChallengeForSolution:s];

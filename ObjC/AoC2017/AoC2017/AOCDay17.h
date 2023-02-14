@@ -1,5 +1,5 @@
 //
-//  AOCDay06.h
+//  AOCDay17.h
 //  AoC2017
 //
 //  Created by Simon Biickert .
@@ -8,6 +8,6 @@
 #import "AOCSolution.h"
 #import "AOCInput.h"
 
-@interface AOCDay06 : AOCSolution
+@interface AOCDay17 : AOCSolution
 
 @end
