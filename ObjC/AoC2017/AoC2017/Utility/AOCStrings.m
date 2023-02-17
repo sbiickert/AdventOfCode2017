@@ -57,5 +57,13 @@
 									  withTemplate:withTemplate];
 }
 
+- (BOOL)isAllDigits
+{
+	NSMutableCharacterSet* nonNumbers = [[[NSCharacterSet decimalDigitCharacterSet] invertedSet] mutableCopy];
+	[nonNumbers removeCharactersInString:@"-"];
+	NSRange r = [self rangeOfCharacterFromSet: nonNumbers];
+	return r.location == NSNotFound && self.length > 0;
+}
+
 
 @end

@@ -12,5 +12,5 @@
 - (void)print;
 - (void)println;
 - (NSString *)stringByReplacingWithPattern:(NSString *)pattern withTemplate:(NSString *)withTemplate error:(NSError **)error;
-
+- (BOOL)isAllDigits;
 @end
