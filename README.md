@@ -21,3 +21,7 @@ Things that have surprised me (pleasantly):
 - And speaking of NSArray, [valueForKey](https://developer.apple.com/documentation/foundation/nsarray/1412219-valueforkey). It is what is called a map in other languages and covers a lot of what I would use a map for.
 
 Overall, I'm pretty enthusiastic at this point. I imagine that at some point I'm going to run into long integers, so I've started tracking numbers in NSInteger (i.e. a long) and NSNumber.
+
+## 18 Days Solved in ObjC
+
+The language and tools continue to impress. I suppose the biggest annoyance is wrapping/unwrapping integers in NSNumber in order to put them into NSArray, NSDictionary. It's not that big a deal, but it *feels* like something to avoid. Most days I look at my code and I like what I see.
