@@ -34,7 +34,7 @@
 	AOCGrid2D *tubes = [self parseGrid:input];
 	
 	result.part1 = [self solvePartOne: tubes];
-	result.part2 = [self solvePartTwo: input];
+	result.part2 = [self solvePartTwo: tubes];
 	
 	return result;
 }
@@ -49,9 +49,15 @@
 	return [p.collection componentsJoinedByString:@""];
 }
 
-- (NSString *)solvePartTwo:(NSArray<NSString *> *)input {
+- (NSString *)solvePartTwo:(AOCGrid2D *)tubes {
+	LostPacket *p = [[LostPacket alloc] initAt:[self findStart:tubes]];
 	
-	return @"World";
+	int moveCount = 0;
+	while ([p move:tubes]) {
+		moveCount++;
+	}
+	
+	return [NSString stringWithFormat:@"%d", moveCount];
 }
 
 - (AOCGrid2D *)parseGrid:(NSArray<NSString *> *)input
