@@ -23,6 +23,7 @@
 		37B22580298A0C0E00DD5140 /* AOCDay05.m in Sources */ = {isa = PBXBuildFile; fileRef = 37B2257F298A0C0E00DD5140 /* AOCDay05.m */; };
 		37BF9BAC29856B4700E7B34D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 37BF9BAB29856B4700E7B34D /* main.m */; };
 		37BF9BB429856B6000E7B34D /* AOCDay01.m in Sources */ = {isa = PBXBuildFile; fileRef = 37BF9BB329856B6000E7B34D /* AOCDay01.m */; };
+		37D2475029A0785F00787687 /* AOCDay19.m in Sources */ = {isa = PBXBuildFile; fileRef = 37D2474F29A0785F00787687 /* AOCDay19.m */; };
 		37DE7647298570490016ED18 /* AOCSolution.m in Sources */ = {isa = PBXBuildFile; fileRef = 37DE7644298570480016ED18 /* AOCSolution.m */; };
 		37DE7648298570490016ED18 /* AOCInput.m in Sources */ = {isa = PBXBuildFile; fileRef = 37DE7646298570480016ED18 /* AOCInput.m */; };
 		37DE764E2986161F0016ED18 /* AOCStrings.m in Sources */ = {isa = PBXBuildFile; fileRef = 37DE764D2986161F0016ED18 /* AOCStrings.m */; };
@@ -79,6 +80,8 @@
 		37BF9BAB29856B4700E7B34D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		37BF9BB329856B6000E7B34D /* AOCDay01.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AOCDay01.m; sourceTree = "<group>"; };
 		37BF9BC929856F1000E7B34D /* AoC2017.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AoC2017.entitlements; sourceTree = "<group>"; };
+		37D2474E29A0785F00787687 /* AOCDay19.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AOCDay19.h; sourceTree = "<group>"; };
+		37D2474F29A0785F00787687 /* AOCDay19.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AOCDay19.m; sourceTree = "<group>"; };
 		37DE7643298570480016ED18 /* AOCSolution.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AOCSolution.h; sourceTree = "<group>"; };
 		37DE7644298570480016ED18 /* AOCSolution.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AOCSolution.m; sourceTree = "<group>"; };
 		37DE7645298570480016ED18 /* AOCInput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AOCInput.h; sourceTree = "<group>"; };
@@ -169,6 +172,8 @@
 				3779E1CD299C30AF0057E12B /* AOCDay17.m */,
 				377532E929A019D800255842 /* AOCDay18.h */,
 				377532EA29A019D800255842 /* AOCDay18.m */,
+				37D2474E29A0785F00787687 /* AOCDay19.h */,
+				37D2474F29A0785F00787687 /* AOCDay19.m */,
 			);
 			path = AoC2017;
 			sourceTree = "<group>";
@@ -260,6 +265,7 @@
 				37EE3D0B2989D94A0082231D /* AOCDay04.m in Sources */,
 				37B22580298A0C0E00DD5140 /* AOCDay05.m in Sources */,
 				3794A30A2999C4AE000843C2 /* AOCDay16.m in Sources */,
+				37D2475029A0785F00787687 /* AOCDay19.m in Sources */,
 				374EA81F2994260A0032FCFA /* AOCDay13.m in Sources */,
 				37624AE42988A3A700CFEC01 /* AOCDay03.m in Sources */,
 				37DE76562986F8EE0016ED18 /* AOCGrid2D.m in Sources */,
