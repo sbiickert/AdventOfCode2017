@@ -34,23 +34,14 @@
 	struct AOCResult result = [super solveInputIndex:index inFile:filename];
 	
 	NSArray<NSString *> *input = [AOCInput readGroupedInputFile:filename atIndex:index];
-	NSMutableArray<D20Particle *> *particles = [NSMutableArray array];
-	int i = 0;
-	for (NSString *line in input) {
-		D20Particle *p = [D20Particle particle:line];
-		p.pid = i;
-		[particles addObject:p];
-		i++;
-	}
 	
-	result.part1 = [self solvePartOne: particles];
-	result.part2 = [self solvePartTwo: input];
+	result.part1 = [self solvePartOne: [self parseParticles:input]];
+	result.part2 = [self solvePartTwo: [self parseParticles:input]];
 	
 	return result;
 }
 
 - (NSString *)solvePartOne:(NSArray<D20Particle *> *)particles {
-	AOCCoord3D *origin = [AOCCoord3D origin];
 	NSArray<D20Particle *> *sorted = [self sortByMD:particles];
 	BOOL isStable = NO;
 	int i = 0;
@@ -74,13 +65,43 @@
 		i++;
 	}
 	
-	// 251 too high
 	return [NSString stringWithFormat:@"%d", sorted[0].pid];
 }
 
-- (NSString *)solvePartTwo:(NSArray<NSString *> *)input {
+- (NSString *)solvePartTwo:(NSArray<D20Particle *> *)particles {
+	NSArray<D20Particle *> *remaining = [self collide:particles];
+	BOOL isStable = NO;
+	int i = 0;
+	NSInteger prevCount = remaining.count+1;
+	while (!isStable) {
+		if (i % 500 == 0) {
+			//NSLog(@"%@", topTen);
+			if (remaining.count == prevCount) {
+				isStable = YES;
+			}
+			prevCount = remaining.count;
+		}
+		for (D20Particle *particle in remaining) {
+			[particle update];
+		}
+		remaining = [self collide:remaining];
+		i++;
+	}
 	
-	return @"World";
+	return [NSString stringWithFormat:@"%ld", remaining.count];
+}
+
+- (NSArray<D20Particle *> *)parseParticles:(NSArray<NSString *> *)input
+{
+	NSMutableArray<D20Particle *> *particles = [NSMutableArray array];
+	int i = 0;
+	for (NSString *line in input) {
+		D20Particle *p = [D20Particle particle:line];
+		p.pid = i;
+		[particles addObject:p];
+		i++;
+	}
+	return particles;
 }
 
 - (NSArray<D20Particle *> *)sortByMD:(NSArray<D20Particle *> *)particles
@@ -98,6 +119,27 @@
 		}
 		return (NSComparisonResult)NSOrderedSame;
 	}];
+}
+
+- (NSArray<D20Particle *> *)collide:(NSArray<D20Particle *> *)particles
+{
+	NSMutableDictionary<AOCCoord3D *, NSMutableArray<D20Particle *> *> *dict = [NSMutableDictionary dictionary];
+	
+	for (D20Particle *p in particles) {
+		if (dict[p.p] == nil) {
+			dict[p.p] = [NSMutableArray array];
+		}
+		[dict[p.p] addObject:p];
+	}
+	
+	NSMutableArray<D20Particle *> *result = [NSMutableArray array];
+	for (NSArray *arr in dict.allValues) {
+		if (arr.count == 1) {
+			[result addObject:arr.firstObject];
+		}
+	}
+	
+	return result;
 }
 
 @end
