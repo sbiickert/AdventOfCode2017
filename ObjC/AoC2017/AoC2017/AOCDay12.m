@@ -4,7 +4,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "AOCDay12.h"
+#import "AOCDay.h"
 
 @implementation AOCDay12
 

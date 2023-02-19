@@ -49,3 +49,27 @@ extern NSString * const RIGHT;
 - (int)manhattanDistanceTo:(AOCCoord2D *)other;
 
 @end
+
+@interface AOCCoord3D : NSObject <NSCopying>
+
++ (AOCCoord3D *)origin;
++ (AOCCoord3D *)x:(int)x y:(int)y z:(int)z;
++ (AOCCoord3D *)copyOf:(AOCCoord3D *)other;
+//+ (AOCCoord2D *)offset:(NSString *)direction;
+
+- (AOCCoord3D *)initX:(int)x y:(int)y z:(int)z;
+
+@property (readonly) int x;
+@property (readonly) int y;
+@property (readonly) int z;
+
+- (BOOL)isEqualToCoord3D:(AOCCoord3D *)other;
+
+- (AOCCoord3D *)add:(AOCCoord3D *)other;
+- (AOCCoord3D *)delta:(AOCCoord3D *)other;
+//- (AOCCoord3D *)offset:(NSString *)direction;
+
+- (double)distanceTo:(AOCCoord3D *)other;
+- (int)manhattanDistanceTo:(AOCCoord3D *)other;
+
+@end

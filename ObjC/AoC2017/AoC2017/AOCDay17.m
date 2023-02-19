@@ -4,7 +4,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "AOCDay17.h"
+#import "AOCDay.h"
 
 @interface CircularBufferNode : NSObject
 

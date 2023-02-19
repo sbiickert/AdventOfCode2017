@@ -6,7 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "AOCCoord2D.h"
+#import "AOCCoord.h"
 #include "math.h"
 
 NSString * const NORTH = @"north";
@@ -164,6 +164,106 @@ static NSDictionary<NSString *, AOCCoord2D *> *_offsets = nil;
 - (id)copyWithZone:(NSZone *)zone
 {
 	AOCCoord2D *copy = [[AOCCoord2D allocWithZone:zone] initX:_x y:_y];
+	return copy;
+}
+
+@end
+
+@implementation AOCCoord3D
+
++ (AOCCoord3D *)origin
+{
+	return [[AOCCoord3D alloc] initX:0 y:0 z:0];
+}
+
++ (AOCCoord3D *)x:(int)x y:(int)y z:(int)z
+{
+	return [[AOCCoord3D alloc] initX:x y:y z:z];
+}
+
++ (AOCCoord3D *)copyOf:(AOCCoord3D *)other
+{
+	return [[AOCCoord3D alloc] initX:other.x y:other.y z:other.z];
+}
+
+//+ (AOCCoord2D *)offset:(NSString *)direction;
+
+- (AOCCoord3D *)initX:(int)x y:(int)y z:(int)z
+{
+	self = [super init];
+	_x = x;
+	_y = y;
+	_z = z;
+	return self;
+}
+
+- (NSString *)description {
+	return [NSString stringWithFormat:@"[%d,%d,%d]", self.x, self.y, self.z];
+}
+
+- (AOCCoord3D *)add:(AOCCoord3D *)other
+{
+	if (other == nil) {
+		return [AOCCoord3D copyOf:self];
+	}
+	return [AOCCoord3D x:self.x + other.x y:self.y + other.y z:self.z + other.z];
+}
+
+- (AOCCoord3D *)delta:(AOCCoord3D *)other
+{
+	if (other == nil) {
+		return [AOCCoord3D copyOf:self];
+	}
+	return [AOCCoord3D x:other.x - self.x
+					   y:other.y - self.y
+					   z:other.z - self.z];
+}
+//- (AOCCoord3D *)offset:(NSString *)direction;
+
+- (double)distanceTo:(AOCCoord3D *)other
+{
+	NSLog(@"AOCCoord3D::distance is not implemented yet.");
+	return 0.0;
+}
+
+- (int)manhattanDistanceTo:(AOCCoord3D *)other
+{
+	AOCCoord3D *delta = [self delta:other];
+	return abs(delta.x) + abs(delta.y) + abs(delta.z);
+}
+
+- (BOOL)isEqualToCoord3D:(AOCCoord3D *)other
+{
+	if (other == nil) {
+		return NO;
+	}
+	return self.x == other.x && self.y == other.y && self.z == other.z;
+}
+
+- (BOOL)isEqual:(nullable id)object {
+	if (object == nil) {
+		return NO;
+	}
+
+	if (self == object) {
+		return YES;
+	}
+
+	if (![object isKindOfClass:[AOCCoord3D class]]) {
+		return NO;
+	}
+
+	return [self isEqualToCoord3D:(AOCCoord3D *)object];
+}
+
+- (NSUInteger)hash {
+	return [@(self.x) hash] ^ [@(self.y) hash] ^ [@(self.z) hash];
+}
+
+// NSCopying (to let this be a key in NSDictionary)
+- (id)copyWithZone:(NSZone *)zone
+{
+	AOCCoord3D *copy = [[AOCCoord3D allocWithZone:zone] initX:_x y:_y z:_z];
 	return copy;
 }
 

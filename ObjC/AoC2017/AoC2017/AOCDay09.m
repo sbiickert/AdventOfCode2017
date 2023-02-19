@@ -4,7 +4,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "AOCDay09.h"
+#import "AOCDay.h"
 #import "AOCStrings.h"
 
 static NSString *ignoreRegex = @"\\!.{1}";

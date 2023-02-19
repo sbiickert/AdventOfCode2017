@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		374E9089298DBD3400B45A89 /* AOCDay08.m in Sources */ = {isa = PBXBuildFile; fileRef = 374E9087298DBD3400B45A89 /* AOCDay08.m */; };
 		374EA81F2994260A0032FCFA /* AOCDay13.m in Sources */ = {isa = PBXBuildFile; fileRef = 374EA81E2994260A0032FCFA /* AOCDay13.m */; };
+		3754356029A1BB3600DD97B3 /* AOCDay20.m in Sources */ = {isa = PBXBuildFile; fileRef = 3754355F29A1BB3600DD97B3 /* AOCDay20.m */; };
 		37583133298AAB3000FB311C /* AOCDay06.m in Sources */ = {isa = PBXBuildFile; fileRef = 37583132298AAB3000FB311C /* AOCDay06.m */; };
 		37624AE42988A3A700CFEC01 /* AOCDay03.m in Sources */ = {isa = PBXBuildFile; fileRef = 37624AE32988A3A700CFEC01 /* AOCDay03.m */; };
 		376C911029929545004C493C /* AOCDay11.m in Sources */ = {isa = PBXBuildFile; fileRef = 376C910F29929545004C493C /* AOCDay11.m */; };
@@ -27,7 +28,7 @@
 		37DE7647298570490016ED18 /* AOCSolution.m in Sources */ = {isa = PBXBuildFile; fileRef = 37DE7644298570480016ED18 /* AOCSolution.m */; };
 		37DE7648298570490016ED18 /* AOCInput.m in Sources */ = {isa = PBXBuildFile; fileRef = 37DE7646298570480016ED18 /* AOCInput.m */; };
 		37DE764E2986161F0016ED18 /* AOCStrings.m in Sources */ = {isa = PBXBuildFile; fileRef = 37DE764D2986161F0016ED18 /* AOCStrings.m */; };
-		37DE7650298618EE0016ED18 /* AOCCoord2D.m in Sources */ = {isa = PBXBuildFile; fileRef = 37DE764F298618EE0016ED18 /* AOCCoord2D.m */; };
+		37DE7650298618EE0016ED18 /* AOCCoord.m in Sources */ = {isa = PBXBuildFile; fileRef = 37DE764F298618EE0016ED18 /* AOCCoord.m */; };
 		37DE7654298620E30016ED18 /* AOCExtent2D.m in Sources */ = {isa = PBXBuildFile; fileRef = 37DE7653298620E30016ED18 /* AOCExtent2D.m */; };
 		37DE76562986F8EE0016ED18 /* AOCGrid2D.m in Sources */ = {isa = PBXBuildFile; fileRef = 37DE76552986F8EE0016ED18 /* AOCGrid2D.m */; };
 		37DE7659298813E80016ED18 /* AOCDay02.m in Sources */ = {isa = PBXBuildFile; fileRef = 37DE7658298813E80016ED18 /* AOCDay02.m */; };
@@ -49,57 +50,40 @@
 
 /* Begin PBXFileReference section */
 		374E9087298DBD3400B45A89 /* AOCDay08.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AOCDay08.m; sourceTree = "<group>"; };
-		374E908A298DBDCF00B45A89 /* AOCDay08.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AOCDay08.h; sourceTree = "<group>"; };
-		374EA81D2994260A0032FCFA /* AOCDay13.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AOCDay13.h; sourceTree = "<group>"; };
 		374EA81E2994260A0032FCFA /* AOCDay13.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AOCDay13.m; sourceTree = "<group>"; };
-		37583131298AAB3000FB311C /* AOCDay06.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AOCDay06.h; sourceTree = "<group>"; };
+		3754355F29A1BB3600DD97B3 /* AOCDay20.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AOCDay20.m; sourceTree = "<group>"; };
 		37583132298AAB3000FB311C /* AOCDay06.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AOCDay06.m; sourceTree = "<group>"; };
-		37624AE22988A39700CFEC01 /* AOCDay03.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AOCDay03.h; sourceTree = "<group>"; };
 		37624AE32988A3A700CFEC01 /* AOCDay03.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AOCDay03.m; sourceTree = "<group>"; };
-		376C910E29929545004C493C /* AOCDay11.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AOCDay11.h; sourceTree = "<group>"; };
 		376C910F29929545004C493C /* AOCDay11.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AOCDay11.m; sourceTree = "<group>"; };
-		37742F71298B61ED0035557A /* AOCDay07.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AOCDay07.h; sourceTree = "<group>"; };
 		37742F72298B61ED0035557A /* AOCDay07.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AOCDay07.m; sourceTree = "<group>"; };
-		377532E929A019D800255842 /* AOCDay18.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AOCDay18.h; sourceTree = "<group>"; };
 		377532EA29A019D800255842 /* AOCDay18.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AOCDay18.m; sourceTree = "<group>"; };
 		3779E1CD299C30AF0057E12B /* AOCDay17.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AOCDay17.m; sourceTree = "<group>"; };
-		3779E1CE299C30AF0057E12B /* AOCDay17.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AOCDay17.h; sourceTree = "<group>"; };
-		378DC16E298E176C0011F0E7 /* AOCDay09.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AOCDay09.h; sourceTree = "<group>"; };
 		378DC16F298E176C0011F0E7 /* AOCDay09.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AOCDay09.m; sourceTree = "<group>"; };
-		3794A30529993DAE000843C2 /* AOCDay15.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AOCDay15.h; sourceTree = "<group>"; };
 		3794A30629993DAE000843C2 /* AOCDay15.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AOCDay15.m; sourceTree = "<group>"; };
 		3794A3082999C4AE000843C2 /* AOCDay16.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AOCDay16.m; sourceTree = "<group>"; };
-		3794A3092999C4AE000843C2 /* AOCDay16.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AOCDay16.h; sourceTree = "<group>"; };
-		379992502992D089007E57DE /* AOCDay12.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AOCDay12.h; sourceTree = "<group>"; };
 		379992512992D089007E57DE /* AOCDay12.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AOCDay12.m; sourceTree = "<group>"; };
 		37B03042298F60580085FF31 /* AOCDay10.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AOCDay10.m; sourceTree = "<group>"; };
-		37B03043298F60580085FF31 /* AOCDay10.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AOCDay10.h; sourceTree = "<group>"; };
-		37B2257E298A0C0E00DD5140 /* AOCDay05.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AOCDay05.h; sourceTree = "<group>"; };
 		37B2257F298A0C0E00DD5140 /* AOCDay05.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AOCDay05.m; sourceTree = "<group>"; };
 		37BF9BA829856B4700E7B34D /* AoC2017 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = AoC2017; sourceTree = BUILT_PRODUCTS_DIR; };
 		37BF9BAB29856B4700E7B34D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		37BF9BB329856B6000E7B34D /* AOCDay01.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AOCDay01.m; sourceTree = "<group>"; };
 		37BF9BC929856F1000E7B34D /* AoC2017.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AoC2017.entitlements; sourceTree = "<group>"; };
-		37D2474E29A0785F00787687 /* AOCDay19.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AOCDay19.h; sourceTree = "<group>"; };
 		37D2474F29A0785F00787687 /* AOCDay19.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AOCDay19.m; sourceTree = "<group>"; };
 		37DE7643298570480016ED18 /* AOCSolution.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AOCSolution.h; sourceTree = "<group>"; };
 		37DE7644298570480016ED18 /* AOCSolution.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AOCSolution.m; sourceTree = "<group>"; };
 		37DE7645298570480016ED18 /* AOCInput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AOCInput.h; sourceTree = "<group>"; };
 		37DE7646298570480016ED18 /* AOCInput.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AOCInput.m; sourceTree = "<group>"; };
-		37DE764A298576490016ED18 /* AOCDay01.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AOCDay01.h; sourceTree = "<group>"; };
+		37DE764A298576490016ED18 /* AOCDay.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AOCDay.h; sourceTree = "<group>"; };
 		37DE764B2986155B0016ED18 /* AOCStrings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AOCStrings.h; sourceTree = "<group>"; };
 		37DE764D2986161F0016ED18 /* AOCStrings.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AOCStrings.m; sourceTree = "<group>"; };
-		37DE764F298618EE0016ED18 /* AOCCoord2D.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AOCCoord2D.m; sourceTree = "<group>"; };
-		37DE7651298618FC0016ED18 /* AOCCoord2D.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AOCCoord2D.h; sourceTree = "<group>"; };
+		37DE764F298618EE0016ED18 /* AOCCoord.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AOCCoord.m; sourceTree = "<group>"; };
+		37DE7651298618FC0016ED18 /* AOCCoord.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AOCCoord.h; sourceTree = "<group>"; };
 		37DE7652298620CC0016ED18 /* AOCExtent2D.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AOCExtent2D.h; sourceTree = "<group>"; };
 		37DE7653298620E30016ED18 /* AOCExtent2D.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AOCExtent2D.m; sourceTree = "<group>"; };
 		37DE76552986F8EE0016ED18 /* AOCGrid2D.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AOCGrid2D.m; sourceTree = "<group>"; };
 		37DE76572986F8FE0016ED18 /* AOCGrid2D.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AOCGrid2D.h; sourceTree = "<group>"; };
 		37DE7658298813E80016ED18 /* AOCDay02.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AOCDay02.m; sourceTree = "<group>"; };
-		37DE765A298813F60016ED18 /* AOCDay02.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AOCDay02.h; sourceTree = "<group>"; };
-		37EE3D092989D93D0082231D /* AOCDay04.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AOCDay04.h; sourceTree = "<group>"; };
 		37EE3D0A2989D94A0082231D /* AOCDay04.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AOCDay04.m; sourceTree = "<group>"; };
-		B851FB4C299708690077F541 /* AOCDay14.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AOCDay14.h; sourceTree = "<group>"; };
 		B851FB4D299708690077F541 /* AOCDay14.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AOCDay14.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -136,44 +120,27 @@
 				37BF9BC929856F1000E7B34D /* AoC2017.entitlements */,
 				37BF9BAB29856B4700E7B34D /* main.m */,
 				37DE7649298570700016ED18 /* Utility */,
-				37DE764A298576490016ED18 /* AOCDay01.h */,
+				37DE764A298576490016ED18 /* AOCDay.h */,
 				37BF9BB329856B6000E7B34D /* AOCDay01.m */,
-				37DE765A298813F60016ED18 /* AOCDay02.h */,
 				37DE7658298813E80016ED18 /* AOCDay02.m */,
-				37624AE22988A39700CFEC01 /* AOCDay03.h */,
 				37624AE32988A3A700CFEC01 /* AOCDay03.m */,
-				37EE3D092989D93D0082231D /* AOCDay04.h */,
 				37EE3D0A2989D94A0082231D /* AOCDay04.m */,
-				37B2257E298A0C0E00DD5140 /* AOCDay05.h */,
 				37B2257F298A0C0E00DD5140 /* AOCDay05.m */,
-				37583131298AAB3000FB311C /* AOCDay06.h */,
 				37583132298AAB3000FB311C /* AOCDay06.m */,
-				37742F71298B61ED0035557A /* AOCDay07.h */,
 				37742F72298B61ED0035557A /* AOCDay07.m */,
-				374E908A298DBDCF00B45A89 /* AOCDay08.h */,
 				374E9087298DBD3400B45A89 /* AOCDay08.m */,
-				378DC16E298E176C0011F0E7 /* AOCDay09.h */,
 				378DC16F298E176C0011F0E7 /* AOCDay09.m */,
-				37B03043298F60580085FF31 /* AOCDay10.h */,
 				37B03042298F60580085FF31 /* AOCDay10.m */,
-				376C910E29929545004C493C /* AOCDay11.h */,
 				376C910F29929545004C493C /* AOCDay11.m */,
-				379992502992D089007E57DE /* AOCDay12.h */,
 				379992512992D089007E57DE /* AOCDay12.m */,
-				374EA81D2994260A0032FCFA /* AOCDay13.h */,
 				374EA81E2994260A0032FCFA /* AOCDay13.m */,
-				B851FB4C299708690077F541 /* AOCDay14.h */,
 				B851FB4D299708690077F541 /* AOCDay14.m */,
-				3794A30529993DAE000843C2 /* AOCDay15.h */,
 				3794A30629993DAE000843C2 /* AOCDay15.m */,
-				3794A3092999C4AE000843C2 /* AOCDay16.h */,
 				3794A3082999C4AE000843C2 /* AOCDay16.m */,
-				3779E1CE299C30AF0057E12B /* AOCDay17.h */,
 				3779E1CD299C30AF0057E12B /* AOCDay17.m */,
-				377532E929A019D800255842 /* AOCDay18.h */,
 				377532EA29A019D800255842 /* AOCDay18.m */,
-				37D2474E29A0785F00787687 /* AOCDay19.h */,
 				37D2474F29A0785F00787687 /* AOCDay19.m */,
+				3754355F29A1BB3600DD97B3 /* AOCDay20.m */,
 			);
 			path = AoC2017;
 			sourceTree = "<group>";
@@ -187,8 +154,8 @@
 				37DE7644298570480016ED18 /* AOCSolution.m */,
 				37DE764B2986155B0016ED18 /* AOCStrings.h */,
 				37DE764D2986161F0016ED18 /* AOCStrings.m */,
-				37DE7651298618FC0016ED18 /* AOCCoord2D.h */,
-				37DE764F298618EE0016ED18 /* AOCCoord2D.m */,
+				37DE7651298618FC0016ED18 /* AOCCoord.h */,
+				37DE764F298618EE0016ED18 /* AOCCoord.m */,
 				37DE7652298620CC0016ED18 /* AOCExtent2D.h */,
 				37DE7653298620E30016ED18 /* AOCExtent2D.m */,
 				37DE76572986F8FE0016ED18 /* AOCGrid2D.h */,
@@ -256,7 +223,8 @@
 			files = (
 				37DE7648298570490016ED18 /* AOCInput.m in Sources */,
 				376C911029929545004C493C /* AOCDay11.m in Sources */,
-				37DE7650298618EE0016ED18 /* AOCCoord2D.m in Sources */,
+				37DE7650298618EE0016ED18 /* AOCCoord.m in Sources */,
+				3754356029A1BB3600DD97B3 /* AOCDay20.m in Sources */,
 				379992522992D089007E57DE /* AOCDay12.m in Sources */,
 				377532EB29A019D800255842 /* AOCDay18.m in Sources */,
 				37BF9BAC29856B4700E7B34D /* main.m in Sources */,

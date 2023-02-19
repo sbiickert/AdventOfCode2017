@@ -4,7 +4,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "AOCDay15.h"
+#import "AOCDay.h"
 
 static NSInteger A_FACTOR = 16807;
 static NSInteger B_FACTOR = 48271;

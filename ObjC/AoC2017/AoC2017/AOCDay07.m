@@ -4,7 +4,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "AOCDay07.h"
+#import "AOCDay.h"
 
 
 @interface BalancingTower : NSObject

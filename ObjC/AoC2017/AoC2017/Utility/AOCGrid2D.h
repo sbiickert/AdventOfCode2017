@@ -4,7 +4,7 @@
 //
 //  Created by Simon Biickert on 2023-01-29.
 //
-#import "AOCCoord2D.h"
+#import "AOCCoord.h"
 #import "AOCExtent2D.h"
 
 extern NSString * const ROOK;

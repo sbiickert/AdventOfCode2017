@@ -1,26 +1,10 @@
 //
-//  AOCDay<##>.h
-//  AoC2017
-//
-//  Created by Simon Biickert on 2023-01-28.
-//
-
-#import "AOCSolution.h"
-#import "AOCInput.h"
-
-@interface AOCDay<##> : AOCSolution
-
-@end
-
-
-
-//
 //  AOCDay<##>.m
 //  AoC2017
 //
 
 #import <Foundation/Foundation.h>
-#import "AOCDay<##>.h"
+#import "AOCDay.h"
 
 @implementation AOCDay<##>
 

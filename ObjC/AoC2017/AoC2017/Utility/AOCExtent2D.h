@@ -4,7 +4,7 @@
 //
 //  Created by Simon Biickert .
 //
-#import "AOCCoord2D.h"
+#import "AOCCoord.h"
 
 @interface AOCExtent2D : NSObject
 

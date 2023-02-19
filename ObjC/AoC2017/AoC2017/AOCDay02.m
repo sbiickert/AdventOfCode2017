@@ -4,7 +4,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "AOCDay02.h"
+#import "AOCDay.h"
 #include "limits.h"
 
 @implementation AOCDay02

@@ -4,7 +4,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "AOCDay18.h"
+#import "AOCDay.h"
 #import "AOCStrings.h"
 
 @interface DuetInstruction : NSObject

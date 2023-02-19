@@ -4,7 +4,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "AOCDay08.h"
+#import "AOCDay.h"
 
 @interface AOCInstruction : NSObject
 
