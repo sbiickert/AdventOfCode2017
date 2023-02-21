@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		374E9089298DBD3400B45A89 /* AOCDay08.m in Sources */ = {isa = PBXBuildFile; fileRef = 374E9087298DBD3400B45A89 /* AOCDay08.m */; };
 		374EA81F2994260A0032FCFA /* AOCDay13.m in Sources */ = {isa = PBXBuildFile; fileRef = 374EA81E2994260A0032FCFA /* AOCDay13.m */; };
+		374F462029A3C81B00D3B673 /* AOCDay21.m in Sources */ = {isa = PBXBuildFile; fileRef = 374F461F29A3C81B00D3B673 /* AOCDay21.m */; };
 		3754356029A1BB3600DD97B3 /* AOCDay20.m in Sources */ = {isa = PBXBuildFile; fileRef = 3754355F29A1BB3600DD97B3 /* AOCDay20.m */; };
 		37583133298AAB3000FB311C /* AOCDay06.m in Sources */ = {isa = PBXBuildFile; fileRef = 37583132298AAB3000FB311C /* AOCDay06.m */; };
 		37624AE42988A3A700CFEC01 /* AOCDay03.m in Sources */ = {isa = PBXBuildFile; fileRef = 37624AE32988A3A700CFEC01 /* AOCDay03.m */; };
@@ -51,6 +52,7 @@
 /* Begin PBXFileReference section */
 		374E9087298DBD3400B45A89 /* AOCDay08.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AOCDay08.m; sourceTree = "<group>"; };
 		374EA81E2994260A0032FCFA /* AOCDay13.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AOCDay13.m; sourceTree = "<group>"; };
+		374F461F29A3C81B00D3B673 /* AOCDay21.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AOCDay21.m; sourceTree = "<group>"; };
 		3754355F29A1BB3600DD97B3 /* AOCDay20.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AOCDay20.m; sourceTree = "<group>"; };
 		37583132298AAB3000FB311C /* AOCDay06.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AOCDay06.m; sourceTree = "<group>"; };
 		37624AE32988A3A700CFEC01 /* AOCDay03.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AOCDay03.m; sourceTree = "<group>"; };
@@ -141,6 +143,7 @@
 				377532EA29A019D800255842 /* AOCDay18.m */,
 				37D2474F29A0785F00787687 /* AOCDay19.m */,
 				3754355F29A1BB3600DD97B3 /* AOCDay20.m */,
+				374F461F29A3C81B00D3B673 /* AOCDay21.m */,
 			);
 			path = AoC2017;
 			sourceTree = "<group>";
@@ -237,6 +240,7 @@
 				374EA81F2994260A0032FCFA /* AOCDay13.m in Sources */,
 				37624AE42988A3A700CFEC01 /* AOCDay03.m in Sources */,
 				37DE76562986F8EE0016ED18 /* AOCGrid2D.m in Sources */,
+				374F462029A3C81B00D3B673 /* AOCDay21.m in Sources */,
 				3779E1CF299C30AF0057E12B /* AOCDay17.m in Sources */,
 				37DE7647298570490016ED18 /* AOCSolution.m in Sources */,
 				B851FB4E299708690077F541 /* AOCDay14.m in Sources */,

@@ -201,5 +201,17 @@ NSString * const HEX = @"hex";
 	}
 }
 
+- (NSDictionary<AOCCoord2D *, NSObject *> *)data
+{
+	return [_data copy];
+}
+
+- (BOOL)isEqualToGrid:(AOCGrid2D *)other
+{
+	return (self.defaultValue == other.defaultValue &&
+			[self.rule isEqualToString:other.rule] &&
+			[_data isEqualTo:other.data]);
+}
+
 
 @end

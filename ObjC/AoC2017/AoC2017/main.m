@@ -15,9 +15,9 @@ int main(int argc, const char * argv[]) {
 	@autoreleasepool {
 		printf("%s", [@"Advent of Code 2017\n" cStringUsingEncoding:NSUTF8StringEncoding]);
 		
-		AOCSolution *s = [[AOCDay20 alloc] init];
+		AOCSolution *s = [[AOCDay21 alloc] init];
 		
-//		AOCInput *i = [[AOCInput getTestsForSolution:s] objectAtIndex:1];
+//		AOCInput *i = [[AOCInput getTestsForSolution:s] objectAtIndex:0];
 		AOCInput *i = [AOCInput getChallengeForSolution:s];
 		
 		struct AOCResult r = [s solveInputIndex:i.index inFile:i.filename];

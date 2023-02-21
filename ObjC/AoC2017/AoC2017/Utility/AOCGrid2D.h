@@ -43,4 +43,7 @@ extern NSString * const HEX;
 - (void)printInvertedY:(BOOL)invert;
 - (void)printInvertedY:(BOOL)invert withOverlay:(NSDictionary<AOCCoord2D *, NSString *> *)overlay;
 
+- (NSDictionary<AOCCoord2D *, NSObject *> *)data;
+- (BOOL)isEqualToGrid:(AOCGrid2D *)other;
+
 @end
