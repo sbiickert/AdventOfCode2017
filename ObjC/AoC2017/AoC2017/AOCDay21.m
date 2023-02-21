@@ -45,14 +45,24 @@
 	NSArray<D21Rule *> *rules = [self parseRules:input];
 	
 	result.part1 = [self solvePartOne: image rules:rules];
-	result.part2 = [self solvePartTwo: input];
+	result.part2 = [self solvePartTwo: image rules:rules];
 	
 	return result;
 }
 
 - (NSString *)solvePartOne:(AOCGrid2D *)image rules:(NSArray<D21Rule *> *)rules {
 	// Test shows 2 iterations, challenge is 5
-	for (int iter = 1; iter <= (rules.count > 2 ? 5 : 2); iter++) {
+	return [self solvePart:image rules:rules count:(rules.count > 2 ? 5 : 2)];
+}
+
+- (NSString *)solvePartTwo:(AOCGrid2D *)image rules:(NSArray<D21Rule *> *)rules {
+	// Just brute forcing it. Only takes 1.5 minutes.
+	return [self solvePart:image rules:rules count:18];
+}
+
+- (NSString *)solvePart:(AOCGrid2D *)image rules:(NSArray<D21Rule *> *)rules count:(int)count
+{
+	for (int iter = 1; iter <= count; iter++) {
 		// Split image
 		NSArray<AOCGrid2D *> *images = [self splitImage:image];
 		
@@ -72,13 +82,9 @@
 		// Join image
 		image = [self joinImages:outputImages];
 	}
+	//[image print];
 	
 	return [NSString stringWithFormat:@"%ld", [image coordsWithValue:@"#"].count];
-}
-
-- (NSString *)solvePartTwo:(NSArray<NSString *> *)input {
-	
-	return @"World";
 }
 
 - (NSArray<D21Rule *> *)parseRules:(NSArray<NSString *> *)input
