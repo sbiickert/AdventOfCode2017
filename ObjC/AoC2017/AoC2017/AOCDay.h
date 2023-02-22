@@ -8,6 +8,8 @@
 #import "AOCSolution.h"
 #import "AOCInput.h"
 
+@interface AOCDay22 : AOCSolution
+@end
 @interface AOCDay21 : AOCSolution
 @end
 @interface AOCDay20 : AOCSolution

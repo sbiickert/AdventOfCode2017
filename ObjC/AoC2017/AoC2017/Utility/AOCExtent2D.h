@@ -21,6 +21,7 @@
 - (int)width;
 - (int)height;
 - (int)area;
+- (AOCCoord2D *)center;
 
 - (void)expandToFit:(AOCCoord2D *)coord;
 - (NSArray<AOCCoord2D *> *)allCoords;

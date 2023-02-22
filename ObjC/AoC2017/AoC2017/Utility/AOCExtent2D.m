@@ -78,6 +78,13 @@
 	return self.width * self.height;
 }
 
+- (AOCCoord2D *)center
+{
+	int x = self.width / 2;
+	int y = self.height / 2;
+	return [AOCCoord2D x:x y:y];
+}
+
 - (void)expandToFit:(AOCCoord2D *)coord
 {
 	if (coord.x < self.min.x) {
