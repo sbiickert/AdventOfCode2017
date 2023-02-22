@@ -17,6 +17,14 @@
 
 - (D22Carrier *)init:(AOCCoord2D *)startPosition;
 - (void)burst:(AOCGrid2D *)grid;
+- (NSInteger)incrementInfectionCount;
+- (void)turnCW;
+- (void)turnCCW;
+- (void)move;
+
+@end
+
+@interface D22EvolvedCarrier : D22Carrier
 
 @end
 
@@ -52,8 +60,16 @@
 }
 
 - (NSString *)solvePartTwo:(NSArray<NSString *> *)input {
-	
-	return @"World";
+	AOCGrid2D *grid = [self parseGrid:input];
+	D22EvolvedCarrier *virus = [[D22EvolvedCarrier alloc] init:grid.extent.center];
+//	[grid printInvertedY:NO withOverlay:@{virus.position: @"*"}];
+	for (int i = 1; i <= 10000000; i++)
+	{
+		[virus burst:grid];
+//		NSLog(@"%d", i);
+//		[grid printInvertedY:NO withOverlay:@{virus.position: @"*"}];
+	}
+	return [NSString stringWithFormat:@"%ld", virus.infectionCount];
 }
 
 - (AOCGrid2D *)parseGrid:(NSArray<NSString *> *)input
@@ -86,25 +102,45 @@
 	return self;
 }
 
+- (NSInteger)incrementInfectionCount
+{
+	_infectionCount++;
+	return _infectionCount;
+}
+
 - (void)burst:(AOCGrid2D *)grid
 {
 	NSString *currentPositionValue = (NSString *)[grid objectAtCoord:self.position];
 	if ([currentPositionValue isEqualToString:@"#"])
 	{
 		// Is infected. Turn cw.
-		_facing = [self cw];
+		[self turnCW];
 		// Clean it
 		[grid setObject:grid.defaultValue atCoord:self.position];
 	}
 	else
 	{
 		// Is clean. Turn ccw.
-		_facing = [self ccw];
+		[self turnCCW];
 		// Infect it
 		[grid setObject:@"#" atCoord:self.position];
-		_infectionCount++;
+		[self incrementInfectionCount];
 	}
 	// Move forward
+	[self move];
+}
+
+- (void)turnCW
+{
+	_facing = self.cw;
+}
+- (void)turnCCW
+{
+	_facing = self.ccw;
+}
+
+- (void)move
+{
 	_position = [self.position offset:self.facing];
 }
 
@@ -122,6 +158,48 @@
 	else if ([self.facing isEqualToString:LEFT]) 	{ return DOWN; }
 	else if ([self.facing isEqualToString:DOWN]) 	{ return RIGHT; }
 	return UP;
+}
+
+@end
+
+@implementation D22EvolvedCarrier
+
+// Override
+- (void)burst:(AOCGrid2D *)grid
+{
+	NSString *currentPositionValue = (NSString *)[grid objectAtCoord:self.position];
+	if ([currentPositionValue isEqualToString:@"#"])
+	{
+		// Is infected. Turn cw.
+		[self turnCW];
+		// Flag it
+		[grid setObject:@"F" atCoord:self.position];
+	}
+	else if ([currentPositionValue isEqualToString:@"W"])
+	{
+		// Is weakened. No turn.
+		// Infect it
+		[grid setObject:@"#" atCoord:self.position];
+		[self incrementInfectionCount];
+	}
+	else if ([currentPositionValue isEqualToString:@"F"])
+	{
+		// Is flagged. Reverse.
+		[self turnCW];
+		[self turnCW];
+		// Clean it
+		[grid clearAtCoord:self.position]; // Optimization. Less info in grid._data.
+//		[grid setObject:grid.defaultValue atCoord:self.position];
+	}
+	else
+	{
+		// Is clean. Turn ccw.
+		[self turnCCW];
+		// Infect it
+		[grid setObject:@"W" atCoord:self.position];
+	}
+	// Move forward
+	[self move];
 }
 
 @end
