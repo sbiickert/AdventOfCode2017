@@ -29,6 +29,7 @@
 
 - (void)executeInstruction:(CoprocInstruction *)cpi;
 - (NSNumber *)valueInRegister:(NSString *)reg;
+- (void)printRegisters;
 
 @end
 
@@ -50,8 +51,9 @@
 	}
 	
 	result.part1 = [self solvePartOne: instructions];
-	result.part2 = [self solvePartTwo: instructions];
-	
+	//result.part2 = [self solvePartTwoLiterally]; // Takes 7 hours
+	result.part2 = [self solvePartTwoOptimally];
+
 	return result;
 }
 
@@ -70,15 +72,107 @@
 		if (coproc.ptr < 0 || coproc.ptr >= instructions.count) {
 			break;
 		}
+//		if (coproc.ptr == 20) {
+//			NSLog(@"20");
+//			[coproc printRegisters];
+//		}
+//		if (coproc.ptr == 24) {
+//			/*
+//			 When this gets here, registers are
+//			 b: 67 c: 67 d: 67 e: 67 f: 1 g: 0
+//			 */
+//			NSLog(@"24");
+//			[coproc printRegisters];
+//		}
+//		if (coproc.ptr == 30) {
+//			NSLog(@"30");
+//			[coproc printRegisters];
+//		}
 	}
 	
 	return [NSString stringWithFormat:@"%ld", mulCount];
 }
 
-- (NSString *)solvePartTwo:(NSArray<CoprocInstruction *> *)instructions {
+- (NSString *)solvePartTwoLiterally {
+	NSInteger a = 0; NSInteger b = 0; NSInteger c = 0; NSInteger d = 0;
+	NSInteger e = 0; NSInteger f = 0; NSInteger g = 0; NSInteger h = 0;
 	
+	a = 1;
+	b = 67; //set b 67
+	c = b; //set c b
+	//jnz a 2  <-- debug mode, a is 1
+	//jnz 1 5  <-- jumped
+	b *= 100; 	 //mul b 100
+	b += 100000; //sub b -100000
+	//set c b
+	//sub c -17000
+	c = b + 17000;
+	while (YES) {
+		f = 1; //set f 1
+		d = 2; //set d 2
+		do {
+			e = 2; //set e 2
+			do {
+				//set g d
+				//mul g e
+				//sub g b
+				g = d * e - b;
+				//jnz g 2
+				if (g == 0) {
+					f = 0; //set f 0
+				}
+				e++; //sub e -1
+				//set g e
+				//sub g b
+				g = e - b;
+			} while (g != 0); //jnz g -8
+			
+			d++; //sub d -1
+			//set g d
+			//sub g b
+			g = d - b;
+		} while (g != 0); //jnz g -13
+		//jnz f 2
+		if (f == 0) {
+			h++; //sub h -1
+			NSLog(@"a: %ld b: %ld c: %ld d: %ld e: %ld f: %ld g: %ld h: %ld", a, b, c, d, e, f, g, h);
+		}
+		//set g b
+		//sub g c
+		g = b - c;
+		//jnz g 2
+		if (g == 0) {
+			//jnz 1 3
+			break;
+		}
+		b += 17; //sub b -17
+		
+	}//jnz 1 -23
 	
-	return [NSString stringWithFormat:@"World"];
+	return [NSString stringWithFormat:@"%ld", h]; // 1000, 999 too high, 900 too low
+}
+
+- (NSString *)solvePartTwoOptimally
+{
+	NSInteger h = 0;
+	for (int i = 106700; i <= 123700; i += 17) {
+		if (![self isPrime: i]) {
+			h++;
+		}
+	}
+	return [NSString stringWithFormat:@"%ld", h];
+}
+
+- (BOOL)isPrime:(NSInteger)num
+{
+	NSInteger i = 2;
+	while (i*i < num) {
+		if (num % i == 0) {
+			return NO;
+		}
+		i++;
+	}
+	return YES;
 }
 
 @end
@@ -166,6 +260,15 @@
 		result = @0;
 	}
 	return result;
+}
+
+- (void)printRegisters
+{
+	for (NSString *key in [self.registers.allKeys sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)])
+	{
+		[[NSString stringWithFormat:@"%@: %@ ", key, self.registers[key]] print];
+	}
+	[@"" println];
 }
 
 @end
