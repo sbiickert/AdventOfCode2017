@@ -29,6 +29,7 @@
 @interface D24Bridge : NSObject
 
 @property (readonly) NSArray<D24Connector *> *connectors;
+@property (readonly) NSSet<D24Connector *> *index;
 
 - (D24Bridge *)init;
 - (D24Bridge *)bridgeByAppending:(D24Connector *)conn;
@@ -76,14 +77,13 @@
 
 - (NSInteger)buildBridge:(D24Bridge *)parent
 {
-	[parent.debugDescription println];
+	//[parent.debugDescription println];
 	NSArray<D24Connector *> *connsWithRightPins = [D24Connector connectorsWithPins:parent.openEnd];
 	NSInteger maxStrength = 0;
 	for (D24Connector *conn in connsWithRightPins) {
 		if (![parent contains:conn]) {
-			D24Connector *temp = conn;
+			D24Connector *temp = [conn copy];
 			if (conn.p1 != parent.openEnd) {
-				temp = [conn copy];
 				temp.isReversed = true;
 			}
 			D24Bridge *child = [parent bridgeByAppending:temp];
@@ -126,12 +126,20 @@ static NSMutableDictionary<NSNumber *, D24Connector *> *_allConnectors = nil;
 	return [_allConnectors objectForKey:number];
 }
 
+static NSMutableDictionary<NSNumber *, NSArray<D24Connector *> *> *_connectorsWithPins = nil;
+
 + (NSArray<D24Connector *> *)connectorsWithPins:(int)p
 {
+	NSArray<D24Connector *> *result = [_connectorsWithPins objectForKey:@(p)];
+	if (result != nil) {
+		return result;
+	}
 	NSIndexSet *i = [_allConnectors.allValues indexesOfObjectsPassingTest:^BOOL(D24Connector *conn, NSUInteger index, BOOL *stop) {
 		return (conn.p1 == p || conn.p2 == p);
 	}];
-	NSArray<D24Connector *> *result = [_allConnectors.allValues objectsAtIndexes:i];
+	result = [_allConnectors.allValues objectsAtIndexes:i];
+	_connectorsWithPins[@(p)] = result;
+	//NSLog(@"%d: %ld", p, i.count);
 	return result;
 }
 
@@ -140,6 +148,9 @@ static NSMutableDictionary<NSNumber *, D24Connector *> *_allConnectors = nil;
 {
 	if (_allConnectors == nil) {
 		_allConnectors = [NSMutableDictionary dictionary];
+	}
+	if (_connectorsWithPins == nil) {
+		_connectorsWithPins = [NSMutableDictionary dictionary];
 	}
 }
 
@@ -157,9 +168,9 @@ static NSMutableDictionary<NSNumber *, D24Connector *> *_allConnectors = nil;
 - (NSString *)debugDescription
 {
 	if (self.isReversed) {
-		return [NSString stringWithFormat:@"%d}={%d", _p2, _p1];
+		return [NSString stringWithFormat:@"}%d==%d{", _p2, _p1];
 	}
-	return [NSString stringWithFormat:@"%d}={%d", _p1, _p2];
+	return [NSString stringWithFormat:@"}%d==%d{", _p1, _p2];
 }
 
 - (int)sum
@@ -171,7 +182,7 @@ static NSMutableDictionary<NSNumber *, D24Connector *> *_allConnectors = nil;
 	if (other == nil) {
 		return NO;
 	}
-	return self.p1 == other.p1 && self.p2 == other.p2;
+	return [self.number isEqualTo:other.number] && self.p1 == other.p1 && self.p2 == other.p2;
 }
 
 - (BOOL)isEqual:(nullable id)object {
@@ -225,6 +236,7 @@ static NSMutableDictionary<NSNumber *, D24Connector *> *_allConnectors = nil;
 {
 	self = [super init];
 	_connectors = connectors;
+	_index = [NSSet setWithArray:_connectors];
 	return self;
 }
 
@@ -263,7 +275,7 @@ static NSMutableDictionary<NSNumber *, D24Connector *> *_allConnectors = nil;
 
 - (BOOL)contains:(D24Connector *)conn
 {
-	return [self.connectors containsObject:conn];
+	return [self.index containsObject:conn];
 }
 
 
