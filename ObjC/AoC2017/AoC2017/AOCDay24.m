@@ -36,6 +36,7 @@
 - (int)openEnd;
 - (int)strength;
 - (BOOL)contains:(D24Connector *)conn;
++ (D24Bridge *)longestStrongest;
 
 @end
 
@@ -57,7 +58,7 @@
 	[self parseConnectors:input];
 	
 	result.part1 = [self solvePartOne];
-	result.part2 = [self solvePartTwo: input];
+	result.part2 = [self solvePartTwo];
 	
 	return result;
 }
@@ -70,9 +71,10 @@
 	return [NSString stringWithFormat:@"%ld", maxStrength];
 }
 
-- (NSString *)solvePartTwo:(NSArray<NSString *> *)input {
+- (NSString *)solvePartTwo {
+	D24Bridge *strongest = [D24Bridge longestStrongest];
 	
-	return @"World";
+	return [NSString stringWithFormat:@"%d", strongest.strength]; // 1488 too low
 }
 
 - (NSInteger)buildBridge:(D24Bridge *)parent
@@ -225,6 +227,27 @@ static NSMutableDictionary<NSNumber *, NSArray<D24Connector *> *> *_connectorsWi
 
 @implementation D24Bridge
 
+static NSMutableArray<D24Bridge *> *_longest = nil;
+
++ (void)initialize
+{
+	if (_longest == nil) {
+		_longest = [NSMutableArray array];
+	}
+}
+
++ (D24Bridge *)longestStrongest
+{
+	D24Bridge *strongest = _longest.firstObject;
+	for (D24Bridge *b in _longest) {
+		if (b.strength > strongest.strength) {
+			strongest = b;
+		}
+	}
+	return strongest;
+}
+
+
 - (D24Bridge *)init
 {
 	self = [super init];
@@ -237,6 +260,15 @@ static NSMutableDictionary<NSNumber *, NSArray<D24Connector *> *> *_connectorsWi
 	self = [super init];
 	_connectors = connectors;
 	_index = [NSSet setWithArray:_connectors];
+	
+	if (connectors.count > _longest.firstObject.connectors.count) {
+		[_longest removeAllObjects];
+	}
+	if (_longest.count == 0 ||
+		connectors.count == _longest.firstObject.connectors.count) {
+		[_longest addObject:self];
+	}
+	
 	return self;
 }
 
