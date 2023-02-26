@@ -25,3 +25,9 @@ Overall, I'm pretty enthusiastic at this point. I imagine that at some point I'm
 ## 18 Days Solved in ObjC
 
 The language and tools continue to impress. I suppose the biggest annoyance is wrapping/unwrapping integers in NSNumber in order to put them into NSArray, NSDictionary. It's not that big a deal, but it *feels* like something to avoid. Most days I look at my code and I like what I see.
+
+## 25 Days Solved in ObjC
+
+Wow. Considering I was doing this as a bit of a challenge, raising the bar as it were, that was easy. I really enjoyed doing the puzzles in Objective C, and I really didn't get into trouble much. I can't think of a time where I really misunderstood what an API call was for and headed down into a dark hole. I think the only blemish was regular expressions. They are there in Foundation, but so awkward to use that I avoided them almost entirely.
+
+I don't know if I will take on another AoC with ObjC, but if I did, it wouldn't really be a stunt. It would be a finely-honed tool in the toolbox. With 2019's Java run, I couldn't wait for the 25th to be over. With ObjC, I was sad to see it finished.
