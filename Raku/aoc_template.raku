@@ -12,15 +12,18 @@ my @input = read_input("$INPUT_PATH/$INPUT_FILE");
 
 say "Advent of Code <##>, Day <##>: <##>";
 
-solve_part_one(@input);
-#solve_part_two(@input);
+my $pt1 = solve_part_one(@input);
+say "Part One: $pt1";
+
+my $pt2 = solve_part_two(@input);
+say "Part Two: $pt2";
 
 exit( 0 );
 
 sub solve_part_one(@input) {
-	
+	return 1;
 }
 
 sub solve_part_two(@input) {
-	
+	return 2;
 }
