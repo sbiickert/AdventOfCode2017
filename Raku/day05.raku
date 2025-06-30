@@ -12,23 +12,23 @@ my @input = read_input("$INPUT_PATH/$INPUT_FILE");
 
 say "Advent of Code 2017, Day 5: A Maze of Twisty Trampolines, All Alike";
 
-my $pt1 = solve_part_one(@input);
+my $pt1 = solve_part(@input, True);
 say "Part One: it takes $pt1 steps to reach the exit";
 
-my $pt2 = solve_part_two(@input);
-say "Part Two: $pt2";
+my $pt2 = solve_part(@input, False);
+say "Part Two: it takes $pt2 steps to reach the exit";
 
 exit( 0 );
 
-sub solve_part_one(@input) {
+sub solve_part(@input, Bool $alwaysIncreasing) {
 	my @jumps = @input.map( -> $line { $line+0 });
 	my $ptr = 0;
 	my $steps = 0;
 
-	while $ptr >= 0 && $ptr <= @jumps.end {
+	while $ptr <= @jumps.end {
 		my $jump = @jumps[$ptr];
-		# say "step: $steps  ptr: $ptr  jumps: " ~ @jumps;
-		@jumps[$ptr]++;
+		if $alwaysIncreasing || $jump < 3 	{ @jumps[$ptr] = $jump + 1; }
+		else 								{ @jumps[$ptr] = $jump - 1; }
 		$ptr += $jump;
 		$steps++;
 	}
@@ -36,6 +36,3 @@ sub solve_part_one(@input) {
 	return $steps;
 }
 
-sub solve_part_two(@input) {
-	return 2;
-}
