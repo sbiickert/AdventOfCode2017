@@ -16,22 +16,21 @@ $input.split("", :skip-empty)
     ==> map( -> $x {$x+0})
     ==> my @numbers;
 
-solve_part_one(@numbers);
-#solve_part_two(@input);
+my $pt1 = solve_part(@numbers, 1);
+say "Part One: the captcha is $pt1";
+
+my $pt2 = solve_part(@numbers, @numbers.elems / 2);
+say "Part Two: the captcha is $pt2";
 
 exit( 0 );
 
-sub solve_part_one(@numbers) {
-    @numbers.push(@numbers[0]); # Repeat the first digit as the last
+sub solve_part(@numbers, $lookAhead) {
     my $result = 0;
 	for @numbers.kv -> $index, $value {
-        if $index < @numbers.elems -1 {
-            $result += $value if @numbers[$index+1] == $value;
+        if $index < @numbers.elems {
+            my $next = ($index + $lookAhead) % @numbers.elems;
+            $result += $value if @numbers[$next] == $value;
         }
     }
-    say "Part One: the captcha is $result";
-}
-
-sub solve_part_two(@input) {
-	
+    return $result;
 }
