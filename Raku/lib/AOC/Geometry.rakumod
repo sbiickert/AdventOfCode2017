@@ -132,7 +132,7 @@ class Coord is export {
 		return self.clone if $size == 0;
 		my $resolved_dir = resolve_offset_alias($dir);
 		my $off = Coord.get_offset($resolved_dir);
-		if (abs($size) > 1) {
+		if (abs($size) != 1) {
 			$off = Coord.from_ints($off.x * $size, $off.y * $size);
 		}
 		return self.add($off);
@@ -148,8 +148,6 @@ class Coord is export {
 	}
 	
 	method manhattanDistanceTo(Coord $other --> Int) {
-		#my $delta = $.delta($other);
-		#return abs($delta.x) + abs($delta.y);
 		return abs($other.x - $.x) + abs($other.y - $.y);
 	}
 }
@@ -203,7 +201,7 @@ class Segment is export {
 	multi method gist(Segment:D:) { self.Str }
 	
 	multi infix:<eqv>(Segment $l, Segment $r) {
-		$l.from eqv $r.from && $l.to eq $r.to;
+		$l.from eqv $r.from && $l.to eqv $r.to;
 	}
 	
 	method is_horizontal(--> Bool) {
@@ -283,11 +281,11 @@ class Extent is export {
 	method from_ints(::?CLASS:U $e2d: Int $xmin, Int $ymin, Int $xmax, Int $ymax) {
 		my $min = Coord.new( x => $xmin, y => $ymin );
 		my $max = Coord.new( x => $xmax, y => $ymax );
-		$e2d.from_coords( [$min, $max] );
+		$e2d.from_coords( my Coord @ =[$min, $max] );
 	}
 	
 	# class method: construct from a list of Coord 
-	method from_coords(::?CLASS:U $e2d: @coords) {
+	method from_coords(::?CLASS:U $e2d: Coord @coords) {
 		my $ext = Extent.new;
 		
 		for @coords -> $coord {

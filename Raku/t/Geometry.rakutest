@@ -116,17 +116,16 @@ sub test_extent1d() {
 sub test_extent2d() {
 	say "\nTesting Extent2D";
 
-	my @c = (
+	my Coord @c = (
 		Coord.new(x => -1, y => 1),
 		Coord.new(x => 2, y => 8),
 		Coord.new(x => 3, y => 3),
 		Coord.new(x => 4, y => 4));
-	my @c_list = ( @c[2], @c[1], @c[0] );
+	my Coord @c_list = Array[Coord]( @c[2], @c[1], @c[0] );
 
 	# from_coords from_ints expand_to_fit
-	my @e = (
-		Extent.from_coords( (@c[0], @c[1]) ),
-		Extent.from_coords( @c_list ));
+	my Coord @temp = @c[0], @c[1];
+	my Extent @e = (Extent.from_coords( @temp ), Extent.from_coords( @c_list ));
 	@e.push( @e[1].expand_to_fit(@c[3]) );
 
 	ok @e[0].nw.x == -1 && @e[0].nw.y == 1 &&
