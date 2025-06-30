@@ -32,8 +32,7 @@ sub solve_part_two(@input) {
 
 sub passphraseIsValid1($pass) {
 	my @words = $pass.split(" ");
-	my @unique_words = unique_words(@words);
-	return @words.elems == @unique_words.elems;
+	return @words.elems == @words.unique.elems;
 }
 
 sub passphraseIsValid2($pass) {
@@ -42,17 +41,9 @@ sub passphraseIsValid2($pass) {
 	return @words.elems == @unique_words.elems;
 }
 
-sub unique_words(@words) {
-	my %words_db;
-	for @words -> $word {
-		%words_db{$word} = 1;
-	}
-	%words_db.keys;
-}
-
 sub unique_sorted_character_strings(@words) {
 	my @sorted_character_strings = @words.map( -> $w {
-		$w.split("", :skip-empty).sort().join("");
+		$w.split("", :skip-empty).sort().join(""); # Break word up into chars, sort and join again
 	});
-	unique_words(@sorted_character_strings);
+	@sorted_character_strings.unique;
 }
