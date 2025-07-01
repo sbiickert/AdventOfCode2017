@@ -31,3 +31,11 @@ The language and tools continue to impress. I suppose the biggest annoyance is w
 Wow. Considering I was doing this as a bit of a challenge, raising the bar as it were, that was easy. I really enjoyed doing the puzzles in Objective C, and I really didn't get into trouble much. I can't think of a time where I really misunderstood what an API call was for and headed down into a dark hole. I think the only blemish was regular expressions. They are there in Foundation, but so awkward to use that I avoided them almost entirely.
 
 I don't know if I will take on another AoC with ObjC, but if I did, it wouldn't really be a stunt. It would be a finely-honed tool in the toolbox. With 2019's Java run, I couldn't wait for the 25th to be over. With ObjC, I was sad to see it finished.
+
+## Raku
+
+In 2024, I did my AoC solve in Raku. One of the things that I focused on was the [functional programming](https://raku.guide/#_functional_programming) capabilities of the language, and I followed that up with learning Scala and then F#. Here, I'm returning to Raku and using the FP capabilities where possible and taking the time to understand and optimize instead of just hacking it until it works.
+
+Since my only previous solve of 2017 was with ObjC, it makes for an interesting contrast. Some days, I find my solution is effectively the same, but much less verbose. Other days, the Raku solution is radically different. In some cases, that's because I've changed as a developer and in others, it's just the way the language works. When the solutions are the same, the ObjC one wins on performance. But the total LOC for Raku is always shorter.
+
+I'm also using Visual Studio Code, whereas in 2024 I used nano. VS Code works really well for Raku. Not as much assistance as VS Code + Iodide for F#, but autocomplete and live compilation and error messages go a long way to speed things up.
