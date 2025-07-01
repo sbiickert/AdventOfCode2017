@@ -16,32 +16,24 @@ say "Advent of Code 2017, Day 6: Memory Reallocation";
 	==> map( -> $n { $n+0 })
 	==> my @memory;
 
-my $pt1 = solve_part_one(@memory.clone);
+my ($pt1, $pt2) = solve(@memory);
 say "Part One: the infinite loop is detected after $pt1 iterations";
-
-my $pt2 = solve_part_two(@input);
-say "Part Two: $pt2";
+say "Part Two: the infinite loop is $pt2 iterations long";
 
 exit( 0 );
 
-sub solve_part_one(@memory) {
+sub solve(@memory) {
 	my %states = ();
 	my $state = @memory.join("");
 	my $count = 0;
-	say $state;
 
 	while %states{$state}:!exists {
-		%states{$state} = 1;
+		%states{$state} = $count;
 		move_blocks(@memory);
 		$state = @memory.join("");
-		# say $state;
 		$count++;
 	}
-	return $count;
-}
-
-sub solve_part_two(@input) {
-	return 2;
+	return ($count, $count - %states{$state});
 }
 
 sub move_blocks(@memory) {
@@ -49,11 +41,8 @@ sub move_blocks(@memory) {
 	my $idx = $maxKV.key;
 	my $blocksToRealloc = $maxKV.value;
 	@memory[$idx] = 0;
-	$idx++;
-	while $blocksToRealloc > 0 {
-		$idx = $idx % @memory.elems;
+	for (1..$blocksToRealloc) {
+		$idx = ($idx + 1) % @memory.elems;
 		@memory[$idx]++;
-		$blocksToRealloc--;
-		$idx++;
 	}
 }
