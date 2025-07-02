@@ -86,10 +86,8 @@ sub findUnevenProgram(%dict, $name) {
 	my @u_weights = @subs.map( -> $s { %dict{$s}{"total"} }).unique;
 	if @u_weights.elems > 1 {
 		my %classified = @subs.classify({ %dict{$_}{"total"} == @u_weights[0] ?? @u_weights[0] !! @u_weights[1] }, :as{%dict{$_}{"name"}});
-		say %classified;
 		my ($uneven_idx, $even_idx) = %classified{@u_weights[0]}.elems == 1 ?? (0,1) !! (1,0);
 		my $unevenName = %classified{@u_weights[$uneven_idx]}[0];
-		my $evenName = %classified{@u_weights[$even_idx]}[0];
 		my @result = findUnevenProgram %dict, $unevenName;
 		if @result.elems == 0 {
 			my $diff = @u_weights[$even_idx] - @u_weights[$uneven_idx];
