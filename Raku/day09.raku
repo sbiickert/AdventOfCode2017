@@ -29,12 +29,9 @@ sub solve(Str $stream) {
 	while $ptr <= @stream.end {
 		if @stream[$ptr] eq "!" { $ptr += 2; next }
 
-		if $in_garbage && @stream[$ptr] eq ">" {
-			$in_garbage = False;
-		}
-
 		if $in_garbage {
-			$garbage_count++;
+			if @stream[$ptr] eq ">" { $in_garbage = False }
+			else { $garbage_count++ }
 		}
 		else {
 			given @stream[$ptr] {
@@ -47,6 +44,6 @@ sub solve(Str $stream) {
 		$ptr++;
 	}
 
-	return ($score,$garbage_count);
+	return ($score, $garbage_count);
 }
 
