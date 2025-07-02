@@ -17,8 +17,8 @@ say "Advent of Code 2017, Day 7: Recursive Circus";
 my $pt1 = solve_part_one(@programs);
 say "Part One: the bottom program is $pt1";
 
-my $pt2 = solve_part_two(@input);
-say "Part Two: $pt2";
+my ($name, $weight) = solve_part_two(@programs, $pt1);
+say "Part Two: the weight of $name should be $weight";
 
 exit( 0 );
 
@@ -26,15 +26,19 @@ sub solve_part_one(@programs) {
 	my %info = buildSupportInfo(@programs);
 
 	for %info.kv -> $name, $supportedBy {
-		# say "$name -> " ~ $supportedBy;
 		return $name if $supportedBy eq "";
 	}
 
 	return "";
 }
 
-sub solve_part_two(@input) {
-	return 2;
+sub solve_part_two(@programs, $bottom) {
+	my %dict;
+	for @programs -> %program {
+		%dict{%program{"name"}} = %program;
+	}
+	calcTotalWeight %dict, $bottom;
+	return findUnevenProgram %dict, $bottom;
 }
 
 sub parseProgram($line) {
@@ -63,4 +67,40 @@ sub buildSupportInfo(@programs) {
 		}
 	}
 	%info;
+}
+
+sub calcTotalWeight(%dict, $name) {
+	my $subWeight = 0;
+	my %program = %dict{$name};
+	my @subs = %program{"subprograms"}.flat;
+	for @subs -> $subName {
+		calcTotalWeight(%dict, $subName);
+		$subWeight += %dict{$subName}{"total"};
+	}
+	%dict{$name}{"total"} = %dict{$name}{"weight"} + $subWeight;
+}
+
+sub findUnevenProgram(%dict, $name) {
+	my %program = %dict{$name};
+	my @subs = %program{"subprograms"}.flat;
+	my @u_weights = @subs.map( -> $s { %dict{$s}{"total"} }).unique;
+	if @u_weights.elems > 1 {
+		my %classified = @subs.classify({ %dict{$_}{"total"} == @u_weights[0] ?? @u_weights[0] !! @u_weights[1] }, :as{%dict{$_}{"name"}});
+		say %classified;
+		my ($uneven_idx, $even_idx) = %classified{@u_weights[0]}.elems == 1 ?? (0,1) !! (1,0);
+		my $unevenName = %classified{@u_weights[$uneven_idx]}[0];
+		my $evenName = %classified{@u_weights[$even_idx]}[0];
+		my @result = findUnevenProgram %dict, $unevenName;
+		if @result.elems == 0 {
+			my $diff = @u_weights[$even_idx] - @u_weights[$uneven_idx];
+			@result = ($unevenName, %dict{$unevenName}{"weight"} + $diff);
+		}
+		return @result;
+	}
+	# Recurse
+	for @subs -> $subName {
+		my @result = findUnevenProgram %dict, $subName;
+		if @result.elems > 0 { return @result; }
+	}
+	return ();
 }
