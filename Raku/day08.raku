@@ -2,8 +2,7 @@
 
 use lib $*PROGRAM.dirname ~ '/lib';
 use AOC::Util;
-#use AOC::Geometry;
-#use AOC::Grid;
+# use MONKEY; # For EVAL
 
 my $INPUT_PATH = '../input';
 # my $INPUT_FILE = 'day08_test.txt';
@@ -27,6 +26,10 @@ sub solve(@instructions) {
 	for @instructions -> %i {
 		%registers{%i{'target'}} = 0	if %registers{%i{'target'}}:!exists;
 		%registers{%i{'reg'}} = 0		if %registers{%i{'reg'}}:!exists;
+
+		# Tried using EVAL, but it was much slower. Leaving here for reference.
+		# my $comp_result = EVAL '$comp_result = %registers{%i{"reg"}} ' ~ %i{'cmp'} ~ ' %i{"value"}';
+
 		my $comp_result = False;
 		given %i{'cmp'} {
 			when '>' 	{ $comp_result = %registers{%i{'reg'}} > %i{'value'} }
@@ -36,6 +39,7 @@ sub solve(@instructions) {
 			when '<=' 	{ $comp_result = %registers{%i{'reg'}} <= %i{'value'} }
 			when '>=' 	{ $comp_result = %registers{%i{'reg'}} >= %i{'value'} }
 		}
+		
 		if $comp_result {
 			my $result = %registers{%i{'target'}};
 			given %i{'op'} {
