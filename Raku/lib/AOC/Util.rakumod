@@ -88,6 +88,18 @@ sub pivot_matrix(@matrix) is export {
 }
 
 
+# Count Values
+
+# Takes an array of values and returns a hash with the array values as keys and counts of each
+
+sub count_values(@values) is export {
+	my %hist;
+	for @values -> $value {
+		%hist{$value} += 1;
+	}
+	%hist;
+}
+
 # DON'T NEED: lcm and gcd are built-in operators!!
 # reduce: numerator and denominator are methods on the Rat type
 
