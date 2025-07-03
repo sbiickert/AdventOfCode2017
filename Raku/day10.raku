@@ -14,7 +14,7 @@ my $size = $INPUT_FILE ~~ /test/ ?? 4 !! 255;
 my $pt1 = solve_part_one($input, $size);
 say "Part One: $pt1";
 
-my $pt2 = solve_part_two($input, $size);
+my $pt2 = solve_part_two($input);
 say "Part Two: $pt2";
 
 exit( 0 );
@@ -28,8 +28,8 @@ sub solve_part_one($input, $size) {
 	return @numbers[0] * @numbers[1];
 }
 
-sub solve_part_two($input, $size) {
-	my Int @sparse_hash = [0..$size];
+sub solve_part_two($input) {
+	my Int @sparse_hash = [0..255];
 	$input.split("", :skip-empty) ==> map( -> $c { ord($c) }) ==> my Int @lengths;
 	@lengths.push(|[17, 31, 73, 47, 23]);
 	my $position = 0;
@@ -77,12 +77,6 @@ sub reverse_numbers(@numbers, Int $start, Int $end) {
 }
 
 sub get_dense_hash(@sparse_hash) {
-	my @dense_hash;
-	for 0..15 -> $block_number {
-		my $block_start = $block_number*16;
-		my @block = @sparse_hash[$block_start..^$block_start+16];
-		my $element = @block.reduce(&infix:<+^>);
-		@dense_hash.push($element); # Bitwise XOR
-	}
-	@dense_hash;
+	@sparse_hash.batch(16)
+		==> map( -> $block {$block.reduce(&infix:<+^>)}); # Bitwise XOR
 }
