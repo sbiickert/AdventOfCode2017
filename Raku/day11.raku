@@ -45,25 +45,19 @@ sub measure_distance(%direction_counts) {
 	cancel_direction(%direction_counts, "ne", "sw");
 
 	# Add Up
-	add_direction(%direction_counts, "ne", "s", "se");
-	add_direction(%direction_counts, "nw", "s", "sw");
-	add_direction(%direction_counts, "se", "n", "ne");
-	add_direction(%direction_counts, "sw", "n", "nw");
-	add_direction(%direction_counts, "nw", "ne", "n");
-	add_direction(%direction_counts, "sw", "se", "s");
+	cancel_direction(%direction_counts, "ne", "s", "se");
+	cancel_direction(%direction_counts, "nw", "s", "sw");
+	cancel_direction(%direction_counts, "se", "n", "ne");
+	cancel_direction(%direction_counts, "sw", "n", "nw");
+	cancel_direction(%direction_counts, "nw", "ne", "n");
+	cancel_direction(%direction_counts, "sw", "se", "s");
 
 	%direction_counts.values.sum;
 }
 
-sub cancel_direction(%direction_counts, $dir1, $dir2) {
+sub cancel_direction(%direction_counts, $dir1, $dir2, $to_dir=Nil) {
 	my $minimum = min(%direction_counts{$dir1}, %direction_counts{$dir2});
 	%direction_counts{$dir1} -= $minimum;
 	%direction_counts{$dir2} -= $minimum;
-}
-
-sub add_direction(%direction_counts, $dir1, $dir2, $to_dir) {
-	my $minimum = min(%direction_counts{$dir1}, %direction_counts{$dir2});
-	%direction_counts{$dir1} -= $minimum;
-	%direction_counts{$dir2} -= $minimum;
-	%direction_counts{$to_dir} += $minimum;
+	with $to_dir { %direction_counts{$to_dir} += $minimum }
 }

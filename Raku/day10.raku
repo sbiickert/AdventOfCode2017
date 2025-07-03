@@ -12,10 +12,10 @@ say "Advent of Code 2017, Day 10: Knot Hash";
 
 my $size = $INPUT_FILE ~~ /test/ ?? 4 !! 255;
 my $pt1 = solve_part_one($input, $size);
-say "Part One: $pt1";
+say "Part One: the result of multiplying the first two values is $pt1";
 
 my $pt2 = solve_part_two($input);
-say "Part Two: $pt2";
+say "Part Two: the knot hash is $pt2";
 
 exit( 0 );
 
