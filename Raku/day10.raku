@@ -2,28 +2,25 @@
 
 use lib $*PROGRAM.dirname ~ '/lib';
 use AOC::Util;
-#use AOC::Geometry;
-#use AOC::Grid;
 
 my $INPUT_PATH = '../input';
 # my $INPUT_FILE = 'day10_test.txt';
 my $INPUT_FILE = 'day10_challenge.txt';
-my @input = read_input("$INPUT_PATH/$INPUT_FILE");
+my $input = read_input("$INPUT_PATH/$INPUT_FILE")[0];
 
 say "Advent of Code 2017, Day 10: Knot Hash";
 
-@input.split(',') ==> map( -> $s {$s+0}) ==> my Int @lengths;
-
 my $size = $INPUT_FILE ~~ /test/ ?? 4 !! 255;
-my $pt1 = solve_part_one(@lengths, $size);
+my $pt1 = solve_part_one($input, $size);
 say "Part One: $pt1";
 
-my $pt2 = solve_part_two(@input);
+my $pt2 = solve_part_two($input, $size);
 say "Part Two: $pt2";
 
 exit( 0 );
 
-sub solve_part_one(@lengths, $size) {
+sub solve_part_one($input, $size) {
+	$input.split(',') ==> map( -> $s {$s+0}) ==> my Int @lengths;
 	my Int @numbers = [0..$size];
 	my $position = 0;
 	my $skip_size = 0;
@@ -31,8 +28,22 @@ sub solve_part_one(@lengths, $size) {
 	return @numbers[0] * @numbers[1];
 }
 
-sub solve_part_two(@input) {
-	return 2;
+sub solve_part_two($input, $size) {
+	my Int @sparse_hash = [0..$size];
+	$input.split("", :skip-empty) ==> map( -> $c { ord($c) }) ==> my Int @lengths;
+	@lengths.push(|[17, 31, 73, 47, 23]);
+	my $position = 0;
+	my $skip_size = 0;
+
+	for 1..64 {
+		($position,$skip_size) = knot_hash(@sparse_hash, @lengths, $position, $skip_size);
+	}
+
+	my @dense_hash = get_dense_hash(@sparse_hash);
+
+	@dense_hash
+		==> map( -> $n { sprintf "%02x", $n })
+		==> join("");
 }
 
 sub knot_hash(Int @numbers, Int @lengths, Int $start_pos, Int $start_skip_size) {
@@ -41,7 +52,6 @@ sub knot_hash(Int @numbers, Int @lengths, Int $start_pos, Int $start_skip_size) 
 	for @lengths -> $length {
 		my Int $end = $pos + $length - 1;
 		reverse_numbers(@numbers, $pos, $end);
-		# say "$pos, $skip_size " ~ @numbers;
 		$pos = ($pos + $length + $skip_size) % @numbers.elems;
 		$skip_size++;
 	}
@@ -49,7 +59,6 @@ sub knot_hash(Int @numbers, Int @lengths, Int $start_pos, Int $start_skip_size) 
 }
 
 sub reverse_numbers(@numbers, Int $start, Int $end) {
-	# say @numbers ~ " start: $start  end: $end";
 	my @numbers_to_reverse = @numbers[$start..min(@numbers.end, $end)];
 	my $overrun = 0;
 	if $end > @numbers.end {
@@ -57,9 +66,7 @@ sub reverse_numbers(@numbers, Int $start, Int $end) {
 		@numbers_to_reverse.push(|@numbers[0..$end % @numbers.elems]);
 	}
 
-	# say @numbers_to_reverse;
 	my @reversed_numbers = @numbers_to_reverse.reverse;
-	# say @reversed_numbers;
 
 	my @splice1 = @reversed_numbers[0..@reversed_numbers.end-$overrun];
 	@numbers.splice($start, @splice1.elems, @splice1);
@@ -67,5 +74,15 @@ sub reverse_numbers(@numbers, Int $start, Int $end) {
 		my @overrun_splice = @reversed_numbers[*-$overrun..*];
 		@numbers.splice(0, @overrun_splice.elems, @overrun_splice);
 	}
-	# say @numbers;
+}
+
+sub get_dense_hash(@sparse_hash) {
+	my @dense_hash;
+	for 0..15 -> $block_number {
+		my $block_start = $block_number*16;
+		my @block = @sparse_hash[$block_start..^$block_start+16];
+		my $element = @block.reduce(&infix:<+^>);
+		@dense_hash.push($element); # Bitwise XOR
+	}
+	@dense_hash;
 }
