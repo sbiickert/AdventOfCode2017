@@ -36,24 +36,18 @@ sub solve_part_one(@scanners) {
 
 sub solve_part_two(@scanners) {
 	my @sorted = @scanners.sort: { %^a{'cycle'} leg %^b{'cycle'} };
-	for [0..Inf] -> $delay {
+	for (0,2 ... Inf) -> $delay { # Scanner with cycle 2 means only even delays work
 		my $did_hit = False;
 		print "\r$delay" if $delay %% 10000;
 		for @sorted -> %scanner {
-			if will_hit(%scanner, $delay) {
-				# say "HIT";
+			if ($delay + %scanner{'layer'}) %% %scanner{'cycle'} {
+				# say "HIT ($delay + " ~ %scanner{'layer'} ~ ') %% ' ~ %scanner{'cycle'};
 				$did_hit = True;
 				last;
 			}
 		}
 		return $delay if $did_hit == False;
-		# die if $delay > 10;
 	}
 	print "\r";
 	-1;
-}
-
-sub will_hit(%scanner, $delay) {
-	# say %scanner;
-	return ($delay + %scanner{'layer'}) %% %scanner{'cycle'};
 }
