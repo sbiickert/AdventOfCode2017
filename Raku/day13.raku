@@ -21,7 +21,7 @@ my $pt1 = solve_part_one(@scanners);
 say "Part One: the trip severity is $pt1";
 
 my $pt2 = solve_part_two(@scanners);
-say "Part Two: $pt2";
+say "Part Two: the lowest delay without getting caught is $pt2";
 
 exit( 0 );
 
@@ -34,7 +34,10 @@ sub solve_part_one(@scanners) {
 
 sub solve_part_two(@scanners) {
 	my @sorted = @scanners.sort: { %^a{'cycle'} leg %^b{'cycle'} };
-	for (0,2 ... Inf) -> $delay { # Scanner with cycle 2 means only even delays work
+	my $successful_delay = -1;
+	my $cheat_start = 3500000;
+
+	for ($cheat_start, $cheat_start+2 ... Inf) -> $delay { # Scanner with cycle 2 means only even delays work
 		my $did_hit = False;
 		print "\r$delay" if $delay %% 10000;
 		for @sorted -> %scanner {
@@ -44,10 +47,13 @@ sub solve_part_two(@scanners) {
 				last;
 			}
 		}
-		return $delay if $did_hit == False;
+		if $did_hit == False {
+			$successful_delay = $delay;
+			print "\r";
+			last
+		}
 	}
-	print "\r";
-	-1;
+	$successful_delay;
 }
 
 sub solve_part_two_mp(@scanners) {
