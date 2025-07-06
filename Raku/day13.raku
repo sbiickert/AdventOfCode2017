@@ -2,8 +2,6 @@
 
 use lib $*PROGRAM.dirname ~ '/lib';
 use AOC::Util;
-#use AOC::Geometry;
-#use AOC::Grid;
 
 my $INPUT_PATH = '../input';
 # my $INPUT_FILE = 'day13_test.txt';
@@ -50,4 +48,39 @@ sub solve_part_two(@scanners) {
 	}
 	print "\r";
 	-1;
+}
+
+sub solve_part_two_mp(@scanners) {
+	my @sorted = @scanners.sort: { %^a{'cycle'} leg %^b{'cycle'} };
+	
+	say "Making channel";
+	my $channel = Channel.new();
+	for (0,2 ... 4000000) -> $delay {
+		$channel.send($delay);
+	}
+	$channel.close;
+
+	say "Starting work";
+	my @workers;
+	my $successful_delay = -1;
+	for 1..8 {
+		push @workers, start {
+			while $successful_delay < 0 {
+				my $delay = $channel.poll;
+				# say "$delay from thread {$*THREAD.id}" if $delay %% 10000;
+				my $did_hit = False;
+				for @sorted -> %scanner {
+					if ($delay + %scanner{'layer'}) %% %scanner{'cycle'} {
+						# say "HIT ($delay + " ~ %scanner{'layer'} ~ ') %% ' ~ %scanner{'cycle'};
+						$did_hit = True;
+						last;
+					}
+				}
+				return $successful_delay = $delay if $did_hit == False;
+			}
+		}
+	}
+
+	await(@workers);
+	$successful_delay;
 }
