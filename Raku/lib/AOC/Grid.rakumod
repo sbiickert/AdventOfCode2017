@@ -108,6 +108,29 @@ class Grid is export {
 	method neighbors(Coord $c --> Array) {
 		return $c.get_adjacent_coords($.rule);
 	}
+
+	method flood_fill(Coord $c, $value --> Bool) {
+		my $limit = self.extent;
+		my $touched_infinity = False;
+		my $target_value = self.get($c);
+		my $to_fill = SetHash.new: $c;
+		while $to_fill.elems > 0 {
+			my $next_to_fill = SetHash.new;
+			for $to_fill.keys -> $coord {
+				self.set($coord, $value);
+				my @n = self.neighbors($coord).grep( -> $c {
+					$to_fill !(cont) $c && self.get($c) eq $target_value });
+				for @n -> $c {
+					if $limit.contains($c) {
+						$next_to_fill.set($c);
+					}
+					else { $touched_infinity = True }
+				}
+			}
+			$to_fill = $next_to_fill;
+		}
+		$touched_infinity
+	}
 	
 	method print(:%markers = {}, Bool :$invert_y = False) {
 		print self.sprint(markers => %markers, invert_y => $invert_y);

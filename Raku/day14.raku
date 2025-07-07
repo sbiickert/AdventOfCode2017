@@ -19,8 +19,8 @@ my $disk = load_grid($input);
 my $pt1 = solve_part_one($disk);
 say "Part One: the number of used squares is $pt1";
 
-# my $pt2 = solve_part_two(@input);
-# say "Part Two: $pt2";
+my $pt2 = solve_part_two($disk);
+say "Part Two: the number of regions is $pt2";
 
 exit( 0 );
 
@@ -29,8 +29,21 @@ sub solve_part_one(Grid $disk) {
 	return %hist{"#"};
 }
 
-sub solve_part_two(@input) {
-	return 2;
+sub solve_part_two(Grid $disk) {
+	my @used = $disk.coords("#");
+	my @letters = "A".."Z"; # Need to set to something other than #. Letters aid visualization.
+	my $count = 0;
+	my $ptr = 0;
+
+	for @used -> $coord {
+		if $disk.get($coord) eq "#" {
+			$disk.flood_fill($coord, @letters[$ptr++]);
+			$count++;
+			$ptr = $ptr % @letters.elems;
+		}
+	}
+	# $disk.print;
+	return $count;
 }
 
 sub load_grid($input) {
