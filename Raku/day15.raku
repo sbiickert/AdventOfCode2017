@@ -19,8 +19,8 @@ my $gen_b_factor := 48271;
 my $pt1 = solve_part_one($gen_a_start, $gen_b_start);
 say "Part One: the judge's final count is $pt1";
 
-my $pt2 = solve_part_two(@input);
-say "Part Two: $pt2";
+my $pt2 = solve_part_two($gen_a_start, $gen_b_start);
+say "Part Two: the judge's final count is $pt2";
 
 exit( 0 );
 
@@ -28,8 +28,7 @@ sub solve_part_one($gen_a_start, $gen_b_start) {
 	my $gen_a_value = $gen_a_start;
 	my $gen_b_value = $gen_b_start;
 	my $count_matches = 0;
-	# for 1..40000000 {
-	for 1..1000000 {
+	for 1..40000000 {
 		$gen_a_value = ($gen_a_value * $gen_a_factor) % 2147483647; 
 		$gen_b_value = ($gen_b_value * $gen_b_factor) % 2147483647;
 		$count_matches++ if values_match($gen_a_value, $gen_b_value);
@@ -37,8 +36,17 @@ sub solve_part_one($gen_a_start, $gen_b_start) {
 	$count_matches;
 }
 
-sub solve_part_two(@input) {
-	return 2;
+sub solve_part_two($gen_a_start, $gen_b_start) {
+	my $gen_a_value = $gen_a_start;
+	my $gen_b_value = $gen_b_start;
+	my $count_matches = 0;
+	# for 1..1056 {
+	for 1..5000000 {
+		repeat { $gen_a_value = ($gen_a_value * $gen_a_factor) % 2147483647 } until $gen_a_value %% 4;
+		repeat { $gen_b_value = ($gen_b_value * $gen_b_factor) % 2147483647 } until $gen_b_value %% 8;
+		$count_matches++ if values_match($gen_a_value, $gen_b_value);
+	}
+	$count_matches;
 }
 
 
