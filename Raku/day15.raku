@@ -28,10 +28,11 @@ sub solve_part_one($gen_a_start, $gen_b_start) {
 	my $gen_a_value = $gen_a_start;
 	my $gen_b_value = $gen_b_start;
 	my $count_matches = 0;
-	for 1..40000000 {
+	# for 1..40000000 {
+	for 1..1000000 {
 		$gen_a_value = ($gen_a_value * $gen_a_factor) % 2147483647; 
 		$gen_b_value = ($gen_b_value * $gen_b_factor) % 2147483647;
-		$count_matches++ if values_match_2($gen_a_value, $gen_b_value);
+		$count_matches++ if values_match($gen_a_value, $gen_b_value);
 	}
 	$count_matches;
 }
@@ -41,26 +42,13 @@ sub solve_part_two(@input) {
 }
 
 
-sub values_match_1($value_a, $value_b) {
-	# say "$value_a, $value_b";
-	my $l16_a = sprintf("%032b\n", $value_a).substr(16);
-	my $l16_b = sprintf("%032b\n", $value_b).substr(16);
-	$l16_a eq $l16_b;
-}
-
-sub values_match_2($value_a, $value_b) {
-	# say "$value_a, $value_b";
-	my ($a,$b) = $value_a, $value_b;
+sub values_match($value_a, $value_b) {
 	my $result = True;
-	for 0..15 {
-		my $bit_a = $a +& 1;
-		my $bit_b = $b +& 1;
-		if $bit_a != $bit_b {
+	for 0..15 -> $i {
+		if $value_a +& (2 ** $i) != $value_b +& (2 ** $i) {
 			$result = False;
 			last;
 		}
-		$a +>= 1;
-		$b +>= 1;
 	}
 	$result;
 }
