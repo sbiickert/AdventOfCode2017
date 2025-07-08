@@ -13,28 +13,46 @@ my $input = read_input("$INPUT_PATH/$INPUT_FILE")[0];
 say "Advent of Code 2017, Day 16: Permutation Promenade";
 
 my @moves = $input.split(',').map(&parse_move);
+my @programs = @moves.elems < 10 ?? ["a".."e"] !! ["a".."p"];
 
-my $pt1 = solve_part_one(@moves);
-say "Part One: the final program order is $pt1";
+my $pt1 = solve_part_one(@moves, @programs.clone);
+say "Part One: the final program order is $pt1 after one dance";
 
-# my $pt2 = solve_part_two(@input);
-# say "Part Two: $pt2";
+my $pt2 = solve_part_two(@moves,@programs);
+say "Part Two: the final program order is $pt2 after a billion dances";
 
 exit( 0 );
 
-sub solve_part_one(@moves) {
-	my @programs = ["a".."p"];
+sub solve_part_one(@moves, @programs) {
 	for @moves -> $move {
 		$move(@programs);
 	}
 	return @programs.join('');
 }
 
-sub solve_part_two(@input) {
-	return 2;
+sub solve_part_two(@moves, @programs) {
+	my %repeat_tracker = @programs.join('') => 0;
+	my $billion = 1000000000;
+
+	for 1..$billion -> $i {
+		for @moves -> $move {
+			$move(@programs);
+		}
+
+		my $state = @programs.join('');
+		if %repeat_tracker{$state}:exists {
+			# say "Found $state at dance $i first seen at " ~ %repeat_tracker{$state};
+			my $target_index = $billion % ($i - %repeat_tracker{$state});
+			my $result = %repeat_tracker.pairs.grep( -> $pair {$pair.value == $target_index}).head;
+			return $result.key;
+		}
+		%repeat_tracker{$state} = $i;
+	}
+	return "@programs.join('')"; # Never gets here, repeated state found earlier
 }
 
 sub parse_move($str) {
+	# Moves are functions
 	given $str.substr(0,1) {
 		when "s" -> { $str ~~ /(\d+)/;
 			return -> @programs {
