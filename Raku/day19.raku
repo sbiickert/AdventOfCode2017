@@ -11,12 +11,11 @@ my $INPUT_FILE = 'day19_challenge.txt';
 my @input = read_input("$INPUT_PATH/$INPUT_FILE");
 
 my $tubes = Grid.new(default => " ", rule => AdjacencyRule::ROOK);
-$tubes.load(@input);
-# $tubes.print;
-my $start = find_start_point($tubes);
-# say $start;
 
 say "Advent of Code 2017, Day 19: A Series of Tubes";
+
+$tubes.load(@input);
+my $start = find_start_point($tubes);
 
 my ($pt1, $pt2) = solve_parts($tubes, $start);
 say "Part One: the observed letters are $pt1";
@@ -33,16 +32,16 @@ sub solve_parts(Grid $tubes, Coord $start) {
 		given whats_here($tubes, $pos) {
 			when "|" -> { }
 			when "-" -> { }
+			when " " -> { }
 			when "+" -> {
-				my $whats_left = whats_near($tubes, $pos, "L");
-				if $whats_left eq " " {
+				my $whats_to_the_left = whats_near($tubes, $pos, "L");
+				if $whats_to_the_left eq " " {
 					$pos = $pos.turn("CW")
 				}				
 				else {
 					$pos = $pos.turn("CCW")
 				}
 			}
-			when " " -> { }
 			default {
 				$letters ~= $_;
 			}
