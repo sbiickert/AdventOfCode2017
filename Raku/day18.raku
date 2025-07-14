@@ -44,12 +44,12 @@ sub solve_part_two(@instructions) {
 	@programs[0].partner = @programs[1];
 	@programs[1].partner = @programs[0];
 	
-	my $stop = !@programs[0].has_valid_ptr || !@programs[1].has_valid_ptr ||
-		(@programs[0].is_waiting && @programs[1].is_waiting);
+	my $deadlock = @programs[0].is_waiting && @programs[1].is_waiting;
+	my $stop = !@programs[0].has_valid_ptr || !@programs[1].has_valid_ptr || $deadlock;
 
 	while !$stop {
 		for @programs -> $program { $program.execute_instruction }
-		my $deadlock = @programs[0].is_waiting && @programs[1].is_waiting;
+		$deadlock = @programs[0].is_waiting && @programs[1].is_waiting;
 		$stop = !@programs[0].has_valid_ptr || !@programs[1].has_valid_ptr || $deadlock;
 	}
 

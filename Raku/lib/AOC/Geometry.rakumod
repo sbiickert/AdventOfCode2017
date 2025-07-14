@@ -339,6 +339,14 @@ class Extent is export {
 	method area(--> Int) {
 		return $.width * $.height;
 	}
+
+	method x_range(--> Range) {
+		$.min.x..$.max.x
+	}
+
+	method y_range(--> Range) {
+		$.min.y..$.max.y
+	}
 	
 	method all_coords(--> Array of Coord) {
 		my Coord @coords = ();
