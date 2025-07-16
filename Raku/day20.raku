@@ -31,13 +31,11 @@ sub solve_part_one(@particles) {
 	my $is_stable = False;
 	my $prev_top_10 = "";
 
-	my $i = 0;
+	my $i = 1;
 	while !$is_stable {
-		for @sorted -> $particle {
-			$particle.update;
-		}
+		for @sorted -> $particle { $particle.update }
 
-		if $i %% 20 {
+		if $i %% 50 {
 			@sorted = @sorted.sort: {$^a.p.manhattanDistanceTo($origin) <=> $^b.p.manhattanDistanceTo($origin)};
 			my $top_10 = @sorted[0..10].map( -> $p { $p.id }).join(',');
 			$is_stable = $top_10 eq $prev_top_10;
@@ -51,6 +49,7 @@ sub solve_part_one(@particles) {
 
 sub solve_part_two(@particles) {
 	my %no_dupes;
+	
 	for @particles -> $particle {
 		%no_dupes{$particle.p.Str} = [$particle];
 	}
