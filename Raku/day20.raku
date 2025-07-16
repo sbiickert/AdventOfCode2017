@@ -16,10 +16,12 @@ class Particle {...}
 my @particles = @input.kv.map( -> $i, $line { Particle.from_str($i, $line) } );
 
 my $pt1 = solve_part_one(@particles);
-say "Part One: $pt1";
+say "Part One: the particle staying closest to origin is $pt1";
+
+@particles = @input.kv.map( -> $i, $line { Particle.from_str($i, $line) } );
 
 my $pt2 = solve_part_two(@particles);
-say "Part Two: $pt2";
+say "Part Two: the number of particles that didn't annihilate is $pt2";
 
 exit( 0 );
 
@@ -34,13 +36,12 @@ sub solve_part_one(@particles) {
 		for @sorted -> $particle {
 			$particle.update;
 		}
-		@sorted = @sorted.sort: {$^a.p.manhattanDistanceTo($origin) <=> $^b.p.manhattanDistanceTo($origin)};
 
-		if $i %% 100 {
+		if $i %% 20 {
+			@sorted = @sorted.sort: {$^a.p.manhattanDistanceTo($origin) <=> $^b.p.manhattanDistanceTo($origin)};
 			my $top_10 = @sorted[0..10].map( -> $p { $p.id }).join(',');
 			$is_stable = $top_10 eq $prev_top_10;
 			$prev_top_10 = $top_10;
-			# say "$i $top_10";
 		}
 		$i++;
 	}
@@ -49,7 +50,35 @@ sub solve_part_one(@particles) {
 }
 
 sub solve_part_two(@particles) {
-	return 2;
+	my %no_dupes;
+	for @particles -> $particle {
+		%no_dupes{$particle.p.Str} = [$particle];
+	}
+	my $is_stable = False;
+	my $prev_count = %no_dupes.elems;
+
+	my $i = 1;
+	while !$is_stable {
+		my %next_no_dupes;
+		for %no_dupes.values -> @p_list {
+			if @p_list.elems > 1 { next } # Annihilation
+			my $particle = @p_list.head;
+			$particle.update;
+			my $key = $particle.p.Str;
+			if %next_no_dupes{$key}:!exists { %next_no_dupes{$key} = [] }
+			%next_no_dupes{$key}.push($particle);
+		}
+
+		%no_dupes = %next_no_dupes;
+
+		if $i %% 20 {
+			$is_stable = %no_dupes.elems == $prev_count;
+			$prev_count = %no_dupes.elems;
+		}
+		$i++;
+	}
+
+	return %no_dupes.elems;
 }
 
 class Particle {
