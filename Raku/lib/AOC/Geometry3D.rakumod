@@ -27,6 +27,12 @@ class Coord3D is export {
 	method add(Coord3D $other --> Coord3D) {
 		Coord3D.new( x => $.x + $other.x, y => $.y + $other.y, z => $.z + $other.z )
 	}
+
+	method addTo(Coord3D $other) {
+		$!x += $other.x;
+		$!y += $other.y;
+		$!z += $other.z;
+	}
 	
 	method delta(Coord3D $other --> Coord3D) {
 		Coord3D.new( x => $other.x - $.x, y => $other.y - $.y, z => $other.z - $.z )

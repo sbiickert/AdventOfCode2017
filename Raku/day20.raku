@@ -63,6 +63,7 @@ sub solve_part_two(@particles) {
 			if @p_list.elems > 1 { next } # Annihilation
 			my $particle = @p_list.head;
 			$particle.update;
+
 			my $key = $particle.p.Str;
 			if %next_no_dupes{$key}:!exists { %next_no_dupes{$key} = [] }
 			%next_no_dupes{$key}.push($particle);
@@ -99,7 +100,7 @@ class Particle {
 	}
 
 	method update() {
-		$!v = $!v.add($!a);
-		$!p = $!p.add($!v);
+		$!v.addTo($!a);
+		$!p.addTo($!v);
 	}
 }
