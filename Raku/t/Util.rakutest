@@ -5,13 +5,14 @@ use Test;
 
 my $INPUT_PATH = '../input';
 my $INPUT_FILE = 'day00_test.txt';
-my $NUM_TESTS = 9;
+my $NUM_TESTS = 13;
 
 plan $NUM_TESTS;
 
 test_read_input("$INPUT_PATH/$INPUT_FILE");
 test_read_grouped_input("$INPUT_PATH/$INPUT_FILE");
 test_approx_equal();
+test_pivot_matrix();
 # test_lcm();
 # test_gcd();
 
@@ -64,6 +65,16 @@ sub test_approx_equal {
 
 	my $f3 = 10.01;
 	nok approx_equal($f1, $f3) or diag "Floats were equal.";
+}
+
+sub test_pivot_matrix {
+	say 'Testing pivoting matrix';
+	my @m = ( ("a", "b"), ("c", "d"), ("e", "f") );
+	my @p = pivot_matrix(@m);
+	ok @p[0][0] eq "a" or diag "Origin of matrix was not constant.";
+	ok @p[0].elems == 3 or diag "Wrong number of elements in first row.";
+	ok @p.elems == 2 or diag "Wrong number of rows.";
+	ok @p[0][2] eq "e" or diag "Last element of first row was wrong.";
 }
 
 # DON'T NEED: lcm and gcd are built-in operators!!

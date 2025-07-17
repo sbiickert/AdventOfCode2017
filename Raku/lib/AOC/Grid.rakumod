@@ -27,6 +27,19 @@ class Grid is export {
 		}
 		return $.default;
 	}
+
+	multi method get(Extent $box --> Array) {
+		my @result = ();
+		for $box.min.y..$box.max.y -> $y {
+			my @row = ();
+			for $box.min.x..$box.max.x -> $x {
+				my $value = self.get(Coord.new(x => $x, y => $y));
+				@row.push($value);
+			}
+			@result.push(@row);
+		}
+		@result;
+	}
 	
 	multi method get_glyph(Str $key --> Str) {
 		my $value = self.get($key);
@@ -51,13 +64,21 @@ class Grid is export {
 		return $value.Str;
 	}
 
-	method set(Coord $key, Any $value) {
+	multi method set(Coord $key, Any $value) {
 		%!data{$key.Str} = $value;
 		
 		# Update the extent to include the $coord
 		if ! $.extent.contains($key) {
 			my $temp = $.extent.expand_to_fit($key);
 			$!extent = $temp;
+		}
+	}
+
+	multi method set(Extent $box, @values) {
+		for @values.kv -> $r, @row {
+			for @row.kv -> $c, $value {
+				self.set(Coord.from_ints($c+$box.min.x, $r+$box.min.y), $value);
+			}
 		}
 	}
 	
