@@ -327,6 +327,8 @@ class Extent is export {
 	method ne(--> Coord) { return Coord.new( x => $.max.x, y => $.min.y ); }
 	method sw(--> Coord) { return Coord.new( x => $.min.x, y => $.max.y ); }
 	method se(--> Coord) { return $.max.clone; }
+
+	method corners( --> Array) { [self.nw, self.ne, self.sw, self.se] }
 	
 	method width(--> Int) {
 		return $.is_empty ?? 0 !! $.max.x - $.min.x + 1;
@@ -357,10 +359,15 @@ class Extent is export {
 		return @coords;
 	}
 	
-	method contains( Coord $coord --> Bool ) {
+	multi method contains( Coord $coord --> Bool ) {
 		if $.is_empty { return False }
 		return ($.min.x <= $coord.x && $coord.x <= $.max.x)
 			&& ($.min.y <= $coord.y && $coord.y <= $.max.y);
+	}
+
+	multi method contains( Extent $box --> Bool ) {
+		self.contains($box.nw) && self.contains($box.ne) &&
+			self.contains($box.sw) && self.contains($box.se)
 	}
 	
 	# intersect

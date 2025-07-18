@@ -15,17 +15,14 @@ say "Advent of Code 2017, Day 21: Fractal Art";
 my %rules = build_rules(@input);
 
 my @start_matrix = (".#.","..#","###");
-my $grid = Grid.new(default => '.', rule => AdjacencyRule::ROOK);
+my $grid = Grid.new(default => '.', rule => AdjacencyRule::ROOK, data_mode => GridDataMode::ARRAY);
 $grid.load(@start_matrix);
-
-# $grid.print;
-# say $grid.get(Extent.from_ints(0,0,1,1));
-# say $grid.get(Extent.from_ints(1,1,2,2));
+$grid.print;
 
 my $pt1 = solve_part($grid, 5);
 say "Part One: the number of pixels on after 5 iterations is $pt1";
 
-my $pt2 = solve_part($grid, 18);
+my $pt2 = solve_part($grid, 13);
 say "Part Two: the number of pixels on after 18 iterations is $pt2";
 
 exit( 0 );
@@ -34,28 +31,27 @@ sub solve_part(Grid $start_grid, Int $iterations) {
 	my $grid = $start_grid.clone;
 	for 1..$iterations -> $i {
 		say $i;
-		my $work = Grid.new(default => '.', rule => AdjacencyRule::ROOK);
 
 		my $size = $grid.extent.width %% 2 ?? 2 !! 3;
 		my $out_size = $size + 1;
+		my $grid_size = ($grid.extent.width / $size * $out_size).Int;
+
+		my $work = Grid.new(default => '.', rule => AdjacencyRule::ROOK, data_mode => GridDataMode::ARRAY, initial_size => $grid_size);
 
 		loop (my $x = 0, my $out_x = 0; $x < $grid.extent.max.x; $x += $size, $out_x += $out_size) {
 			loop (my $y = 0, my $out_y = 0; $y < $grid.extent.max.y; $y += $size, $out_y += $out_size) {
 				my $source = Extent.from_ints($x,$y,$x+$size-1,$y+$size-1);
-				# say $source;
 				my $target = Extent.from_ints($out_x, $out_y, $out_x+$out_size-1, $out_y+$out_size-1);
-				# say $target;
 
 				my @in_matrix = $grid.get($source);
 				my $in_str = str_from_matrix(@in_matrix);
-				# say $in_str;
 				my @out_matrix = %rules{$in_str}.flat;
-				# say @out_matrix.raku;
 				$work.set($target, @out_matrix);
 			}
 		}
-
+		
 		$grid = $work;
+		# say $grid.extent;
 		# $grid.print;
 	}
 
@@ -86,34 +82,24 @@ sub build_rules(@input) {
 		}
 	}
 
-	# say %rules.raku;
-	# die;
 	%rules;
 }
 
 sub matrix_from_str($str) {
 	my @m;
-	# say "in: $str";
 	my @rows = $str.split("/");
 	for @rows.kv -> $r, $row {
 		my @chars = $row.split('', :skip-empty);
 		@m[$r] = @chars;
 	}
-	# say "out: " ~ @m.raku;
 	@m;
 }
 
 sub str_from_matrix(@matrix) {
-	# say "in: " ~ @matrix.raku;
-
-	my $str = @matrix.map( -> @row {@row.join('')}).join('/');
-	
-	# say "out: $str";
-	$str;
+	@matrix.map( -> @row {@row.join('')}).join('/');
 }
 
 sub rotate_matrix(@matrix) {
-	# say "rotate in: " ~ @matrix.raku;
 	my @rotated = ();
 	for 0..@matrix.end { @rotated.push( [] ) }
 
@@ -123,13 +109,9 @@ sub rotate_matrix(@matrix) {
 			@rotated[$i].push($pix);
 		}
 	}
-	# say "out: " ~ @rotated.raku;
 	@rotated;
 }
 
 sub flip_matrix(@matrix) {
-	# say "flip in: " ~ @matrix.raku;
-	my @flipped = @matrix.map(-> @row { @row.reverse.List });
-	# say "out: " ~ @flipped.raku;
-	@flipped;
+	@matrix.map(-> @row { @row.reverse.List });
 }
