@@ -17,12 +17,11 @@ my %rules = build_rules(@input);
 my @start_matrix = (".#.","..#","###");
 my $grid = Grid.new(default => '.', rule => AdjacencyRule::ROOK, data_mode => GridDataMode::ARRAY);
 $grid.load(@start_matrix);
-$grid.print;
 
 my $pt1 = solve_part($grid, 5);
 say "Part One: the number of pixels on after 5 iterations is $pt1";
 
-my $pt2 = solve_part($grid, 13);
+my $pt2 = solve_part($grid, 18);
 say "Part Two: the number of pixels on after 18 iterations is $pt2";
 
 exit( 0 );
@@ -36,6 +35,7 @@ sub solve_part(Grid $start_grid, Int $iterations) {
 		my $out_size = $size + 1;
 		my $grid_size = ($grid.extent.width / $size * $out_size).Int;
 
+		# Choosing GridDataMode::ARRAY makes this 4x faster
 		my $work = Grid.new(default => '.', rule => AdjacencyRule::ROOK, data_mode => GridDataMode::ARRAY, initial_size => $grid_size);
 
 		loop (my $x = 0, my $out_x = 0; $x < $grid.extent.max.x; $x += $size, $out_x += $out_size) {
@@ -51,8 +51,6 @@ sub solve_part(Grid $start_grid, Int $iterations) {
 		}
 		
 		$grid = $work;
-		# say $grid.extent;
-		# $grid.print;
 	}
 
 	my %hist = $grid.histogram;
