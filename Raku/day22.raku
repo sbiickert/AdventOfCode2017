@@ -35,19 +35,17 @@ sub solve_part_one(Grid $grid, Position $start, Int $bursts) {
 	for 1..$bursts -> $b {
 		my $current_state = $grid.get_glyph($pos.coord);
 		given $current_state {
-			when '#' -> {
-				$pos = $pos.turn('CW');
+			when '#' {
+				$pos = $pos.turn('R');
 				$grid.set($pos.coord, '.');
 			}
-			when '.' -> {
-				$pos = $pos.turn('CCW');
+			when '.' {
+				$pos = $pos.turn('L');
 				$grid.set($pos.coord, '#');
 				$burst_to_infected_count++;
 			}
 		}
 		$pos = $pos.move_forward;
-		# $grid.print(markers => {$pos.coord => $pos.dir});
-		# say "";
 	}
 
 	return $burst_to_infected_count;
@@ -59,24 +57,25 @@ sub solve_part_two(Grid $grid, Position $start, Int $bursts) {
 	for 1..$bursts -> $b {
 		say $b if $b %% 100000;
 		my $current_state = $grid.get_glyph($pos.coord);
-		given $current_state {
-			when '#' -> { # Infected
-				$pos = $pos.turn('CW');
-				$grid.set($pos.coord, 'F');
-			}
-			when '.' -> { # Clean
-				$pos = $pos.turn('CCW');
-				$grid.set($pos.coord, 'W');
-			}
-			when 'W' -> { # Weakened
-				# No turn
-				$grid.set($pos.coord, '#');
-				$burst_to_infected_count++;
-			}
-			when 'F' -> { # Flagged
-				$pos = $pos.turn('CW').turn('CW'); # Reverse
-				$grid.set($pos.coord, '.');
-			}
+
+		# Interestingly, using if/elsif/else is 10% faster than given/when
+		# Implemented "turn_fast" and cut another 50% off time
+		if $current_state eq "#" { # Infected
+			$pos.turn_fast(1); # turn right
+			$grid.set($pos.coord, 'F');
+		}
+		elsif $current_state eq '.' { # Clean
+			$pos.turn_fast(-1); # turn left
+			$grid.set($pos.coord, 'W');
+		}
+		elsif $current_state eq 'W' { # Weakened
+			# No turn
+			$grid.set($pos.coord, '#');
+			$burst_to_infected_count++;
+		}
+		else { # 'F' # Flagged
+			$pos.turn_fast(1); $pos.turn_fast(1); # Reverse by turning right twice
+			$grid.set($pos.coord, '.');
 		}
 		$pos = $pos.move_forward;
 	}

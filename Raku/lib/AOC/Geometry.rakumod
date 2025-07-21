@@ -180,6 +180,15 @@ class Position is export {
 		$index = ($index + $step) % 4;
 		return Position.new(coord => $.coord.clone, dir => @ordered[$index]);
 	}
+
+	method turn_fast(Int $amt) {
+		# turn is better (more flexible calling, does not mutate) but this is twice as fast
+		# -1 is CCW, 1 is CW
+		if $!dir eq 'N' 	{ $!dir = $amt < 0 ?? 'W' !! 'E' }
+		elsif $!dir eq 'E' 	{ $!dir = $amt < 0 ?? 'N' !! 'S' }
+		elsif $!dir eq 'S' 	{ $!dir = $amt < 0 ?? 'E' !! 'W' }
+		else 				{ $!dir = $amt < 0 ?? 'S' !! 'N' }
+	}
 	
 	method move_forward(Int $distance = 1 --> Position) {
 		my $off = %OFFSET_DIRS{$.dir};
