@@ -306,6 +306,7 @@ class Grid is export {
 	}
 	
 	method load(@rows) {
+		self.TWEAK;
 		for 0..@rows.end -> $r {
 			my @cols = @rows[$r].split('', :skip-empty);
 			for 0..@cols.end -> $c {
