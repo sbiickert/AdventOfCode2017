@@ -39,11 +39,11 @@ sub find_best_bridges(@bridge, @available_comps) {
 	for @available_comps.kv -> $i, @comp {
 
 		if @comp[0] == $end_pins || @comp[1] == $end_pins {
-			my @mutable = @comp;
 			my @rest = @available_comps.clone;
 			@rest.splice($i, 1);
+			my @mutable = @comp;
 			if @mutable[0] != $end_pins {
-				@mutable = @mutable.reverse.List;
+				@mutable = @comp.reverse.List;
 			}
 			my @new_bridge = @bridge.clone;
 			@new_bridge.push(@mutable);
