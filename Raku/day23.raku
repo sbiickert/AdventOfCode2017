@@ -15,13 +15,12 @@ say "Advent of Code 2017, Day 23: Coprocessor Conflagration";
 class Day23Program {...}
 
 my @instructions = @input.map(&parse_instruction);
-# say @instructions;
 
 my $pt1 = solve_part_one(@instructions);
 say "Part One: mul instructions were called $pt1 times";
 
-my $pt2 = solve_part_two(@input);
-say "Part Two: $pt2";
+my $pt2 = solve_part_two();
+say "Part Two: the value left in register h is $pt2";
 
 exit( 0 );
 
@@ -33,8 +32,14 @@ sub solve_part_one(@instructions) {
 	return $program.mul_count;
 }
 
-sub solve_part_two(@input) {
-	return 2;
+sub solve_part_two() {
+	# Can't run the virtual software from part 1 in less than infinite time.
+	# This is the logic inside the program.
+	my $h = 0;
+	loop (my $i = 106700; $i <= 123700; $i += 17) {
+		if !$i.is-prime { $h++ }
+	}
+	return $h;
 }
 
 sub parse_instruction($line) {
@@ -62,6 +67,7 @@ sub parse_instruction($line) {
 	%instr;
 }
 
+# Simplified, modified version of Day 18
 class Day23Program {
 	has @.instructions = [];
 	has Int $.ptr = 0;
