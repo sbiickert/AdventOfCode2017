@@ -23,13 +23,13 @@ say "Part One: the diagnostic checksum is $pt1";
 exit( 0 );
 
 sub solve_part_one(Str $start_state, Int $steps, %blueprint) {
-	my %tape;
+	my %tape is default(0);
 	my $state = $start_state;
 	my $ptr = 0;
 
 	for 1..$steps -> $s {
-		say $s if $s %% 100000;
-		my $current = %tape{$ptr}:exists ?? %tape{$ptr} !! 0;
+		#say $s if $s %% 100000;
+		my $current = %tape{$ptr};
 		my %cond = %blueprint{$state}{$current};
 		%tape{$ptr} = %cond{'write'};
 		$state = %cond{'next'};
@@ -46,7 +46,6 @@ sub parse_blueprint(@input) {
 		my %state = parse_bp_state(@g);
 		%bp{%state{'name'}} = %state;
 	}
-	# say %bp;
 
 	%bp;
 }
