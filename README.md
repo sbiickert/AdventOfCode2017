@@ -39,3 +39,23 @@ In 2024, I did my AoC solve in Raku. One of the things that I focused on was the
 Since my only previous solve of 2017 was with ObjC, it makes for an interesting contrast. Some days, I find my solution is effectively the same, but much less verbose. Other days, the Raku solution is radically different. In some cases, that's because I've changed as a developer and in others, it's just the way the language works. When the solutions are the same, the ObjC one wins on performance. But the total LOC for Raku is always shorter.
 
 I'm also using Visual Studio Code, whereas in 2024 I used nano. VS Code works really well for Raku. Not as much assistance as VS Code + Iodide for F#, but autocomplete and live compilation and error messages go a long way to speed things up.
+
+## 25 Days Solved in Raku
+
+If I had to sum this experience up, I would say: "slow and concise".
+
+Slow, because there's no getting around the fact that Raku's processing is slow. Slower than Perl, and way slower than F# or ObjC or Swift. When the solution requires looping over something millions of times, there's no alternative to waiting. I tried using the hyper operator to multithread, but that did nothing for overall speed. I also figured out that using the ==> feed operator was slower than just chaining functions. Example: 
+
+```
+	# This is slower
+	@bridge ==> map( -> @comp { @comp.sum }) ==> sum;
+	
+	# This is faster
+	@bridge.map( -> @comp { @comp.sum }).sum;
+```
+
+Concise, because when I was comparing my Raku solutions to the ObjC solutions, they were at least half the number of lines of code, and sometimes more than 3x less. Not that I was obfuscating my code or doing something ridiculous, just the code was very compact. Writing Raku in Visual Studio Code was way, way faster than doing it in nano. Having the editor compiling and finding errors in the background meant that there were almost no times where I would run and hit compilation errors. The offending lines were highlighted and hovering over them showed the problem.
+
+I was a little disappointed that my code didn't end up being as "functional" towards the end. I started using more Perl-like code patterns and even OO, just using .map and .sum here and there. I found when writing F#, I would love reviewing the elegance of the code. Raku code is compact and not pretty.
+
+I'm glad I did it. I still think that Raku is the best language for doing things like this, except for the speed issue.
