@@ -59,3 +59,7 @@ Concise, because when I was comparing my Raku solutions to the ObjC solutions, t
 I was a little disappointed that my code didn't end up being as "functional" towards the end. I started using more Perl-like code patterns and even OO, just using .map and .sum here and there. I found when writing F#, I would love reviewing the elegance of the code. Raku code is compact and not pretty.
 
 I'm glad I did it. I still think that Raku is the best language for doing things like this, except for the speed issue.
+
+## F#
+
+The contest for Simon's fave language rages on. 

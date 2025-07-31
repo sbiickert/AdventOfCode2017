@@ -48,6 +48,9 @@ module Geometry =
     let mkCoord (x:int64) (y:int64) =
         {x = x; y = y}
 
+    let mkCoord (x:int) (y:int) =
+        {x = int64 x; y = int64 y}
+
     let mkPos coord dir =
         {coord = coord; dir = dir}
     

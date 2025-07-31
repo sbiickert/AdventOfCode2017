@@ -11,33 +11,48 @@ module Grid =
         | Value of value: int64
         | Complex of glyph: string * value:obj
 
+    type GridDataStore =
+        | Hash of hash: Dictionary<Coord, GridData>
+        | Array of array: GridData[,]
+
     type Grid =
         {
-            data: Dictionary<Coord, GridData>
+            data: GridDataStore
             extent: Extent option
             rule: AdjacencyRule
             defaultValue: string
         }
 
-    let mkGrid defaultValue rule =
-        {data = new Dictionary<Coord, GridData>(); extent = None; rule = rule; defaultValue = defaultValue}
+    let mkHGrid defaultValue rule =
+        let ds = new Dictionary<Coord, GridData>()
+        {data = Hash ds; extent = None; rule = rule; defaultValue = defaultValue}
+
+    let mkAGrid defaultValue rule (size:int) =
+        let ds = Array2D.create size size (Glyph defaultValue)
+        let ext = mkExtI 0 0 (int64 (size-1)) (int64 (size-1))
+        {data = Array ds; extent = Some ext; rule = rule; defaultValue = defaultValue}
     
     module Grid =
         let getValue coord grid = 
-            if grid.data.ContainsKey coord then
-                grid.data.Item coord
-            else
-                Glyph grid.defaultValue
+            match grid.data with
+            | Hash h ->
+                if h.ContainsKey coord then
+                    h.Item coord
+                else
+                    Glyph grid.defaultValue
+            | Array a ->
+                if Extent.contains grid.extent.Value coord then
+                    a[int coord.x, int coord.y]
+                else
+                    Glyph grid.defaultValue
+
         
         let getString coord grid =
-            if grid.data.ContainsKey coord then
-                let d = grid.data.Item coord
-                match d with
-                | Glyph g -> g
-                | Value i -> i.ToString()
-                | Complex (glyph, _) -> glyph
-            else
-                grid.defaultValue
+            let gridData = getValue coord grid
+            match gridData with
+            | Glyph g -> g
+            | Value i -> i.ToString()
+            | Complex (glyph, _) -> glyph
 
         let getInteger coord grid = 
             let gridData = getValue coord grid
@@ -47,61 +62,89 @@ module Grid =
             | _ -> 0 
 
         let setValue coord value grid = 
-            if grid.data.ContainsKey coord then
-                grid.data.Remove coord |> ignore
-            grid.data.Add (coord,value)
-            
-            let newExtent = 
-                if grid.extent.IsNone then
-                    mkExtent [coord]
+            match grid.data with
+            | Hash h ->
+                if h.ContainsKey coord then
+                    h.Remove coord |> ignore
+                h.Add (coord,value)
+                
+                let newExtent = 
+                    if grid.extent.IsNone then
+                        mkExtent [coord]
+                    else
+                        Extent.expandToFit grid.extent.Value [coord]
+                {grid with extent = Some newExtent}            
+            | Array a ->
+                if Extent.contains grid.extent.Value coord then
+                    a[int coord.x, int coord.y] <- value
+                    grid
                 else
-                    Extent.expandToFit grid.extent.Value [coord]
-            {grid with extent = Some newExtent}
+                    grid
 
-        let batchUpdate (data:Map<Coord,GridData option>) grid =
-            data
-            |> Map.map (fun coord value ->
-                grid.data.Remove coord |> ignore
-                if data[coord].IsSome then
-                    grid.data.Add (coord,value.Value)
-                )
-            |> ignore
+
+        // let batchUpdate (data:Map<Coord,GridData option>) grid =
+        //     data
+        //     |> Map.map (fun coord value ->
+        //         grid.data.Remove coord |> ignore
+        //         if data[coord].IsSome then
+        //             grid.data.Add (coord,value.Value)
+        //         )
+        //     |> ignore
 
         let copy grid =
-            let clonedData = new Dictionary<Coord, GridData>()
-            for coord in grid.data.Keys do
-                clonedData.Add(coord,grid.data.Item coord)
-            {grid with data=clonedData; extent=grid.extent; rule=grid.rule; defaultValue=grid.defaultValue}
+            match grid.data with
+            | Hash h -> 
+                let clonedData = new Dictionary<Coord, GridData>()
+                for coord in h.Keys do
+                    clonedData.Add(coord,h.Item coord)
+                {grid with data=Hash clonedData; extent=grid.extent; rule=grid.rule; defaultValue=grid.defaultValue}
+            | Array a -> 
+                {grid with data=Array (Array2D.copy a)}
 
-        let load (input: string list) defaultValue rule =
-            let mutable grid = mkGrid defaultValue rule
+        let load (input: string list) defaultValue rule (fixedSize:option<int>) =
+            let mutable grid = 
+                if fixedSize.IsNone then
+                    mkHGrid defaultValue rule
+                else
+                    mkAGrid defaultValue rule fixedSize.Value
 
             let yseq = seq { for y in [0 .. input.Length-1] -> (y, input[y]) }
             for (y, line) in yseq do
                 let chars = Seq.toList line |> List.map (fun c -> c.ToString())
                 let xseq = seq { for x in [0 .. chars.Length-1] -> (x, chars[x]) }
                 for (x, c) in xseq do
-                    if c <> grid.defaultValue then
+                    if fixedSize.IsSome || c <> grid.defaultValue then
                         grid <- setValue {x = x; y = y} (Glyph c) grid
             grid
         
         let clear coord resetExtent grid =
-            let removeSuccessful = grid.data.Remove coord
-
-            let newExtentOpt = 
-                if resetExtent && removeSuccessful then
-                    let coords = List.ofSeq grid.data.Keys
-                    Some(mkExtent coords)
-                else
-                    grid.extent
-            {grid with extent = newExtentOpt}
+            match grid.data with
+            | Hash h ->
+                let removeSuccessful = h.Remove coord
+                let newExtentOpt = 
+                    if resetExtent && removeSuccessful then
+                        let coords = List.ofSeq h.Keys
+                        Some(mkExtent coords)
+                    else
+                        grid.extent
+                {grid with extent = newExtentOpt}
+            | Array a ->
+                if Extent.contains grid.extent.Value coord then
+                    a[int coord.x, int coord.y] <- Glyph grid.defaultValue
+                grid
         
         let coords (withValue: string option) grid =
             if withValue.IsNone then
-                List.ofSeq grid.data.Keys
+                match grid.data with
+                | Hash h -> List.ofSeq h.Keys
+                | Array a -> Extent.allCoordsIn grid.extent.Value
             else
                 let value = withValue.Value
-                grid.data.Keys
+                let seq:Coord seq =
+                    match grid.data with
+                    | Hash h -> h.Keys
+                    | Array a -> Extent.allCoordsSequence grid.extent.Value
+                seq
                 |> Seq.filter (fun coord -> getString coord grid = value)
                 |> List.ofSeq
         
