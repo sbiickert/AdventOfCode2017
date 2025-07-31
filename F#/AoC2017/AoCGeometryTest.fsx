@@ -48,6 +48,10 @@ let testCoordCreate () =
     assertEqual 10L copied.x
     assertEqual -40L copied.y
 
+    let c1 = mkCoordI 5 8
+    assertEqual 5L c1.x
+    assertEqual 8L c1.y
+
 testCoordCreate ()
 
 let testCoordAddSub () =
