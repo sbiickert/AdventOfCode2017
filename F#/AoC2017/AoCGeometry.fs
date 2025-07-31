@@ -145,23 +145,23 @@ module Geometry =
             adjacent
 
     module Position =
-        let turn pos rotationDir =
+        let turn rotationDir pos =
             let ordered = Direction.directionsFor AdjacencyRule.Rook
             let index = List.findIndex (fun d -> d = pos.dir) ordered
             let turnedIndex = 
                 if rotationDir = RotationDirection.CW then
-                    (index + 1) % 4
+                    AoC.Util.wrapIndex 4 (index + 1)
                 else
-                    (index - 1) % 4
+                    AoC.Util.wrapIndex 4 (index - 1)
             {coord = pos.coord; dir = ordered[turnedIndex]}
 
-        let turnWithString pos (rotationStr: string) =
+        let turnWithString (rotationStr: string) pos =
             match rotationStr.ToUpper() with
-            | "CW" | "R" -> turn pos RotationDirection.CW
-            | "CCW" | "L" -> turn pos RotationDirection.CCW
+            | "CW" | "R" -> turn RotationDirection.CW pos
+            | "CCW" | "L" -> turn RotationDirection.CCW pos
             | _ -> pos
 
-        let moveForward pos (distance: int64) =
+        let moveForward (distance: int64) pos =
             let off = Direction.offset pos.dir
             let move = {x = off.x * distance; y = off.y * distance}
             let nextPos = Coord.add pos.coord move
