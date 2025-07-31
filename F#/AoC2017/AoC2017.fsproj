@@ -6,8 +6,11 @@
   <ItemGroup>
     <Compile Include="AoCUtil.fs" />
     <Compile Include="AoCGeometry.fs" />
-    <Compile Include="AoCGrid.fs" /><Compile Include="Day01.fs" />
-    <Compile Include="Day00.fs" /><Compile Include="Program.fs" />
+    <Compile Include="AoCGrid.fs" />
+    <Compile Include="Day02.fs" />
+    <Compile Include="Day01.fs" />
+    <Compile Include="Day00.fs" />
+    <Compile Include="Program.fs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="FSharp.Data" Version="6.6.0" />

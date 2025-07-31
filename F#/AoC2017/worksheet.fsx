@@ -1,4 +1,4 @@
-// #load "AoCUtil.fs"
+#load "AoCUtil.fs"
 // // #load "AoCGeometry.fs"
 // // #load "AoCGrid.fs"
 
@@ -7,9 +7,5 @@
 // solveDay01 false |> ignore
 // #time
 
-let a:string[,] = Array2D.create 5 6 "boo"
-let b = Array2D.copy a
-
-b[3,4] <- "sam"
-a
-b
+let items = [|"a"; "b"; "c"|]
+AoC.Util.combinations items

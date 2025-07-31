@@ -8,4 +8,5 @@ printfn $"Put a breakpoint here to pause for tracing."
 // Solutions
 
 // solveDay00 true |> ignore    // Just a test harness
-solveDay01 false |> ignore    // Just a test harness
+// solveDay01 false |> ignore    // Adding numbers in a circular array if the trailing one is equal
+solveDay02 false |> ignore   // Checksums of rows in a spreadsheet

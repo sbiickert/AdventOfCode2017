@@ -94,6 +94,11 @@ module Util =
         input |> List.mapi (fun index value -> if index % every = modResult then Some(value) else None)
         |> List.choose (fun opt -> if opt.IsSome then opt else None)
 
+    let combinations (input:'a array) =
+        [for i in 0..input.Length-2 do
+            for j in i+1..input.Length-1 do
+                yield input[i],input[j]]
+
     let rec permutations (input: 'a list) = seq {
         if (input.IsEmpty) then 
             yield []
