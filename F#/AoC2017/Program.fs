@@ -10,4 +10,5 @@ printfn $"Put a breakpoint here to pause for tracing."
 // solveDay00 true |> ignore    // Just a test harness
 // solveDay01 false |> ignore    // Adding numbers in a circular array if the trailing one is equal
 // solveDay02 false |> ignore   // Checksums of rows in a spreadsheet
-solveDay03 false |> ignore   // Spiral memory in a grid
+// solveDay03 false |> ignore   // Spiral memory in a grid
+solveDay04 false |> ignore   // Finding valid passphrases
