@@ -62,4 +62,6 @@ I'm glad I did it. I still think that Raku is the best language for doing things
 
 ## F#
 
-The contest for Simon's fave language rages on. 
+The contest for Simon's fave language rages on.
+
+Day 4 made for an interesting comparison between [Raku](https://github.com/sbiickert/AdventOfCode2017/blob/main/Raku/day04.raku) and [F#](https://github.com/sbiickert/AdventOfCode2017/blob/main/F%23/AoC2017/Day04.fs). I used the same method to solve (independently arrived at) but the differences are interesting. With Raku, the core code is more concise and more readable (and made of built-in functions). But F# is not a lot more difficult to read, and I automatically chose to pass the passphrase validation as a function to a generic solve routine, which is elegant.
