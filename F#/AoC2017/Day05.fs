@@ -14,8 +14,18 @@ let solvePartOne (input: array<int>) =
         stepCount <- stepCount + 1
     stepCount
 
-let solvePartTwo input =
-    2
+let solvePartTwo (input: array<int>) =
+    let mutable ptr = 0
+    let mutable stepCount = 0
+
+    while ptr >= 0 && ptr < input.Length do
+        let jump = input[ptr]
+        if jump >= 3 then   input[ptr] <- jump - 1
+        else                input[ptr] <- jump + 1
+        ptr <- ptr + jump
+        stepCount <- stepCount + 1
+
+    stepCount
 
 let solveDay05 isTest: Unit =
     let day = 5
@@ -24,7 +34,7 @@ let solveDay05 isTest: Unit =
     let inputName = inputFileName day isTest
     let input = readInput inputName true |> List.map(fun line -> int line) |> Array.ofList
 
-    let solution1 = solvePartOne input
+    let solution1 = solvePartOne (Array.copy input)
     printfn $"Part One: the program escapes after {solution1} steps"
-    let solution2 = solvePartTwo input
-    printfn $"Part Two: {solution2}"
+    let solution2 = solvePartTwo (Array.copy input)
+    printfn $"Part Two: the program escapes after {solution2} steps"
