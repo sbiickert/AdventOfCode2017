@@ -13,4 +13,5 @@ printfn $"Put a breakpoint here to pause for tracing."
 // solveDay03 false |> ignore   // Spiral memory in a grid
 // solveDay04 false |> ignore   // Finding valid passphrases
 // solveDay05 false |> ignore   // Escaping a program with jumps
-solveDay06 false |> ignore   // Finding an infinite loop
+// solveDay06 false |> ignore   // Finding an infinite loop
+solveDay07 false |> ignore      //Recursive Circus

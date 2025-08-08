@@ -1,5 +1,5 @@
 [<AutoOpen>]
-module Day<##>
+module Day07
 
 open AoC.Util
 
@@ -9,9 +9,9 @@ let solvePartOne input =
 let solvePartTwo input =
     2
 
-let solveDay<##> isTest: Unit =
-    let day = <##>
-    let puzzleName = "<##>"
+let solveDay07 isTest: Unit =
+    let day = 07
+    let puzzleName = "Recursive Circus"
     printfn $"Day {day}: {puzzleName}"
     let inputName = inputFileName day isTest
     let input = readInput inputName true
