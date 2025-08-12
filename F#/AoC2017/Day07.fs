@@ -7,6 +7,7 @@ open System.Text.RegularExpressions
 type WeightAndChildren = 
     {
         weight: int
+        totalWeight: int
         children: List<string>
     }
 
@@ -21,9 +22,55 @@ let solvePartOne (map:Map<string,WeightAndChildren>): string =
         map.Values |> Seq.map(fun wc -> wc.children) |> Seq.collect id |> Set.ofSeq
     allChildren |> Set.difference allPrograms |> Set.toList |> List.head
 
+let applyTotalWeight (map:Map<string,WeightAndChildren>): Map<string,WeightAndChildren> =
+    let mutable modifiedMap = map
+    for key in map.Keys do
+        let tw = totalWeight key map
+        modifiedMap <- modifiedMap.Remove key
+        modifiedMap <- modifiedMap.Add (key, {map[key] with totalWeight=tw})
+    modifiedMap
+
+let mkParentMap (map:Map<string,WeightAndChildren>): Map<string,string> =
+    let mutable parentMap = Map<string,string>[]
+    for key in map.Keys do
+        for child in map[key].children do
+            parentMap <- parentMap.Add (child, key)
+    parentMap
+
+let majorityWeight weights =
+    weights
+    |> Seq.countBy id
+    |> Seq.maxBy snd
+    |> fst
+
 let solvePartTwo (map:Map<string,WeightAndChildren>): (string * int) =
-    
-    "bob",2
+    let mapTW = applyTotalWeight map
+    let parentMap = mkParentMap map
+    let mutable correctWeight = 0
+
+    let name =
+        map.Keys 
+        |> Seq.filter (fun program -> Map.containsKey program parentMap)
+        |> Seq.filter (fun program -> 
+            let siblings = mapTW[parentMap[program]].children
+            let children = mapTW[program].children
+            let childrenWeighTheSame =
+                children
+                |> List.map (fun child -> mapTW[child].totalWeight)
+                |> AoC.Util.frequencyMap
+                |> Map.count = 1
+            let mw = 
+                siblings
+                |> List.map (fun sib -> mapTW[sib].totalWeight)
+                |> majorityWeight
+            if childrenWeighTheSame && mapTW[program].totalWeight <> mw then
+                correctWeight <- mapTW[program].weight - (mapTW[program].totalWeight - mw)
+                true
+            else false
+        )
+        |> Seq.head
+
+    name,correctWeight
 
 let buildMap input =
     let mutable map = Map<string,WeightAndChildren> []
@@ -37,7 +84,7 @@ let buildMap input =
                 m[4].Value.Split(", ") |> List.ofArray
             else
                 []
-        map <- map.Add (name, {weight=weight; children=children})
+        map <- map.Add (name, {weight=weight; totalWeight=0; children=children})
     ) |> ignore
     map
 

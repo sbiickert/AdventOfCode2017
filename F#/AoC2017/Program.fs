@@ -14,4 +14,4 @@ printfn $"Put a breakpoint here to pause for tracing."
 // solveDay04 false |> ignore   // Finding valid passphrases
 // solveDay05 false |> ignore   // Escaping a program with jumps
 // solveDay06 false |> ignore   // Finding an infinite loop
-solveDay07 true |> ignore      // Find the imbalanced program in hierarchy
+solveDay07 false |> ignore      // Find the imbalanced program in hierarchy
