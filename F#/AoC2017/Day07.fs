@@ -46,31 +46,29 @@ let majorityWeight weights =
 let solvePartTwo (map:Map<string,WeightAndChildren>): (string * int) =
     let mapTW = applyTotalWeight map
     let parentMap = mkParentMap map
-    let mutable correctWeight = 0
 
-    let name =
-        map.Keys 
-        |> Seq.filter (fun program -> Map.containsKey program parentMap)
-        |> Seq.filter (fun program -> 
-            let siblings = mapTW[parentMap[program]].children
-            let children = mapTW[program].children
-            let childrenWeighTheSame =
-                children
-                |> List.map (fun child -> mapTW[child].totalWeight)
-                |> AoC.Util.frequencyMap
-                |> Map.count = 1
-            let mw = 
-                siblings
-                |> List.map (fun sib -> mapTW[sib].totalWeight)
-                |> majorityWeight
-            if childrenWeighTheSame && mapTW[program].totalWeight <> mw then
-                correctWeight <- mapTW[program].weight - (mapTW[program].totalWeight - mw)
-                true
-            else false
-        )
-        |> Seq.head
-
-    name,correctWeight
+    map.Keys 
+    |> Seq.filter (fun program -> Map.containsKey program parentMap) // Eliminate the base program
+    |> Seq.map (fun program -> 
+        let siblings = mapTW[parentMap[program]].children
+        let majorityWeightInFamily = 
+            siblings
+            |> List.map (fun sib -> mapTW[sib].totalWeight)
+            |> majorityWeight
+        let children = mapTW[program].children
+        let childrenWeighTheSame =
+            children
+            |> List.map (fun child -> mapTW[child].totalWeight)
+            |> AoC.Util.frequencyMap
+            |> Map.count = 1
+        let correctWeight =
+            if childrenWeighTheSame && mapTW[program].totalWeight <> majorityWeightInFamily then
+                mapTW[program].weight - (mapTW[program].totalWeight - majorityWeightInFamily)
+            else 0
+        program,correctWeight
+    )
+    |> Seq.filter (fun (program,weight) -> weight <> 0) 
+    |> Seq.head
 
 let buildMap input =
     let mutable map = Map<string,WeightAndChildren> []
