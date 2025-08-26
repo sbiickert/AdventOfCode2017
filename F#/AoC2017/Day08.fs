@@ -4,31 +4,17 @@ module Day08
 open AoC.Util
 open System.Text.RegularExpressions
 
-type IncDec = 
-    | Increase
-    | Decrease
-    | None
-
-type Comparison =
-    | EqualTo
-    | NotEqualTo
-    | LessThan
-    | GreaterThan
-    | GreaterThanOrEqualTo
-    | LessThanOrEqualTo
-    | None
-
 type Condition =
     {
         reg:string
-        comp:Comparison
+        comp:string
         value:int
     }
 
 type Instruction = 
     {
         reg:string
-        dir:IncDec
+        dir:string
         value:int
         cond:Condition
     }
@@ -51,22 +37,22 @@ let initRegisters instructions =
 let evalCondition (registers:Map<string,int>) (condition:Condition) =
     let testValue = registers[condition.reg]
     match condition.comp with
-        | EqualTo -> testValue = condition.value
-        | NotEqualTo -> testValue <> condition.value
-        | LessThan -> testValue < condition.value
-        | GreaterThan -> testValue > condition.value
-        | LessThanOrEqualTo -> testValue <= condition.value
-        | GreaterThanOrEqualTo -> testValue >= condition.value
-        | None -> false
+        | "==" -> testValue = condition.value
+        | "!=" -> testValue <> condition.value
+        | "<"  -> testValue < condition.value
+        | ">"  -> testValue > condition.value
+        | "<=" -> testValue <= condition.value
+        | ">=" -> testValue >= condition.value
+        | _ -> false
 
 let performInstruction (registers:Map<string,int>) (instruction:Instruction) =
     if evalCondition registers instruction.cond then
         let currentValue = registers[instruction.reg]
         let newValue =
             match instruction.dir with
-                | Increase -> currentValue + instruction.value
-                | Decrease -> currentValue - instruction.value
-                | IncDec.None -> currentValue
+                | "inc" -> currentValue + instruction.value
+                | "dec" -> currentValue - instruction.value
+                | _ -> currentValue
         let modified = registers.Remove instruction.reg
         modified.Add (instruction.reg, newValue)
     else registers
@@ -90,28 +76,12 @@ let solvePartTwo instructions =
     
     maxes |> List.max
 
-let strToComparison s =
-    match s with
-        | "==" -> EqualTo
-        | "!=" -> NotEqualTo
-        | "<"  -> LessThan
-        | ">"  -> GreaterThan
-        | "<="  -> LessThanOrEqualTo
-        | ">="  -> GreaterThanOrEqualTo
-        | _     -> None
-
 let rx = Regex(@"([a-z]+) (inc|dec) (-?[0-9]+) if ([a-z]+) ([<>=!]+) (-?[0-9]+)")
 
 let parseInstruction line =
     let m = rx.Match(line).Groups
-    let cond = {reg=m[4].Value; comp=strToComparison m[5].Value; value=int m[6].Value}
-    let dir:IncDec =
-        match m[2].Value with
-            | "inc" -> Increase
-            | "dec" -> Decrease
-            | _     -> IncDec.None
-    {reg=m[1].Value; dir=dir; value=int m[3].Value; cond=cond}
-
+    let cond = {reg=m[4].Value; comp=m[5].Value; value=int m[6].Value}
+    {reg=m[1].Value; dir=m[2].Value; value=int m[3].Value; cond=cond}
 
 let solveDay08 isTest: Unit =
     let day = 08
