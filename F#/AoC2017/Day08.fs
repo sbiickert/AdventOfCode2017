@@ -59,8 +59,6 @@ let evalCondition (registers:Map<string,int>) (condition:Condition) =
         | GreaterThanOrEqualTo -> testValue >= condition.value
         | None -> false
 
-
-
 let performInstruction (registers:Map<string,int>) (instruction:Instruction) =
     if evalCondition registers instruction.cond then
         let currentValue = registers[instruction.reg]
@@ -79,12 +77,18 @@ let solvePartOne instructions =
     for i in instructions do
         registers <- performInstruction registers i
     registers.Values
-    |> Seq.sortDescending
-    |> Seq.head
+    |> Seq.max
 
 
-let solvePartTwo input =
-    2
+let solvePartTwo instructions =
+    let mutable registers = initRegisters instructions
+    let mutable maxes:list<int> = []
+    for i in instructions do
+        registers <- performInstruction registers i
+        let m = registers.Values |> Seq.max
+        maxes <- m :: maxes
+    
+    maxes |> List.max
 
 let strToComparison s =
     match s with
@@ -119,4 +123,4 @@ let solveDay08 isTest: Unit =
     let solution1 = solvePartOne instructions
     printfn $"Part One: the largest value in a register is {solution1}"
     let solution2 = solvePartTwo instructions
-    printfn $"Part Two: {solution2}"
+    printfn $"Part Two: the largest ever value in a register was {solution2}"
