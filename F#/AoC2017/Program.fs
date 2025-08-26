@@ -1,5 +1,5 @@
 ﻿// For more information see https://aka.ms/fsharp-console-apps
-printfn "Advent of Code 2017"
+printfn "Advent of Code 2017" // https://adventofcode.com/2017
 
 open AoC
 
@@ -14,4 +14,5 @@ printfn $"Put a breakpoint here to pause for tracing."
 // solveDay04 false |> ignore   // Finding valid passphrases
 // solveDay05 false |> ignore   // Escaping a program with jumps
 // solveDay06 false |> ignore   // Finding an infinite loop
-solveDay07 false |> ignore      // Find the imbalanced program in hierarchy
+// solveDay07 false |> ignore   // Find the imbalanced program in hierarchy
+solveDay08 false |> ignore   // I Heard You Like Registers
