@@ -57,24 +57,14 @@ let performInstruction (registers:Map<string,int>) (instruction:Instruction) =
         modified.Add (instruction.reg, newValue)
     else registers
 
-
-let solvePartOne instructions =
-    let mutable registers = initRegisters instructions
-    for i in instructions do
-        registers <- performInstruction registers i
-    registers.Values
-    |> Seq.max
-
-
-let solvePartTwo instructions =
+let solveParts instructions =
     let mutable registers = initRegisters instructions
     let mutable maxes:list<int> = []
     for i in instructions do
         registers <- performInstruction registers i
         let m = registers.Values |> Seq.max
-        maxes <- m :: maxes
-    
-    maxes |> List.max
+        maxes <- m :: maxes    
+    maxes.Head, maxes |> List.max
 
 let rx = Regex(@"([a-z]+) (inc|dec) (-?[0-9]+) if ([a-z]+) ([<>=!]+) (-?[0-9]+)")
 
@@ -90,7 +80,6 @@ let solveDay08 isTest: Unit =
     let inputName = inputFileName day isTest
     let instructions = readInput inputName true |> List.map (fun line -> parseInstruction line)
 
-    let solution1 = solvePartOne instructions
+    let solution1,solution2 = solveParts instructions
     printfn $"Part One: the largest value in a register is {solution1}"
-    let solution2 = solvePartTwo instructions
     printfn $"Part Two: the largest ever value in a register was {solution2}"
