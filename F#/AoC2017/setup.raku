@@ -40,7 +40,7 @@ sub addToProgram(Int $day, Str $challenge_name) {
 	my $padded_day = pad_day($day);
 
     my $fh = open PROGRAM, :a;
-	$fh.say("solveDay$padded_day false |> ignore   // $challenge_name");
+	$fh.say("solveDay$padded_day true |> ignore   // $challenge_name");
 	$fh.close;
 
 }

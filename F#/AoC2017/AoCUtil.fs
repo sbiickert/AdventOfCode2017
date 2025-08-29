@@ -39,7 +39,7 @@ module Util =
             let list = Seq.toList group
             result.Add list
 
-        Seq.toList result
+        Seq.toArray result
     
     let gcd (x: int64) (y: int64) =
         let mutable a = 0L
