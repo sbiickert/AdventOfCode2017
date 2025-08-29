@@ -12,24 +12,25 @@ let solve (input:string) =
 
     let stream = input.ToCharArray()
     while ptr < stream.Length do
-        if stream[ptr] = '!' then
-            ptr <- ptr + 2
-        elif inGarbage then
-            if stream[ptr] = '>' then inGarbage <- false
-            else garbageCount <- garbageCount + 1
-            ptr <- ptr + 1
-        else
-            match stream[ptr] with
-                | '{' -> depth <- depth + 1
-                | '}' -> 
-                    score <- score + depth
-                    depth <- depth - 1
-                | '<' -> inGarbage <- true
-                | _ -> ()
-            ptr <- ptr + 1            
+        match stream[ptr] with
+            | '!' -> 
+                ptr <- ptr + 1
+            | '>' when inGarbage -> 
+                inGarbage <- false
+            | '{' when not inGarbage -> 
+                depth <- depth + 1
+            | '}' when not inGarbage ->
+                score <- score + depth
+                depth <- depth - 1
+            | '<' when not inGarbage ->
+                inGarbage <- true
+            | _ when inGarbage ->
+                garbageCount <- garbageCount + 1
+            | _ -> ()
+
+        ptr <- ptr + 1            
 
     score,garbageCount
-
 
 let solveDay09 isTest: Unit =
     let day = 09
