@@ -1,4 +1,4 @@
 /Raku/lib/.precomp
 /F\#/AoC2017/obj
 /F\#/AoC2017/bin
-/input/*challenge*
+input/*challenge.txt
